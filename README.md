@@ -1,18 +1,18 @@
 # RMIT SEPT 2020 Major Project
 
-# Group 00
+# Group MON-1530-7
 
 ## Members
-* SURNAME, GivenName (sXXXX)
-* SURNAME, GivenName (sXXXX)
-* SURNAME, GivenName (sXXXX)
-* SURNAME, GivenName (sXXXX)
-* SURNAME, GivenName (sXXXX)
+* Nguyen, Amy (s3783694)
+* Mellor, Christopher (s3491308)
+* Whitley, Joel (s3787473)
+* Testa, Thomas (s3785277)
+* Sudarshan, Yashwin (s3781718)
 
 ## Records
 
-* Github repository : https://github.com/RMIT-SEPT/MajorProject/Groupx
-* ClickUp Workspace : https://app.clickup.com/xxxx/yyyy
+* Github repository : https://github.com/RMIT-SEPT/majorproject-mon-1530-7
+* ClickUp Workspace : https://app.clickup.com/6915733/v/b/s/6938372
 
 
 ## Code documentation
