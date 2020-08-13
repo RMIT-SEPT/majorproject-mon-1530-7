@@ -1,4 +1,4 @@
-# SEPT Startup code and  project Structure documentation 
+# SEPT Startup code and  project Structure documentation
 
 # Quick Start
 
@@ -8,4 +8,11 @@
 cd FrontEnd/
 npm install
 npm start
+```
+
+## Run backend dev server
+
+```bash
+cd BackEnd/
+mvn spring-boot:run
 ```
