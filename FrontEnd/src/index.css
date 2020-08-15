@@ -140,3 +140,73 @@ footer{
     font-size: 15px;
     color: #ffffff;
 }
+
+.loginContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 199px ;
+}
+
+.loginFormHeader{
+  font-size: 23px;
+  font-family: "Arial", sans-serif;
+}
+
+.loginFormContent{
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm{
+  margin-top: 2em;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loginFormGroup{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: fit-content;
+}
+
+label{
+  font-size: 20px;
+}
+
+input {
+  margin-top: 6px;
+  min-width: 18em;
+  height: 37px;
+  margin-bottom: 31px;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  background-color: #f3f3f3;
+  border: 0;
+  border-radius: 12px;
+  padding: 0px 10px;
+  transition: all 250ms ease-in-out;
+}
+
+.loginFormFooter{
+  margin-top: 3em;
+}
+
+.loginFormButton{
+  font-size: 16px;
+  font-weight: 600;
+  min-height: 40px;
+  min-width: 115px;
+  margin-right: 20px;
+  border-radius: 26px;
+  border: 2px solid #2b80ff;
+  background-color: #2b80ff;
+  color: #ffffff;
+  display: block;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+}
