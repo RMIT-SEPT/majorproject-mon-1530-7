@@ -7,10 +7,15 @@ class SignupPage extends Component {
                 
                     <div className="signupFormContent">
                         <div className="signupForm">
-                            
+
                             <div className="signupFormGroup">
-                                <label htmlFor="username">Username</label>
-                                <input type="text" name="username" placeholder="Username"/>
+                                <label htmlFor="email">Username</label>
+                                <input type="email" name="email" placeholder="Email"/>
+                            </div>
+
+                            <div className="signupFormGroup">
+                                <label htmlFor="fullName">Username</label>
+                                <input type="text" name="fullName" placeholder="Full Name"/>
                             </div>
 
                             <div className="signupFormGroup">

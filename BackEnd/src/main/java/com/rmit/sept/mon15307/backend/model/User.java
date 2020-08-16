@@ -1,6 +1,7 @@
 package com.rmit.sept.mon15307.backend.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class User {
     private Long id;
     private String fullName;
     private String preferedName;
+    private String email;
 
     private Boolean isAdmin;
     private Boolean isWorker;
@@ -23,6 +25,7 @@ public class User {
 
     private Date created_At;
     private Date updated_At;
+    private Date last_Login;
 
     public User(){
 
@@ -42,6 +45,14 @@ public class User {
 
     public void setFullName(String fullName){
         this.fullName = fullName;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
     }
 
     public String getPreName(){
@@ -90,6 +101,14 @@ public class User {
 
     public void setUpdated_At(Date updated_At){
         this.updated_At = updated_At;
+    }
+
+    public Date getLast_Login(){
+        return last_Login;
+    }
+
+    public void setLast_Login(Date last_Login){
+        this.last_Login = last_Login;
     }
 
     @PrePersist
