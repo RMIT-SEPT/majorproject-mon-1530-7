@@ -13,6 +13,8 @@ public class User {
     private String preferedName;
 
     private Boolean isAdmin;
+    private Boolean isWorker;
+    private Boolean isCustomer;
 
     //Future Milestones.
 //    private Booking booking;
@@ -46,7 +48,7 @@ public class User {
         return preferedName;
     }
 
-    public void setPreName(String fullName){
+    public void setPreName(String preferedName){
         this.preferedName = preferedName;
     }
 
@@ -56,6 +58,22 @@ public class User {
 
     public void setAdmin(Boolean isAdmin){
         this.isAdmin = isAdmin;
+    }
+
+    public Boolean getWorker(){
+        return isWorker;
+    }
+
+    public void setWorker(Boolean isWorker){
+        this.isWorker = isWorker;
+    }
+
+    public Boolean getCustomer(){
+        return isCustomer;
+    }
+
+    public void setCustomer(Boolean isCustomer){
+        this.isCustomer = isCustomer;
     }
 
     public Date getCreated_At(){
