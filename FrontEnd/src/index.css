@@ -42,14 +42,14 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
 .h2-main {
   font-weight: 600;
   color: #303030;
-  text-align: left;
+  text-align: left;  
 }
 
 #jumbotron-custom {
   background-color: #ffffff;
   margin: 20px;
   margin-top: 12em;
-  margin-bottom: 30em;
+  margin-bottom: 50px;
 }
 
 a {
@@ -131,9 +131,9 @@ a:hover {
 footer{
     position: relative;
     height: 50px;
+    bottom: 0;
     width: 100%;
     clear: both;
-    bottom: 0;
     text-align: center;
     line-height: 50px;
     background: #0066ff;
@@ -148,7 +148,7 @@ footer{
   align-items: center;
   flex-direction: column;
   text-align: center;
-  padding: 235px ;
+  padding: 240px ;
 }
 
 label{

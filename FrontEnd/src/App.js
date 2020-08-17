@@ -7,15 +7,17 @@ import HomePage from './components/pages/HomePage';
 
 function App() {
   return (
-    <div>
-      
-      <NavigationBar />
-      <Switch>
-        <Route path="/login" component={LoginPage} />
-        <Route path="/" component={HomePage} />
-      </Switch>
-      <Footer />
+    <div className="page-container">
+      <div className="content-wrap"> 
 
+        <NavigationBar />
+        <Switch>
+          <Route path="/login" component={LoginPage} />
+          <Route path="/" component={HomePage} />
+        </Switch> 
+        
+      </div>
+      <Footer />
     </div>
   );
 }
