@@ -17,9 +17,9 @@ function NavigationBar() {
           <Nav.Link href="/contact">Contact</Nav.Link>
         </Nav>
         <Link to="/login">
-          <button class="btn-border">Log In</button>
+          <button className="btn-border">Log In</button>
         </Link>
-        <button class="btn-filled">Sign Up</button>
+        <button className="btn-filled">Sign Up</button>
       </Navbar>
     </>
   );

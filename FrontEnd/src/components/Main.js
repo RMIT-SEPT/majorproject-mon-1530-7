@@ -7,7 +7,7 @@ function Main() {
   return (
     <Jumbotron id="jumbotron-custom">
       <Container>
-        <h2 class="h2-main">24/7 Access to online bookings</h2>
+        <h2 className="h2-main">24/7 Access to online bookings</h2>
         <p>Your clients will have the ability to book whenever they need, 
           allowing your business to thrive even when you are not looking. 
           At the click of a button, our easy booking system will help you 
