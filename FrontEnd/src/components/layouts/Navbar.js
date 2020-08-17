@@ -13,8 +13,8 @@ function NavigationBar() {
         
           <Nav.Link href="/">Home</Nav.Link>
         
-          <Nav.Link href="#about">About</Nav.Link>
-          <Nav.Link href="#contact">Contact</Nav.Link>
+          <Nav.Link href="/about">About</Nav.Link>
+          <Nav.Link href="/contact">Contact</Nav.Link>
         </Nav>
         <Link to="/login">
           <button class="btn-border">Log In</button>
