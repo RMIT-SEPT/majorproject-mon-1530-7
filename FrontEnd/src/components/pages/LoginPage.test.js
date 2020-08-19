@@ -15,6 +15,5 @@ describe('Testing LoginPage route', () => {
        </MemoryRouter>
       );
       expect(component.contains(LoginPage));
-    // console.log(component);
     })
   })
