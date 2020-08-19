@@ -14,7 +14,7 @@ describe('Testing LoginPage route', () => {
           <App/>
        </MemoryRouter>
       );
-      expect(component.find(LoginPage)).toHaveLength(1);
+      expect(component.contains(LoginPage));
     // console.log(component);
     })
   })
