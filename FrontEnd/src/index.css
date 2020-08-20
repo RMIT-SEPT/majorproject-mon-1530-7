@@ -29,7 +29,7 @@
 
 body {
   margin-top: 10px;
-  background-color: #cacaca;
+  background-color: #ffffff;
   min-height: 10vh;
   text-align: left;
   align-items: center;
@@ -53,6 +53,12 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
   text-align: left;
 }
 
+.h2-center {
+  font-weight: 600;
+  color: #303030;
+  text-align: center;
+}
+
 .h5-main {
   font-weight: 600;
   color: #303030;
@@ -70,6 +76,12 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
 #dashboard-jumbotron {
   background-color: #ffffff;
   margin-top: 4em;
+  margin-bottom: 4em;
+}
+
+#center-jumbotron {
+  background-color: #ffffff;
+  margin-top: 8em;
   margin-bottom: 4em;
 }
 
@@ -151,6 +163,26 @@ a:hover {
 .btn-large:hover, .btn-large:focus, .btn-large:active, .btn-large.active {
   border: 2px solid #0066ff;
   background-color: #0066ff;
+}
+
+.btnBorder-large {
+  font-size: 18px;
+  font-weight: 600;
+  min-height: 50px;
+  min-width: 240px;
+  margin-top: 45px;
+  border-radius: 26px;
+  border: 2px solid #2b80ff;
+  background-color: #ffffff;
+  color: #1f74f3;
+  display: block;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+}
+
+.btnBorder-large:hover, .btnBorder-large:focus, .btnBorder-large:active, .btnBorder-large.active {
+  color: #303030;
+  border: 2px solid #303030;
 }
 
 footer {
