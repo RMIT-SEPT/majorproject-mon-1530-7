@@ -17,9 +17,9 @@ function App() {
           <Route path="/login" component={LoginPage} />
         </Switch>
         </BrowserRouter>
-
+        
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 }
