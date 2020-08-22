@@ -4,6 +4,7 @@ import Footer from './components/layouts/Footer.js';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import LoginPage from './components/pages/LoginPage';  
 import HomePage from './components/pages/HomePage';
+import CustomerBookingPage from './components/pages/CustomerBookingPage.js';
 
 function App() {
   return (
@@ -15,6 +16,11 @@ function App() {
         <Switch> 
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
+
+
+
+
+          <Route path="/customer-booking-page" component={CustomerBookingPage} />
         </Switch>
         </BrowserRouter>
         
