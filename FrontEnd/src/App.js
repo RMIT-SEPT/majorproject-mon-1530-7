@@ -19,9 +19,9 @@ function App() {
           <Route path="/dashboard" component={Dashboard} />
         </Switch>
         </BrowserRouter>
-
+        
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 }
