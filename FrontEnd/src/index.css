@@ -172,7 +172,7 @@ input {
   align-items: center;
   flex-direction: column;
   text-align: center;
-  padding-bottom: 40px;
+  padding-bottom: 10px;
   padding-top: 20px;
 }
 
@@ -191,6 +191,6 @@ input {
 #jumbotron-cus-book-page {
   background-color: #ffffff;
   margin: 20px;
-  margin-top: 7em;
+  margin-top: 5em;
   margin-bottom: 50px;
 }

@@ -14,32 +14,32 @@ class CustomerBookingPage extends Component {
                 </Container>
                 <Container className="customerBookingPageContainer">
                     <CardDeck>
-                        <Card className = "text-center" border="primary" style={{ width: '68rem' }}>
+                        <Card className="shadow p-3 mb-5 bg-white rounded"  border="light" style={{ width: '68rem' }}>
                             <Card.Body>
-                            <Card.Title>Available Services</Card.Title>
+                            <Card.Title>Available Services</Card.Title><br/>
                             <ButtonGroup vertical>
-                            <Button variant="outline-primary" size="lg">Service 1</Button>
-                            <Button variant="outline-primary" size="lg">Service 2</Button>
+                            <Button variant="outline-primary" size="lg">Service 1</Button><br/>
+                            <Button variant="outline-primary" size="lg">Service 2</Button><br/>
                             <Button variant="outline-primary" size="lg">Service 3</Button>
                             </ButtonGroup>
                             </Card.Body>
                         </Card>
-                        <Card className = "text-center" border="primary">
+                        <Card className="shadow p-3 mb-5 bg-white rounded" border="light" style={{ width: '68rem' }}>
                             <Card.Body>
-                            <Card.Title>Available Employees</Card.Title>
+                            <Card.Title>Available Employees</Card.Title><br/>
                             <ButtonGroup vertical>
-                            <Button variant="outline-primary" size="lg">Mia</Button>
-                            <Button variant="outline-primary" size="lg">Athena</Button>
+                            <Button variant="outline-primary" size="lg">Mia</Button><br/>
+                            <Button variant="outline-primary" size="lg">Athena</Button><br/>
                             <Button variant="outline-primary" size="lg">Kai</Button>
                             </ButtonGroup>
                             </Card.Body>
                         </Card>
-                        <Card className = "text-center" border="primary">
+                        <Card className="shadow p-3 mb-5 bg-white rounded" border="light" style={{ width: '68rem' }}>
                             <Card.Body>
-                            <Card.Title>Available Times</Card.Title>
+                            <Card.Title>Available Times</Card.Title><br/>
                             <ButtonGroup vertical>
-                            <Button variant="outline-primary" size="lg">12/09/2020 10:30 am</Button>
-                            <Button variant="outline-primary" size="lg">14/09/2020 12:30 pm</Button>
+                            <Button variant="outline-primary" size="lg">12/09/2020 10:30 am</Button><br/>
+                            <Button variant="outline-primary" size="lg">14/09/2020 12:30 pm</Button><br/>
                             <Button variant="outline-primary" size="lg">20/09/2020 2:15 pm</Button>
                             </ButtonGroup>
                             </Card.Body>
