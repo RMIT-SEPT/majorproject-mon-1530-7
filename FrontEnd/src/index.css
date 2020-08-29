@@ -194,3 +194,16 @@ input {
   margin-top: 5em;
   margin-bottom: 50px;
 }
+
+.datePickerContainer{
+  text-align: center;
+  border: 1px solid #2b80ff;
+  color: #1f74f3;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.customer-booking-page-error-modal .modal-header{
+  /* background-color: red; */
+  color:red;
+}
