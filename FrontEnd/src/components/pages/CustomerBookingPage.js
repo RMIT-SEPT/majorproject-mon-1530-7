@@ -43,16 +43,50 @@ const DateSelector = () => {
     );
 }
 
+
 // const [modalShow, setModalShow] = React.useState(false);
 
-function CustomerBookingPage() {
+class CustomerBookingPage extends Component {
 
-    const [modalShow, setModalShow] = React.useState(false);
+    // const [modalShow, setModalShow] = React.useState(false);
 
-    const [radio, setRadio] = React.useState(1);
+    // const [radio, setRadio] = React.useState(1);
 
-    // render() {
+    constructor(props){
+
+        super(props);
+        this.state = {
+            
+            value: 0,
+        };
+        
+        // console.log(this.state.value);
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this); 
+    }
+
+    // state = {}
+
+    handleChange(event){
+        
+        this.setState({value: event});
+        // this.setState({value: event.selected.value})
+    }
+
+    // handleChange = (e, {value}) => this.setState({value});
+
+    // handleChange = (val) => setValue(val);
+
+    handleSubmit(event){
+
+        alert('Your booking is: ' + this.state.value);
+        event.preventDefault();
+    }
+
+    render() {
         return (
+            <Form onSubmit={this.handleSubmit}>
             <Jumbotron id="jumbotron-cus-book-page">
                 <Container>
                     <h2 className="h2-cus-book-page">Booking</h2>
@@ -63,7 +97,10 @@ function CustomerBookingPage() {
                             <Card.Body>
                             <Card.Title>Available Services</Card.Title><br/>
                             <ToggleButtonGroup type="radio" name="options" 
+                                onChange={this.handleChange}
+                                // onChange={(e) => {this.handleChange(e)}}
                                 // onChange={(e) => {setRadio(e.target.value)}}
+                                // onChange={(e) => this.setState({value: 1})}
                                 className="mb-2" 
                                 vertical>
                                 <ToggleButton variant="outline-primary" value={1} size="lg">Service 1</ToggleButton><br/>
@@ -76,6 +113,8 @@ function CustomerBookingPage() {
                             <Card.Body>
                             <Card.Title>Available Employees</Card.Title><br/>
                             <ToggleButtonGroup type="radio" name="options" 
+                                onChange={this.handleChange}
+                                // onChange={(e) => {this.handleChange(e)}}
                                 // onChange={(e) => {setRadio(e.target.value)}}
                                 className="mb-2" 
                                 vertical>
@@ -94,23 +133,23 @@ function CustomerBookingPage() {
                     </CardDeck>
                 </Container>
                 <Container className="makeCusBooking">
-                    <Button variant="primary" size="lg" type="submit"
-                        onClick={() => setModalShow(true)}>Make Booking</Button>
-                    <CustomerBookingPageErrorModal 
-                        className="customer-booking-page-error-modal"
-                        show={modalShow}
-                        onHide={() => setModalShow(false)}
-                        />
-                            
+                    <Button variant="primary" size="lg" type="submit">Make Booking</Button>        
                 </Container>
           </Jumbotron>
+          </Form>
         )
     }
-// }
+}
 
 export default CustomerBookingPage;
 
-
+// <Button variant="primary" size="lg" type="submit"
+//                         onClick={() => setModalShow(true)}>Make Booking</Button>
+//                     <CustomerBookingPageErrorModal 
+//                         className="customer-booking-page-error-modal"
+//                         show={modalShow}
+//                         onHide={() => setModalShow(false)}
+//                         />
 
 
 
