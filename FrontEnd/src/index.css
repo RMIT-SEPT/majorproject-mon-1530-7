@@ -56,8 +56,8 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
 .h5-main {
   font-weight: 600;
   color: #303030;
-  text-align: left;
-  margin-bottom: 1em;
+  margin: 0.55em;
+  margin-top: 1em;
 }
 
 #jumbotron-custom {
@@ -75,6 +75,10 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
 
 #col-custom {
   margin-top: 5em;
+}
+
+#profile-col {
+  margin-top: 2em;
 }
 
 a {
@@ -169,6 +173,16 @@ html {
   text-align: center;
   font-size: 15px;
   color: #ffffff;
+}
+
+.profile-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 170px;
 }
 
 .loginContainer {
