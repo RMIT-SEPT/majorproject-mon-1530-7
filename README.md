@@ -11,8 +11,9 @@
 
 ## Records
 
-* Github repository : https://github.com/RMIT-SEPT/majorproject-mon-1530-7
-* ClickUp Workspace : https://app.clickup.com/6915733/v/b/s/6938372
+* Github repository: https://github.com/RMIT-SEPT/majorproject-mon-1530-7
+* ClickUp workspace: https://app.clickup.com/6915733/v/b/s/6938372
+* Notion workspace: https://www.notion.so/75316028a20a42a0a24a885d4a903e7b
 
 
 ## Code documentation
