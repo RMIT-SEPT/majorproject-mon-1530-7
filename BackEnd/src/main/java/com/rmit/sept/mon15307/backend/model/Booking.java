@@ -1,6 +1,7 @@
 package com.rmit.sept.mon15307.backend.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Date;
 
@@ -8,8 +9,10 @@ import java.util.Date;
 
 @Entity
 public class Booking {
-    
-   
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  //@NotBlank(message = "Customer ID is required")
+    private String bookingId;
     private String customer_id;
     private String staff_id;
     private int booked_time;
