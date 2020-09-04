@@ -6,7 +6,7 @@ import "../../index.css";
 function DashboardLayout() {
   return (
     <Jumbotron id="dashboard-jumbotron">
-      <Container>
+      
         <h2 className="h2-main">Dashboard</h2>
         <h4 className="">Hello! Welcome to your dashboard!</h4>
         <Row>
@@ -27,12 +27,14 @@ function DashboardLayout() {
                   <td>Mia Smith</td>
                   <td>12/09/2020</td>
                   <td>10:30am</td>
+                  <button className="cancel-btn">Cancel Booking</button>
                 </tr>
                 <tr>
                   <td>Service 2</td>
                   <td>Kai Lomia</td>
                   <td>14/09/2020</td>
                   <td>12:30pm</td>
+                  <button className="cancel-btn">Cancel Booking</button>
                 </tr>
               </tbody>
             </table>
@@ -65,7 +67,6 @@ function DashboardLayout() {
             </table>
           </Col>
         </Row>
-      </Container>
     </Jumbotron>
   )
 }

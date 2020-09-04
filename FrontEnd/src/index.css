@@ -69,12 +69,12 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
 
 #dashboard-jumbotron {
   background-color: #ffffff;
-  margin-top: 4em;
-  margin-bottom: 4em;
+  margin: 4em;
 }
 
 #col-custom {
   margin-top: 5em;
+  
 }
 
 #profile-col {
@@ -135,6 +135,25 @@ a:hover {
 .btn-border:hover, .btn-border:focus, .btn-border:active, .btn-border.active {
   color: #303030;
   border: 2px solid #303030;
+}
+
+.cancel-btn {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 10px;
+  min-height: 30px;
+  min-width: 115px;
+  margin-left: 2em;
+  border-radius: 26px;
+  border: 2px solid #303030;
+  background-color: #ffffff;
+  color: #303030;
+  text-decoration: none;
+}
+
+.cancel-btn:hover, .cancel-btn:focus, .cancel-btn:active, .cancel-btn.active {
+  color: #2b80ff;
+  border: 2px solid #2b80ff;
 }
 
 .btn-large {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Col, Jumbotron, Row } from 'react-bootstrap';
 
-class LoginPage extends Component {
+class Profile extends Component {
     render() {
         return (
             <div className="profile-container">
@@ -21,4 +21,4 @@ class LoginPage extends Component {
     }
 }
 
-export default LoginPage;
+export default Profile;
