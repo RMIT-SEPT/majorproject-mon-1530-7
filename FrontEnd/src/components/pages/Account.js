@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Jumbotron } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 class Account extends Component {
     render() {
@@ -9,9 +10,15 @@ class Account extends Component {
                     <Jumbotron id="center-jumbotron">
                         <Container>
                             <h2 className="h2-center">Account</h2>
+                            <Link to="/profile">
                             <button className="btnBorder-large">Profile</button>
+                            </Link>
+                            <Link to="/booking_history">
                             <button className="btnBorder-large">Booking History</button>
+                            </Link>
+                            <Link to="/logout">
                             <button className="btnBorder-large">Log Out</button>
+                            </Link>
                         </Container>
                     </Jumbotron>
                 </div>
