@@ -6,6 +6,7 @@ import com.rmit.sept.mon15307.backend.model.Booking;
 import com.rmit.sept.mon15307.backend.exceptions.BookingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Date;
 
 @Service
 public class BookingService {
@@ -35,14 +36,17 @@ public class BookingService {
 
         return booking;
     }
+   
 
-    public void deleteBookingById(String bookingId){
+    public void cancelBookingById(String bookingId){
         Booking booking= bookingsRepository.findByBookingId(bookingId.toUpperCase());
 
         if(booking == null){
             throw  new  BookingException("Cannot find booking with ID '"+bookingId+"'. This booking does not exist");
         }
 
-        bookingsRepository.delete(booking);
+        Date cancelledAt = new Date();
+
+        booking.setCancelledAt(cancelledAt);
     }
 }
