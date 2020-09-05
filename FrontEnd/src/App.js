@@ -13,7 +13,7 @@ function App() {
       <div className="content-wrap"> 
         
         <BrowserRouter>
-        <NavigationBar />
+        <NavigationBar loggedIn={true}/>
         <Switch> 
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
