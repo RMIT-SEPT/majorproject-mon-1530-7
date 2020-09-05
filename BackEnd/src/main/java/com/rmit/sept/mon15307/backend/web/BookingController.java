@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
@@ -40,7 +41,7 @@ public class BookingController {
 
     @GetMapping("/{bookingId}")
     public ResponseEntity<?> getBookingById(@PathVariable String bookingId
-
+    
 
     ){
 
@@ -49,17 +50,23 @@ public class BookingController {
         return new ResponseEntity<Booking>(booking, HttpStatus.OK);
     }
 
+    @GetMapping("/users/{userId}/bookings")
+    public ResponseEntity<?> listUserBookings(@PathVariable String userId) {
+        Iterable<Booking> allBookings = bookingService.findAllBookings();
+        List<Booking> userBookings = new ArrayList<Booking>();
+        for(Booking i:allBookings) {
+            if(i.getCustomerId() == userId) {
+                userBookings.add(i);
+            }
+        }
+        return new ResponseEntity<List>(userBookings,HttpStatus.OK);
+    }
 
-    @GetMapping("/all")
-    public Iterable<Booking> getAllBookings(){return
 
-            bookingService.findAllBookings();}
+    @DeleteMapping("/bookings/{bookingId}")
+    public ResponseEntity<?> cancelProject(@PathVariable String bookingId){
+        bookingService.cancelBookingById(bookingId);
 
-
-    @DeleteMapping("/{bookingId}")
-    public ResponseEntity<?> deleteProject(@PathVariable String bookingId){
-        bookingService.deleteBookingById(bookingId);
-
-        return new ResponseEntity<String>("Booking with ID: '"+bookingId+"' was deleted", HttpStatus.OK);
+        return new ResponseEntity<String>("Booking with ID: '"+bookingId+"' was cancelled", HttpStatus.OK);
     }
 }

@@ -14,10 +14,10 @@ public class Booking {
   //@NotBlank(message = "Customer ID is required")
     private String bookingId;
     private String status;
-    private String customer_id;
-    private String employee_id;
-    private String product_id;
-    private String schedule_id;
+    private String customerId;
+    private String employeeId;
+    private String productId;
+    private String scheduleId;
     @JsonFormat(pattern = "hh-mm")
     private Date time;
     @JsonFormat(pattern ="yyyy-mm-dd")
@@ -38,18 +38,18 @@ public class Booking {
         this.bookingId = bookingId;
     }
     public String getCustomerId() {
-        return customer_id;
+        return customerId;
     }
     
-    public void setCustomerId(String customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getEmployee() {
-        return employee_id;
+        return employeeId;
     }
-    public void setEmployee(String employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployee(String employeeId) {
+        this.employeeId = employeeId;
     } 
 
     public Date getTime() {
@@ -64,6 +64,13 @@ public class Booking {
     }
     public void setCreatedDate(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getCancelledAt() {
+        return cancelledAt;
+    }
+    public void setCancelledAt(Date cancelledAt) {
+        this.cancelledAt = cancelledAt;
     }
 
 }
