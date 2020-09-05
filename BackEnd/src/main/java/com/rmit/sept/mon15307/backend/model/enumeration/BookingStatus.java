@@ -1,0 +1,3 @@
+public enum BookingStatus {
+    COMPLETED, NOTCOMPLETED, UPCOMING, CANCELLED;
+}
