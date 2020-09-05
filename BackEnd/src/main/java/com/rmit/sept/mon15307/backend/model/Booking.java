@@ -3,6 +3,8 @@ package com.rmit.sept.mon15307.backend.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.*;
+import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
+
 import java.util.Date;
 
 
@@ -13,7 +15,9 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
   //@NotBlank(message = "Customer ID is required")
     private String bookingId;
-    private String status;
+
+    @Enumerated(EnumType.ORDINAL)
+    private BookingStatus status;
     private String customerId;
     private String employeeId;
     private String productId;
