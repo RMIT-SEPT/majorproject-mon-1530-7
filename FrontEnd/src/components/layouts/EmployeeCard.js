@@ -2,19 +2,28 @@ import React, {useState} from 'react'
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import Card from 'react-bootstrap/Card';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import customerBookingPageEmployeeData from './customerBookingPageEmployeeData';
 
 
-function EmployeeCard({
-    id,
-    user_id,
-    services,
-    preferredName
-}) {
+function EmployeeCard() {
 
     const [nameValue, setNameValue] = useState('');
 
-    // const {name} = props;
+    const staff = [
+
+        {
+            id: '1',
+            name: 'Mia'
+        },
+        {
+            id: '2',
+            name: 'Athena'
+        },
+        {
+            id: '3',
+            name: 'Kai',
+        }
+
+    ]
 
     return (
 
@@ -26,17 +35,17 @@ function EmployeeCard({
 
             <ButtonGroup toggle vertical>
 
-                {customerBookingPageEmployeeData.map(employee => (
+                {staff.map(employee => (
                     <ToggleButton 
-                        key={employee.preferredName}
+                        key={employee.name}
                         type="radio" 
                         variant="outline-primary" 
-                        checked={nameValue === employee.preferredName}
+                        checked={nameValue === employee.name}
                         name="radio"
-                        value={employee.preferredName}
+                        value={employee.name}
                         size="lg"
                         onChange={(e) => setNameValue(e.currentTarget.value)}>
-                        {employee.preferredName}
+                        {employee.name}
                     </ToggleButton>
                 ))}
             

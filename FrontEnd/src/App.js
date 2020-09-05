@@ -5,7 +5,6 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import LoginPage from './components/pages/LoginPage';  
 import HomePage from './components/pages/HomePage';
 import CustomerBookingPage from './components/pages/CustomerBookingPage.js';
-import CustomerBookingPageTest from './components/mock-upData/CustomerBookingPageTest.js';
 
 function App() {
   return (
@@ -21,7 +20,7 @@ function App() {
 
 
 
-          <Route path="/customer-booking-page" component={CustomerBookingPageTest} />
+          <Route path="/customer-booking-page" component={CustomerBookingPage} />
         </Switch>
         </BrowserRouter>
         
