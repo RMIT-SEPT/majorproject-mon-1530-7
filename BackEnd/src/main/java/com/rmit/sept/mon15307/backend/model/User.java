@@ -81,11 +81,11 @@ public class User {
     }
 
     public String getPreName(){
-        return preferedName;
+        return preferredName;
     }
 
-    public void setPreName(String preferedName){
-        this.preferedName = preferedName;
+    public void setPreName(String preferredName){
+        this.preferredName = preferredName;
     }
 
     public Boolean getAdmin(){
