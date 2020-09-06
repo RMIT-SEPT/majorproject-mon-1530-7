@@ -2,6 +2,8 @@ package com.rmit.sept.mon15307.backend.model;
 
 import com.rmit.sept.mon15307.backend.model.Schedule;
 //import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.Product;
+import com.rmit.sept.mon15307.backend.model.Employee;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -30,8 +32,13 @@ public class Booking {
     private User customer;*/
 
     private String customerId;
-    private String employeeId;
-    private String productId;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "schedule_id", nullable = false)
