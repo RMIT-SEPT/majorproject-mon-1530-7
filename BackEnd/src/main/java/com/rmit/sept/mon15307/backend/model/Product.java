@@ -43,4 +43,14 @@ public class Product {
     @Min(1)
     @Max(1440)  // 24 hours
     private int duration;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
 }

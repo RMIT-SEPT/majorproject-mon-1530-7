@@ -38,4 +38,14 @@ public class Schedule {
     public boolean isScheduled() {
         return this.scheduled;
     }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
 }
