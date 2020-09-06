@@ -1,7 +1,7 @@
 package com.rmit.sept.mon15307.backend.model;
 
-import org.intellij.lang.annotations.Pattern;
-import org.jetbrains.annotations.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
