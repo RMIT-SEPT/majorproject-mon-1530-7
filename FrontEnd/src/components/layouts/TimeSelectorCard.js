@@ -6,7 +6,8 @@ import 'react-dates/lib/css/_datepicker.css';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import "../../react-datepicker_overrides.css";
-import { setMinutes, setHours } from 'date-fns';
+import {setMinutes, setHours} from 'date-fns';
+
 
 const TimeSelectorCard = () => {
     const[startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 0), 10)
