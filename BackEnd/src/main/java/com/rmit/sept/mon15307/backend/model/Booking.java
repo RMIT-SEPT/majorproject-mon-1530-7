@@ -103,8 +103,13 @@ public class Booking {
     public Date getCancelledAt() {
         return cancelledAt;
     }
+
     public void setCancelledAt(Date cancelledAt) {
         this.cancelledAt = cancelledAt;
     }
 
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
 }
