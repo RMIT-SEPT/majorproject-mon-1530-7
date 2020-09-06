@@ -24,9 +24,9 @@ public class BookingService {
         return bookingsRepository.findAll();
     }
 
-    public Booking findByBookingId(String bookingId){
+    public Booking findByBookingId(Long bookingId){
 
-        Booking booking = bookingsRepository.findByBookingId(bookingId.toUpperCase());
+        Booking booking = bookingsRepository.findByBookingId(bookingId);
 
         if(booking == null){
             throw new BookingException("Booking ID '"+bookingId+"' does not exist");
@@ -38,8 +38,8 @@ public class BookingService {
     }
    
 
-    public void cancelBookingById(String bookingId){
-        Booking booking= bookingsRepository.findByBookingId(bookingId.toUpperCase());
+    public void cancelBookingById(Long bookingId){
+        Booking booking= bookingsRepository.findByBookingId(bookingId);
 
         if(booking == null){
             throw  new  BookingException("Cannot find booking with ID '"+bookingId+"'. This booking does not exist");
