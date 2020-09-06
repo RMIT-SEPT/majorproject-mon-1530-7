@@ -20,7 +20,7 @@ public class User {
 
     @NotNull
     @NotBlank
-    private String preferedName;
+    private String preferredName;
 
     @Email
     @Column(unique = true)
