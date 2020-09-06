@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/booking")
+@RequestMapping("/api/booking/bookings")
 @CrossOrigin
 public class BookingController {
 
@@ -50,8 +50,8 @@ public class BookingController {
         return new ResponseEntity<Booking>(booking, HttpStatus.OK);
     }
 
-    @GetMapping("/users/{userId}/bookings")
-    public ResponseEntity<?> listUserBookings(@PathVariable String userId) {
+    @GetMapping("")
+    public ResponseEntity<?> listUserBookings(@RequestParam(value="user", required=true) String userId) {
         Iterable<Booking> allBookings = bookingService.findAllBookings();
         List<Booking> userBookings = new ArrayList<Booking>();
         for(Booking i:allBookings) {
