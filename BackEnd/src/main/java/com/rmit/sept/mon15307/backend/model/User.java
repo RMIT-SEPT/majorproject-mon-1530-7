@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 public class User {

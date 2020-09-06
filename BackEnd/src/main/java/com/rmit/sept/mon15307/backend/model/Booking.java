@@ -1,7 +1,7 @@
 package com.rmit.sept.mon15307.backend.model;
 
 import com.rmit.sept.mon15307.backend.model.Schedule;
-//import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.User;
 import com.rmit.sept.mon15307.backend.model.Product;
 import com.rmit.sept.mon15307.backend.model.Employee;
 
@@ -25,13 +25,10 @@ public class Booking {
     private BookingStatus status;
 
     
-    /* User model must be finished and rebased onto this branch before these are functional,
-    customerId is a temporary filler
+   
     @ManyToOne(optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
-    private User customer;*/
-
-    private String customerId;
+    private User customer;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -60,20 +57,34 @@ public class Booking {
     public void setBookingId(Long bookingId) {
         this.bookingId = bookingId;
     }
-    public String getCustomerId() {
-        return customerId;
+
+    public User getCustomer() {
+        return customer;
     }
-    
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 
-    public String getEmployee() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
-    public void setEmployee(String employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     } 
+
+    public Product getProduct() {
+        return product;
+    }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
 
     public Date getTime() {
         return time;
