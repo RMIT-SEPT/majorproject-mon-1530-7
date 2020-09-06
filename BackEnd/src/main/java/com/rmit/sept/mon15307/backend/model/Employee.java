@@ -22,10 +22,9 @@ public class Employee {
     @LastModifiedDate
     private Date updatedAt;
 
-    // Pending rebase
-    //     @OneToOne(optional = false)
-    //     @JoinColumn(name="user_id");
-    //     private User user;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToMany
     @JoinTable(name = "employee_products")
