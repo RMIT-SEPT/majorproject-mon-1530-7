@@ -56,7 +56,7 @@ class CustomerBookingPageTest extends Component {
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Jumbotron id="jumbotron-cus-book-page">
-                    <h2>Bookings</h2>
+                    <h2 className="h2-cus-book-page">Booking</h2>
                     <Container className="customerBookingPageContainer">
                         <CardDeck>
                             <ServiceCard />
