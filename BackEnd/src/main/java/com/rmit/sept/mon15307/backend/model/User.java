@@ -1,5 +1,8 @@
 package com.rmit.sept.mon15307.backend.model;
 
+import org.intellij.lang.annotations.Pattern;
+import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -10,12 +13,29 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @NotBlank
     private String fullName;
+
+    @NotNull
+    @NotBlank
     private String preferedName;
+
+    @Email
+    @Column(unique = true)
+    @NotNull
     private String email;
 
+    @Pattern(regexp = "[0-9]{10}")
+    @NotNull
+    private String phoneNumber;
+
+    @NotNull
     private Boolean isAdmin;
+    @NotNull
     private Boolean isWorker;
+    @NotNull
     private Boolean isCustomer;
 
     //Future Milestones.
@@ -23,9 +43,12 @@ public class User {
 //    private List<Booking> pastBooking;
 //    private List<Booking> upcomingBooking;
 
-    private Date created_At;
-    private Date updated_At;
-    private Date last_Login;
+    @CreatedDate
+    @NotNull
+    private Date createdAt;
+    @LastModifiedDate
+    private Date updatedAt;
+    private Date lastLogin;
 
     public User(){
 
@@ -88,40 +111,36 @@ public class User {
     }
 
     public Date getCreated_At(){
-        return created_At;
+        return createdAt;
     }
 
     public void setCreated_At(Date created_At){
-        this.created_At = created_At;
+        this.createdAt = created_At;
     }
 
     public Date getUpdated_At(){
-        return updated_At;
+        return updatedAt;
     }
 
     public void setUpdated_At(Date updated_At){
-        this.updated_At = updated_At;
+        this.updatedAt = updated_At;
     }
 
     public Date getLast_Login(){
-        return last_Login;
+        return lastLogin;
     }
 
     public void setLast_Login(Date last_Login){
-        this.last_Login = last_Login;
+        this.lastLogin = last_Login;
     }
 
     @PrePersist
     protected void onCreate(){
-        this.created_At = new Date();
+        this.createdAt = new Date();
     }
 
     @PreUpdate
     protected void onUpdate(){
-        this.updated_At = new Date();
+        this.updatedAt = new Date();
     }
-
-
-
-
 }
