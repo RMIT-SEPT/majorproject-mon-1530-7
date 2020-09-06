@@ -40,7 +40,7 @@ public class BookingController {
 
 
     @GetMapping("/{bookingId}")
-    public ResponseEntity<?> getBookingById(@PathVariable String bookingId
+    public ResponseEntity<?> getBookingById(@PathVariable Long bookingId
     
 
     ){
@@ -64,7 +64,7 @@ public class BookingController {
 
 
     @DeleteMapping("/bookings/{bookingId}")
-    public ResponseEntity<?> cancelProject(@PathVariable String bookingId){
+    public ResponseEntity<?> cancelProject(@PathVariable Long bookingId){
         bookingService.cancelBookingById(bookingId);
 
         return new ResponseEntity<String>("Booking with ID: '"+bookingId+"' was cancelled", HttpStatus.OK);

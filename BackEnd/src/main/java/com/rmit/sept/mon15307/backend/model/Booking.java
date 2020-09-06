@@ -1,5 +1,8 @@
 package com.rmit.sept.mon15307.backend.model;
 
+import com.rmit.sept.mon15307.backend.model.Schedule;
+//import com.rmit.sept.mon15307.backend.model.User;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.*;
@@ -13,32 +16,41 @@ import java.util.Date;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-  //@NotBlank(message = "Customer ID is required")
-    private String bookingId;
+   @NotBlank(message = "Booking ID is required")
+    private Long bookingId;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private BookingStatus status;
+
+    
+    /* User model must be finished and rebased onto this branch before these are functional,
+    customerId is a temporary filler
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private User customer;*/
+
     private String customerId;
     private String employeeId;
     private String productId;
-    private String scheduleId;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "schedule_id", nullable = false)
+    private Schedule schedule;
+
     @JsonFormat(pattern = "hh-mm")
     private Date time;
-    @JsonFormat(pattern ="yyyy-mm-dd")
     private Date createdAt;
-    @JsonFormat(pattern ="yyyy-mm-dd")
     private Date cancelledAt;
-    @JsonFormat(pattern ="yyyy-mm-dd")
     private Date completedAt;
     
 
     public Booking() {
     }
-    public String getBookingId() {
+    public Long getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(String bookingId) {
+    public void setBookingId(Long bookingId) {
         this.bookingId = bookingId;
     }
     public String getCustomerId() {
