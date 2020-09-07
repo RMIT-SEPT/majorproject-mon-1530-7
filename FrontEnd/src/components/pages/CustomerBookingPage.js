@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import ServiceCard from '../layouts/ServiceCard';
 import EmployeeCard from '../layouts/EmployeeCard';
 import TimeSelectorCard from '../layouts/TimeSelectorCard';
-import { Container, Jumbotron, CardDeck, Form, Button} from 'react-bootstrap';
+import { Container, Jumbotron, CardDeck, Button} from 'react-bootstrap';
+import CustomerBookingPageErrorModal from '../layouts/CustomerBookingPageErrorModal';
+import CustomerBookingPageConfirmationModal from '../layouts/CustomerBookingPageConfirmationModal';
 
 class CustomerBookingPageTest extends Component {
 
@@ -15,20 +17,6 @@ class CustomerBookingPageTest extends Component {
             showSuccess:false
         };
 
-        this.handleSubmit = this.handleSubmit.bind(this); 
-    }
-
-    handleSubmit(event){
-
-        if(this.state.showError){
-            alert('Invalid Booking: Please select a service, employee, and an available time.');
-            event.preventDefault();
-        }
-        else{
-            alert('Booking Successfull!');
-            event.preventDefault();
-        }
-        
     }
 
     showSuccessAlert = () =>{
@@ -54,7 +42,7 @@ class CustomerBookingPageTest extends Component {
     render() {
 
         return (
-            <Form onSubmit={this.handleSubmit}>
+
                 <Jumbotron id="jumbotron-cus-book-page">
                     <h2 className="h2-cus-book-page">Booking</h2>
                     <Container className="customerBookingPageContainer">
@@ -69,9 +57,18 @@ class CustomerBookingPageTest extends Component {
                             onClick={this.showErrorAlert}>
                             Make Booking
                         </Button>
+                        <CustomerBookingPageErrorModal 
+                            className="customer-booking-page-error-modal"
+                            show={this.state.showError}
+                            onHide={this.hideErrorAlert}
+                            />
+                        <CustomerBookingPageConfirmationModal
+                            className="customer-booking-page-confirmation-modal"
+                            show={this.state.showSuccess}
+                            onHide={this.hideSuccessAlert}
+                            />
                     </Container>
                 </Jumbotron>
-            </Form>
         )
     }
 }

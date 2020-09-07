@@ -317,6 +317,11 @@ input {
   color:red;
 }
 
+.customer-booking-page-confirmation-modal .modal-header{
+  /* background-color: green; */
+  color:green;
+}
+
 .wrapper{
   display: flex;
   flex-wrap: wrap;
