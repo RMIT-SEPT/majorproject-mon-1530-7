@@ -13,7 +13,7 @@ class Account extends Component {
                             <Link to="/profile">
                             <button className="btnBorder-large">Profile</button>
                             </Link>
-                            <Link to="/booking_history">
+                            <Link to="/customer-past-bookings">
                             <button className="btnBorder-large">Booking History</button>
                             </Link>
                             <Link to="/logout">
