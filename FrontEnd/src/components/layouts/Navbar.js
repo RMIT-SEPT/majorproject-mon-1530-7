@@ -23,7 +23,7 @@ function NavigationBar(props) {
         <Link to="/account">
           <button className="btn-border">Account</button>
         </Link>
-        <Link to="/booknow">
+        <Link to="/customer-booking-page">
           <button className="btn-border">Book Now</button>
         </Link>
       </Navbar>
