@@ -284,9 +284,10 @@ input {
   padding-top: 20px;
 }
 
-
-
-
+.makeCusBooking{
+  text-align: center;
+  padding-top: 20px;
+}
 
 
 .h2-cus-book-page{
@@ -301,4 +302,30 @@ input {
   margin: 20px;
   margin-top: 5em;
   margin-bottom: 50px;
+}
+
+.datePickerContainer{
+  text-align: center;
+  border: 1px solid #2b80ff;
+  color: #1f74f3;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.customer-booking-page-error-modal .modal-header{
+  /* background-color: red; */
+  color:red;
+}
+
+.wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 150px;
+  justify-content: space-between;
+}
+
+.wrapper h1{
+  width: 100%;
+  text-align: center;
+
 }
