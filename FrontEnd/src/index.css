@@ -151,6 +151,43 @@ a:hover {
   border: 2px solid #303030;
 }
 
+.cancel-btn {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 10px;
+  min-height: 30px;
+  min-width: 115px;
+  margin-left: 2em;
+  border-radius: 26px;
+  border: 2px solid #303030;
+  background-color: #ffffff;
+  color: #303030;
+  text-decoration: none;
+}
+
+.cancel-btn:hover, .cancel-btn:focus, .cancel-btn:active, .cancel-btn.active {
+  color: #2b80ff;
+  border: 2px solid #2b80ff;
+}
+
+.edit-btn {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 10px;
+  min-height: 30px;
+  min-width: 115px;
+  border-radius: 26px;
+  border: 2px solid #303030;
+  background-color: #ffffff;
+  color: #303030;
+  text-decoration: none;
+}
+
+.edit-btn:hover, .edit-btn:focus, .edit-btn:active, .edit-btn.active {
+  color: #2b80ff;
+  border: 2px solid #2b80ff;
+}
+
 .btn-large {
   font-size: 18px;
   font-weight: 600;

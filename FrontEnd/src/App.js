@@ -8,23 +8,19 @@ import Dashboard from './components/pages/Dashboard.js';
 import Account from './components/pages/Account.js';
 import Profile from './components/pages/Profile.js';
 
-
 function App() {
   return (
     <div className="page-container">
       <div className="content-wrap"> 
         
         <BrowserRouter>
-        <NavigationBar />
+        <NavigationBar loggedIn={true}/>
         <Switch> 
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/dashboard" component={Dashboard} />
-
           <Route path="/account" component={Account} />
-
           <Route path="/profile" component={Profile} />
-
         </Switch>
         </BrowserRouter>
         

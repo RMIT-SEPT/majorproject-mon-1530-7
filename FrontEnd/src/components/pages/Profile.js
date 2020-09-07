@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Col, Jumbotron, Row } from 'react-bootstrap';
 
-class LoginPage extends Component {
+class Profile extends Component {
     render() {
         return (
             <div className="profile-container">
@@ -13,12 +13,12 @@ class LoginPage extends Component {
                     <p>123 Sample St</p>
                     <h5 className="h5-main">Phone Number</h5>
                     <p>0123456789</p>
-                    <h5 className="h5-main">Email/Username</h5>
-                    <p>mia@email.com</p>
+                    
+                    <button className="edit-btn">Edit Profile</button>
                 </Col>
             </div>
         )
     }
 }
 
-export default LoginPage;
+export default Profile;
