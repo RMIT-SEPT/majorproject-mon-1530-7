@@ -4,6 +4,8 @@ import Footer from './components/layouts/Footer.js';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import LoginPage from './components/pages/LoginPage';  
 import HomePage from './components/pages/HomePage';
+import AboutPage from './components/pages/AboutPage';  
+import ContactPage from './components/pages/ContactPage';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Switch> 
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/contact" component={ContactPage} />
         </Switch>
         </BrowserRouter>
         
