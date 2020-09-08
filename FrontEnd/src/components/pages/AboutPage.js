@@ -15,6 +15,13 @@ class HomePage extends Component {
 
                 To make a booking visit the home page and ensure your logged in!!!
             </Body>
+
+                <div class="form-group">
+                    Not Registered Yet? <a href="/signup">Register Here</a> 
+                </div>
+                <div class="form-group">
+                    <a href="/login">Or log in here!!</a> 
+                </div>
             </div>
         );
     }
