@@ -170,6 +170,23 @@ a:hover {
   border: 2px solid #2b80ff;
 }
 
+.elongated-btn {
+  font-size: 12px;
+  font-weight: 600;
+  min-height: 35px;
+  min-width: 165px;
+  border-radius: 26px;
+  border: 2px solid #303030;
+  background-color: #ffffff;
+  color: #303030;
+  text-decoration: none;
+}
+
+.elongated-btn:hover, .elongated-btn:focus, .elongated-btn:active, .elongated-btn.active {
+  color: #2b80ff;
+  border: 2px solid #2b80ff;
+}
+
 .edit-btn {
   font-size: 12px;
   font-weight: 600;

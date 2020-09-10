@@ -12,6 +12,8 @@ import Dashboard from './components/pages/Dashboard.js';
 import Account from './components/pages/Account.js';
 import Profile from './components/pages/Profile.js';
 
+import ManageEmp from './components/pages/ManageEmp.js';
+
 function App() {
   return (
     <div className="page-container">
@@ -27,6 +29,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/account" component={Account} />
           <Route path="/profile" component={Profile} />
+          <Route path="/manage-emp" component={ManageEmp} />
         </Switch>
         </BrowserRouter>
         
