@@ -1,6 +1,7 @@
 import React from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 
 function CustomerBookingPageConfirmationModal(props) {
     return (
@@ -17,13 +18,15 @@ function CustomerBookingPageConfirmationModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
+            <Alert variant="success">
                 <h4>Successful Booking</h4>
                 <p>
                     Thank you for making a booking with us!
                 </p>
+                </Alert>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="success" onClick={props.onHide}>Close</Button>
+                <Button variant="primary" onClick={props.onHide}>Close</Button>
             </Modal.Footer>
         </Modal>
     )

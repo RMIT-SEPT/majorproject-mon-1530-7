@@ -54,6 +54,7 @@ class CustomerBookingPageTest extends Component {
                     </Container>
                     <Container className="makeCusBooking">
                         <Button variant="primary" size="lg" type="submit"
+                            // Change to this.showSuccessAlert to signal confirmation modal
                             onClick={this.showErrorAlert}>
                             Make Booking
                         </Button>

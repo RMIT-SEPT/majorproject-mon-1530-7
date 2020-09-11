@@ -312,16 +312,6 @@ input {
   padding-bottom: 20px;
 }
 
-.customer-booking-page-error-modal .modal-header{
-  /* background-color: red; */
-  color:red;
-}
-
-.customer-booking-page-confirmation-modal .modal-header{
-  /* background-color: green; */
-  color:green;
-}
-
 .wrapper{
   display: flex;
   flex-wrap: wrap;
