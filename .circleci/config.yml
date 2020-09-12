@@ -14,6 +14,9 @@ jobs:
 
       - checkout
 
+      - run:
+          command: ls -al
+
       - restore_cache:
           key: circleci-backend-java-spring-{{ checksum "pom.xml" }}
 
@@ -32,34 +35,39 @@ jobs:
       - store_artifacts:
           path: target/BackEnd-java-spring-0.0.1-SNAPSHOT.jar
     
-  build-frontend: 
-    docker:
-      - image: circleci/node:12.18.3-browsers
+#   build-frontend: 
+#     docker:
+#       - image: circleci/node:12.18.3-browsers
       
-    working_directory: ~/FrontEnd
+#     working_directory: ~/FrontEnd
 
-    steps:
-      - checkout
+#     steps:
+#       - checkout
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
+#       - restore_cache:
+#           keys:
+#             - v1-dependencies-{{ checksum "package.json" }}
+#             - v1-dependencies-
 
-      - run: yarn install
+#       - run: yarn install
 
-      - save_cache:
-          paths:
-            - node_modules
-            - ~/.npm
-            - ~/.cache
+#       - save_cache:
+#           paths:
+#             - node_modules
+#             - ~/.npm
+#             - ~/.cache
 
-          key: v1-dependencies-{{ checksum "package.json" }}
+#           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn test
+#       - run: yarn test
+
+# workflows:
+#   build_frontend_and_backend:
+#     jobs:
+#       - build-backend
+#       - build-frontend
 
 workflows:
-  build_frontend_and_backend:
+  build_backend:
     jobs:
       - build-backend
-      - build-frontend
