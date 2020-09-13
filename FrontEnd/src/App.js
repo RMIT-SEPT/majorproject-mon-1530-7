@@ -13,6 +13,7 @@ import Account from './components/pages/Account.js';
 import Profile from './components/pages/Profile.js';
 
 import ManageEmp from './components/pages/ManageEmp.js';
+import EmpDetails from './components/pages/EmpDetails.js';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/account" component={Account} />
           <Route path="/profile" component={Profile} />
           <Route path="/manage-emp" component={ManageEmp} />
+          <Route path="/emp-details" component={EmpDetails} />
         </Switch>
         </BrowserRouter>
         
