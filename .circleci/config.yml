@@ -15,7 +15,7 @@ jobs:
       - checkout
 
       - run:
-          command: ls home/circleci/majorproject-mon-1530-7/BackEnd
+          command: ls home/circleci/BackEnd
 
       - restore_cache:
           key: circleci-BackEnd-java-spring-{{ checksum "pom.xml" }}
