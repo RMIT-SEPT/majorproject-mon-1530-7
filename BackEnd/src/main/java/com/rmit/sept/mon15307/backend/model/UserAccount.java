@@ -14,7 +14,7 @@ import java.util.Date;
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
 
     @NotNull
     @NotBlank
