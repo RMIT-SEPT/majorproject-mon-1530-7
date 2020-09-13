@@ -59,6 +59,7 @@ jobs:
       - run: yarn test
 
 workflows:
+  version: 2
   build_frontend_and_backend:
     jobs:
       - build-backend
