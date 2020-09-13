@@ -4,7 +4,7 @@ jobs:
 
     working_directory: ~/BackEnd
     docker:
-      - image: circleci/adoptopenjdk:11-jre-hotspot
+      - image: circleci/openjdk:8-jdk-stretch
       - image: circleci/postgres:9.6.3-alpine
         environment:
           POSTGRES_USER: root
@@ -34,7 +34,7 @@ jobs:
     
   build-frontend: 
     docker:
-      - image: circleci/node:12.18.3-alpine
+      - image: circleci/node:12.18.3-browsers
       
     working_directory: ~/FrontEnd
 
