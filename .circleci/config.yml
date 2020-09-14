@@ -14,15 +14,17 @@ jobs:
 
       - checkout
 
+
+
       - restore_cache:
-          key: circleci-backend-java-spring-{{ checksum "pom.xml" }}
+          key: circleci-backend-java-spring-{{ checksum "BackEnd/pom.xml" }}
 
       - run: mvn dependency:go-offline
 
       - save_cache:
           paths:
             - ~/.m2
-          key: circleci-backend-java-spring-{{ checksum "pom.xml" }}
+          key: circleci-backend-java-spring-{{ checksum "BackEnd/pom.xml" }}
 
       - run: mvn package
 
@@ -43,7 +45,7 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "FrontEnd/package.json" }}
             - v1-dependencies-
 
       - run: yarn install
@@ -54,7 +56,7 @@ jobs:
             - ~/.npm
             - ~/.cache
 
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "FrontEnd/package.json" }}
 
       - run: yarn test
 
