@@ -25,6 +25,8 @@ jobs:
             - ~/.m2
           key: circleci-backend-java-spring-{{ checksum "pom.xml" }}
 
+      - run: mvn test
+
       - run: mvn package
 
       - store_test_results:
