@@ -24,7 +24,7 @@ public class Employee {
 
     @OneToOne(optional = false)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserAccount user;
 
     @ManyToMany
     @JoinTable(name = "employee_products")

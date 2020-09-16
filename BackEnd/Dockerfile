@@ -1,7 +1,6 @@
-FROM adoptopenjdk:11-jre-hotspot
-RUN useradd -ms /bin/sh newuser
-USER newuser
-WORKDIR /home/newuser
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM adoptopenjdk/openjdk11:alpine-jre
+ENV BACKEND_DB backenddb
+ENV BACKEND_PASSWORD postgres
+ENV BACKEND_USERNAME postgres
+ADD target/backend-0.0.1.jar backend-0.0.1.jar
+ENTRYPOINT ["java", "-jar", "backend-0.0.1.jar"]

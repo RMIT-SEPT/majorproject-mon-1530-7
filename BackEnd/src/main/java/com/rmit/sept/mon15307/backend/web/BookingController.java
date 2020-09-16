@@ -1,7 +1,7 @@
 package com.rmit.sept.mon15307.backend.web;
 
 import com.rmit.sept.mon15307.backend.model.Booking;
-import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
 import com.rmit.sept.mon15307.backend.services.BookingService;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class BookingController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> listUserBookings(@RequestParam(value="user", required=true) User user) {
+    public ResponseEntity<?> listUserBookings(@RequestParam(value="user", required=true) UserAccount user) {
         Iterable<Booking> allBookings = bookingService.findAllBookings();
         List<Booking> userBookings = new ArrayList<Booking>();
         for(Booking i:allBookings) {
