@@ -9,19 +9,30 @@ class EmpDetails extends Component {
                     <Container>
                         <h2 className="h2-main">Employee Details</h2>
                         <Row>
+                            <Col md={{ span: 0, offset: 8 }}><button className="elongated-btn">Add Schedule</button></Col>
+                            <Col md={{ span: 0, offset: 0 }}><button className="elongated-btn">Edit Schedule</button></Col>
                             <Col className="shadow p-4 mb-5 bg-white rounded" id="emp-col" xs={6} md={{ span: 12, offset: 0 }}>
-                                <table class="table table-borderless">
+
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Schedule</th>
-                                            <th scope="col">Working Hours</th>
-                                            <th scope="col"></th>
+                                            <th scope="col"><b>Sunday</b></th>
+                                            <th scope="col"><b>Monday</b></th>
+                                            <th scope="col"><b>Tuesday</b></th>
+                                            <th scope="col"><b>Wednesday</b></th>
+                                            <th scope="col"><b>Thursday</b></th>
+                                            <th scope="col"><b>Friday</b></th>
+                                            <th scope="col"><b>Saturday</b></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td></td>
+                                            <td>Hairdressing [ 10:30 am ]</td>
+                                            <td>Hair-cut [ 10:30 am ]</td>
                                             <td></td>
+                                            <td></td>
+                                            <td>Hair-cut [ 10:30 am ]</td>
                                             <td></td>
                                         </tr>
                                     </tbody>
