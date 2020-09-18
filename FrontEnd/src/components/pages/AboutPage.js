@@ -1,30 +1,38 @@
 import React, { Component } from 'react'
-import Body from '../Body';
-import Main from '../Main';
+import 'bootstrap/dist/css/bootstrap.css';
+import { Container, Jumbotron} from 'react-bootstrap';
 
-class HomePage extends Component {
+class AboutPage extends Component {
     render() {
         return (
-            <div>
-            <Main>
-                About Us.
-            </Main>    
-            <Body>
-                Here at Fresh-Cutz we take pride in having good connections with our cutz-omers 
-                and creating an easy environment online to assists our cutz-omers to book their trips into our selected salons. 
 
-                To make a booking visit the home page and ensure your logged in!!!
-            </Body>
+            <Jumbotron id="jumbotron-custom">
+                <Container>
+                    <h1>
+                        About Us.
+                    </h1>    
+                    <p>
+                        Here at Fresh-Cutz we take pride in having good connections with our cutz-omers 
+                        and creating an easy environment online to assists our cutz-omers to book their trips into our selected salons. 
+                    </p>
 
-                <div class="form-group">
-                    Not Registered Yet? <a href="/signup">Register Here</a> 
-                </div>
-                <div class="form-group">
-                    <a href="/login">Or log in here!!</a> 
-                </div>
-            </div>
+                    <p>
+                        To make a booking visit the home page and ensure your logged in!!!
+                    </p>
+
+                    <p>
+                        Brought to you by some happy RMIT students in the year of 2020.
+                    </p>
+
+                    <h4>
+                            Not Registered Yet? 
+                            <a href="/signup">Register Here</a>
+                            <a href="/login">Or log in here!!</a> 
+                    </h4>
+                    </Container>
+            </Jumbotron>
         );
     }
 }
 
-export default HomePage;
+export default AboutPage;

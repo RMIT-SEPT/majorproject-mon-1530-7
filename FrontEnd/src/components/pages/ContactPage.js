@@ -1,28 +1,30 @@
 import React, { Component } from 'react'
-import Body from '../Body';
-import Main from '../Main';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.css';
+import { Container, Jumbotron, Button, Form} from 'react-bootstrap';
 
-class HomePage extends Component {
+
+class ContactPage extends Component {
     render() {
         return (
-            <div>
-                <Main>
-                    Contact Us.
-                </Main>    
-                <Body>
-                    We look forward to hearing what our cutz-omers have to say about our services, 
-                    so please contact us and let us know how your experience with Fresh-Cutz was.
-                
-                    Phone Number : 1300-CUTZ
-                    Email : FreshCutz@gmail.com
+            <Jumbotron id="jumbotron-custom">
+                <Container>
+                    <h1>
+                        Contact Us.
+                    </h1>    
+                    <p>
+                        We look forward to hearing what our cutz-omers have to say about our services, 
+                        so please contact us and let us know how your experience with Fresh-Cutz was.
+                    </p>
 
-                    OR Leave Feedback in this form below!
-                </Body>
+                    <p>
+                        Phone Number : 1300-CUTZ
+                        Email : FreshCutz@gmail.com
+                    </p>
 
-                <div>
-                    <div className="feedbackContainer">
+                    <h4>
+                        OR Leave Feedback in this form below!
+                    </h4>
+
                     <Form>
                         <Form.Group controlId="formName">
                             <Form.Label>Name</Form.Label>
@@ -40,11 +42,10 @@ class HomePage extends Component {
                             Leave Feedback!
                         </Button>
                     </Form>
-                    </div>
-                </div>
-            </div>
+                </Container>
+            </Jumbotron>  
         );
     }
 }
 
-export default HomePage;
+export default ContactPage;
