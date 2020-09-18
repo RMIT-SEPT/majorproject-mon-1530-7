@@ -18,6 +18,8 @@ class ContactPage extends Component {
 
                     <p>
                         Phone Number : 1300-CUTZ
+                    </p>
+                    <p>    
                         Email : FreshCutz@gmail.com
                     </p>
 
