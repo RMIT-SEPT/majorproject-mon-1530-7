@@ -10,6 +10,14 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    public Iterable<Product> findAllProducts() {
+        return productRepository.findAll();
+    }
+
+    public Product saveOrUpdateProduct(Product product) {
+        return productRepository.save(product);
+    }
+
     public Product findByProductId(String productId) {
         Product product = productRepository.findByIdEquals(Long.parseLong(productId));
 
