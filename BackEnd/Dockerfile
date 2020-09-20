@@ -4,3 +4,4 @@ ENV BACKEND_PASSWORD postgres
 ENV BACKEND_USERNAME postgres
 ADD target/backend-0.0.1.jar backend-0.0.1.jar
 ENTRYPOINT ["java", "-jar", "backend-0.0.1.jar"]
+
