@@ -6,6 +6,13 @@ import LoginPage from './components/pages/LoginPage';
 import HomePage from './components/pages/HomePage';
 import AboutPage from './components/pages/AboutPage';  
 import ContactPage from './components/pages/ContactPage';
+import CustomerBookingPage from './components/pages/CustomerBookingPage.js';
+
+import CustomerPastBookingsPage from './components/pages/CustomerPastBookingsPage.js';
+
+import Dashboard from './components/pages/Dashboard.js';
+import Account from './components/pages/Account.js';
+import Profile from './components/pages/Profile.js';
 
 function App() {
   return (
@@ -13,12 +20,17 @@ function App() {
       <div className="content-wrap"> 
         
         <BrowserRouter>
-        <NavigationBar />
+        <NavigationBar loggedIn={true}/>
         <Switch> 
           <Route exact path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/contact" component={ContactPage} />
+          <Route path="/customer-booking-page" component={CustomerBookingPage} />
+          <Route path="/customer-past-bookings" component={CustomerPastBookingsPage}/>
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/account" component={Account} />
+          <Route path="/profile" component={Profile} />
         </Switch>
         </BrowserRouter>
         
