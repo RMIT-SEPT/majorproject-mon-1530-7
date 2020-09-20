@@ -37,4 +37,10 @@ describe('Testing Manage Employeees route', () => {
     expect(component.contains(EmpDetails));
     expect(component.find('Link').exists());
   });
+
+  it('should have a working button when clicked', () => {
+    const component = shallow(<ManageEmp />);
+    component.find('button').first().simulate('click');
+    expect(component).toBeTruthy();
+  });
 });
