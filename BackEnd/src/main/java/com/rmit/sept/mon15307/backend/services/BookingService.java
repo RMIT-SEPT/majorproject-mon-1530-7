@@ -1,11 +1,12 @@
 package com.rmit.sept.mon15307.backend.services;
 
-
 import com.rmit.sept.mon15307.backend.Repositories.BookingsRepository;
-import com.rmit.sept.mon15307.backend.model.Booking;
 import com.rmit.sept.mon15307.backend.exceptions.BookingException;
+import com.rmit.sept.mon15307.backend.model.Booking;
+import com.rmit.sept.mon15307.backend.model.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Date;
 
 @Service
@@ -13,26 +14,28 @@ public class BookingService {
     @Autowired
     private BookingsRepository bookingsRepository;
 
-
     public Booking saveOrUpdateBooking(Booking booking) {
 
         return bookingsRepository.save(booking);
 
     }
 
-    public Iterable<Booking> findAllBookings(){
+    public Iterable<Booking> findAllBookings() {
         return bookingsRepository.findAll();
     }
 
-    public Booking findByBookingId(Long bookingId){
+    public Iterable<Booking> findBookingsBySchedule(Schedule schedule) {
+        return bookingsRepository.findBookingsBySchedule(schedule);
+    }
+
+    public Booking findByBookingId(Long bookingId) {
 
         Booking booking = bookingsRepository.findByBookingId(bookingId);
 
-        if(booking == null){
-            throw new BookingException("Booking ID '"+bookingId+"' does not exist");
+        if (booking == null) {
+            throw new BookingException("Booking ID '" + bookingId + "' does not exist");
 
         }
-
 
         return booking;
     }
