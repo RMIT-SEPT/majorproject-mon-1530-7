@@ -20,4 +20,8 @@ public class EmployeeService {
 
         return employee;
     }
+
+    public Iterable<Employee> findAllEmployees() {
+        return employeeRepository.findAll();
+    }
 }
