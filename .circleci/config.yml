@@ -7,8 +7,9 @@ jobs:
       - image: circleci/openjdk:11-jdk-stretch
       - image: circleci/postgres:9.6.3-alpine
         environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
+          POSTGRES_USER: postgres
+          POSTGRES_DB: backenddb
+          POSTGRES_PASSWORD: postgres
 
     steps:
 

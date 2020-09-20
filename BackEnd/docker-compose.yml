@@ -1,11 +1,18 @@
-version: '3'
+version: '3.1'
 services:
-  springboot-docker-compose-app-container:
-    image: springboot-docker-compose-app:1
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    volumes:
-      - /data/springboot-docker-compose-app
+  app:
+    container_name: septbackend-postgresql
+    image: septbackend-postgresql
+    build: ./
     ports:
       - "8080:8080"
+    depends_on:
+      - postgresqldb
+  postgresqldb:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=backenddb

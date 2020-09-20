@@ -1,7 +1,7 @@
 package com.rmit.sept.mon15307.backend.model;
 
 import com.rmit.sept.mon15307.backend.model.Schedule;
-import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
 import com.rmit.sept.mon15307.backend.model.Product;
 import com.rmit.sept.mon15307.backend.model.Employee;
 
@@ -28,7 +28,7 @@ public class Booking {
    
     @ManyToOne(optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
-    private User customer;
+    private UserAccount customer;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "employee_id", nullable = false)
@@ -58,10 +58,10 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
-    public User getCustomer() {
+    public UserAccount getCustomer() {
         return customer;
     }
-    public void setCustomer(User customer) {
+    public void setCustomer(UserAccount customer) {
         this.customer = customer;
     }
 
