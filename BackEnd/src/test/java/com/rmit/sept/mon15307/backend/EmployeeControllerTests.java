@@ -49,4 +49,14 @@ public class EmployeeControllerTests {
     public void shouldRejectInvalidEmployee() throws Exception {
         // TODO: pending create method
     }
+
+    @Test
+    public void shouldRejectUnrecognisedId() throws Exception {
+        mockMvc.perform(get("/api/staff/1/times")).andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void shouldListTimesForEmployee() throws Exception {
+        // TODO: pending functionality to create employees and schedules
+    }
 }
