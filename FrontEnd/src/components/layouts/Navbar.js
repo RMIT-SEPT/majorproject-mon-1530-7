@@ -12,7 +12,6 @@ function NavigationBar(props) {
       <Navbar fixed="top" bg="white" variant="light">
         <Navbar.Brand href="/">[ Booking System ]</Navbar.Brand>
         <Nav className="mr-auto">
-
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link href="/about">About</Nav.Link>
           <Nav.Link href="/contact">Contact</Nav.Link>
@@ -26,7 +25,7 @@ function NavigationBar(props) {
         <Link to="/account">
           <button className="btn-border">Account</button>
         </Link>
-        <Link to="/customer-booking-page">
+        <Link to="/booking">
           <button className="btn-border">Book Now</button>
         </Link>
       </Navbar>
