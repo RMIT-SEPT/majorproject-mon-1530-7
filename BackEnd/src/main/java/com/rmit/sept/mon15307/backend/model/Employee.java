@@ -35,6 +35,11 @@ public class Employee {
 
     public boolean isScheduled(Date date) {
         // Inefficient but that's fine because there won't be much data to search through
+
+        if (this.schedules == null) {
+            return false;
+        }
+
         for (Schedule schedule : this.schedules) {
             if (schedule.getDate().equals(date) && schedule.isScheduled()) {
                 return true;
