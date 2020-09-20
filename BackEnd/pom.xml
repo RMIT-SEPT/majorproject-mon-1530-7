@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.rmit.sept.mon-1530-7</groupId>
     <artifactId>backend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>backend</name>
     <description>SEPT MON-1530-7 backend</description>
 
@@ -35,11 +35,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.1.5.Final</version>
         </dependency>
 
         <dependency>
