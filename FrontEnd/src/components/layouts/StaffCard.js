@@ -77,6 +77,8 @@ StaffCard.propTypes = {
       name: PropTypes.string,
     })
   ),
+  loading: PropTypes.bool,
+  onSelect: PropTypes.func,
 };
 
 export default StaffCard;
