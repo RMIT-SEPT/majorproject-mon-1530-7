@@ -9,11 +9,12 @@ import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('Testing CustomerBookingPage route', () => {
-    it('should show CustomerBookingPage component for /customer-booking-page router (using memory router)', () => {
-      const component = mount( <MemoryRouter initialEntries={["/customer-booking-page"]}>
-          <App/>
-       </MemoryRouter>
+    it("should show CustomerBookingPage component for /booking router (using memory router)", () => {
+      const component = mount(
+        <MemoryRouter initialEntries={["/booking"]}>
+          <App />
+        </MemoryRouter>
       );
       expect(component.contains(CustomerBookingPage));
-    })
+    });
   })

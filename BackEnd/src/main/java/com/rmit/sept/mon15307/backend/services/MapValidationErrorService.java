@@ -20,10 +20,9 @@ public class MapValidationErrorService {
             for(FieldError error: result.getFieldErrors()){
                 errorMap.put(error.getField(), error.getDefaultMessage());
             }
-            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
         }
 
         return null;
-
     }
 }

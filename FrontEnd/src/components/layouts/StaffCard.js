@@ -5,7 +5,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Spinner from "react-bootstrap/Spinner";
 import PropTypes from "prop-types";
 
-class ServiceCard extends Component {
+class StaffCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,29 +20,29 @@ class ServiceCard extends Component {
     this.props.onSelect(value);
   }
 
-  renderServices() {
-    if (!this.props.loading && this.props.services.length > 0) {
+  renderStaff() {
+    if (!this.props.loading && this.props.staff.length > 0) {
       return (
         <ButtonGroup toggle vertical>
-          {this.props.services.map((service) => (
+          {this.props.staff.map((employee) => (
             <ToggleButton
-              key={service.id}
+              key={employee.id}
               type="radio"
               variant="outline-primary"
-              checked={this.state.idValue === service.id}
+              checked={this.state.idValue === employee.id}
               name="radio"
-              value={service.id}
+              value={employee.id}
               size="lg"
               onChange={(e) => this.handleSelection(e.currentTarget.value)}
             >
-              {service.name}
+              {employee.name}
             </ToggleButton>
           ))}
         </ButtonGroup>
       );
     } else if (!this.props.loading) {
       // TODO: better empty state
-      return <p>No services found</p>;
+      return <p>No employees found</p>;
     } else {
       return (
         <Spinner animation="border" role="status">
@@ -60,27 +60,25 @@ class ServiceCard extends Component {
         style={{ width: "68rem" }}
       >
         <Card.Body>
-          <Card.Title>Services</Card.Title>
+          <Card.Title>Staff</Card.Title>
           <br />
-          {this.renderServices()}
+
+          {this.renderStaff()}
         </Card.Body>
       </Card>
     );
   }
 }
 
-ServiceCard.propTypes = {
-  services: PropTypes.arrayOf(
+StaffCard.propTypes = {
+  staff: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
       name: PropTypes.string,
-      description: PropTypes.string,
-      price: PropTypes.number,
-      duration: PropTypes.number,
     })
   ),
   loading: PropTypes.bool,
   onSelect: PropTypes.func,
 };
 
-export default ServiceCard;
+export default StaffCard;
