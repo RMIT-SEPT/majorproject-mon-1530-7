@@ -15,8 +15,7 @@ public class EmployeeService {
         Employee employee = employeeRepository.findByIdEquals(Long.parseLong(employeeId));
 
         if (employee == null) {
-            // TODO: custom exception
-            throw new EmployeeNotFoundException("Employee ID '" + employeeId + "' does not exist");
+            throw new EmployeeNotFoundException();
         }
 
         return employee;

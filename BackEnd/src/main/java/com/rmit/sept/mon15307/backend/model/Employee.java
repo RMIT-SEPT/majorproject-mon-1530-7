@@ -55,8 +55,8 @@ public class Employee {
         return false;
     }
 
-    public Long getId() {
-        return id;
+    public String getId() {
+        return id.toString();
     }
 
     public User getUser() {
@@ -69,7 +69,7 @@ public class Employee {
 
     @JsonGetter("name")
     public String getName() {
-        return this.user.getFullName();
+        return this.user.getPreferredName();
     }
 
     @JsonGetter("phoneNumber")
@@ -86,7 +86,7 @@ public class Employee {
     }
 
     public List<Schedule> getSchedules() {
-        return schedules;
+        return this.schedules;
     }
 
     public void setSchedules(List<Schedule> schedules) {

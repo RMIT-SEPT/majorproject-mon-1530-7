@@ -25,7 +25,7 @@ public class BookingService {
     }
 
     public Iterable<Booking> findBookingsBySchedule(Schedule schedule) {
-        return bookingsRepository.findBookingsBySchedule(schedule);
+                return this.bookingsRepository.findBookingsByScheduleId(schedule.getId());
     }
 
     public Booking findByBookingId(Long bookingId) {
