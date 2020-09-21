@@ -40,6 +40,8 @@ public class Product {
     @NotNull @Min(1) @Max(1440)  // up to 24 hours
     private int duration;
 
+    public String getId() { return id.toString(); }
+
     public String getName() {
         return name;
     }

@@ -31,6 +31,10 @@ public class Schedule {
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
+    public Long getId() {
+        return id;
+    }
+
     public Date getDate() {
         return this.date;
     }

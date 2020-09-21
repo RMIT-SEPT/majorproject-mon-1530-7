@@ -41,15 +41,15 @@ public class Booking {
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
 
-    @JsonFormat(pattern = "hh-mm")
-    private Date time;
+    // TODO: validate
+    private String time;
     private Date createdAt;
     private Date cancelledAt;
     private Date completedAt;
-    
 
     public Booking() {
     }
+
     public Long getBookingId() {
         return bookingId;
     }
@@ -82,20 +82,23 @@ public class Booking {
     public Schedule getSchedule() {
         return schedule;
     }
+
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
-    public void setTime(Date time) {
+
+    public void setTime(String time) {
         this.time = time;
     }
 
     public Date getCreatedDate() {
         return createdAt;
     }
+
     public void setCreatedDate(Date createdAt) {
         this.createdAt = createdAt;
     }
