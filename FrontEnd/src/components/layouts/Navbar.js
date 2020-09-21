@@ -17,6 +17,9 @@ function NavigationBar(props) {
           <Nav.Link href="/about">About</Nav.Link>
           <Nav.Link href="/contact">Contact</Nav.Link>
         </Nav>
+        <Link to="/manage-emp">
+          <button className="btn-border">Employees</button>
+        </Link>
         <Link to="/dashboard">
           <button className="btn-border">Dashboard</button>
         </Link>

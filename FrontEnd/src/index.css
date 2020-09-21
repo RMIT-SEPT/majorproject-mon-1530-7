@@ -91,6 +91,10 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
   margin-top: 5em;
 }
 
+#emp-col {
+  margin-top: 2em;
+}
+
 #profile-col {
   margin-top: 2em;
 }
@@ -137,9 +141,9 @@ a:hover {
   font-size: 16px;
   font-weight: 600;
   min-height: 40px;
-  min-width: 115px;
-  margin-right: 10px;
+  min-width: 145px;
   border-radius: 26px;
+  margin-left: -20px;
   border: 2px solid #2b80ff;
   background-color: #ffffff00;
   color: #1f74f3;
@@ -166,6 +170,23 @@ a:hover {
 }
 
 .cancel-btn:hover, .cancel-btn:focus, .cancel-btn:active, .cancel-btn.active {
+  color: #2b80ff;
+  border: 2px solid #2b80ff;
+}
+
+.elongated-btn {
+  font-size: 12px;
+  font-weight: 600;
+  min-height: 35px;
+  min-width: 165px;
+  border-radius: 26px;
+  border: 2px solid #303030;
+  background-color: #ffffff;
+  color: #303030;
+  text-decoration: none;
+}
+
+.elongated-btn:hover, .elongated-btn:focus, .elongated-btn:active, .elongated-btn.active {
   color: #2b80ff;
   border: 2px solid #2b80ff;
 }
