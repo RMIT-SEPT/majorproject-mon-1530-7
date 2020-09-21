@@ -1,9 +1,11 @@
 package com.rmit.sept.mon15307.backend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rmit.sept.mon15307.backend.model.Product;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
 import com.rmit.sept.mon15307.backend.services.ProductService;
 import com.rmit.sept.mon15307.backend.web.ProductController;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -69,11 +71,19 @@ public class ProductControllerTests {
 
     @Test
     public void shouldListWithProducts() throws Exception {
+        Product newProduct = new Product();
+        newProduct.setDescription("test product description");
+        newProduct.setName("test product");
+        newProduct.setDuration(30);
+        newProduct.setPrice(50);
+        this.productService.saveOrUpdateProduct(newProduct);
+
         String expected = "{\n" +
                           "  \"products\": [\n" +
                           "    {\n" +
                           "      \"name\": \"test product\",\n" +
-                          "      \"description\": \"test product description\",\n" +
+                          "      \"description\": \"test product " +
+                          "description\",\n" +
                           "      \"price\": 50,\n" +
                           "      \"duration\": 30\n" +
                           "    }\n" +
