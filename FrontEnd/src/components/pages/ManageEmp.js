@@ -10,7 +10,7 @@ class ManageEmp extends Component {
                     <Container>
                         <h2 className="h2-main">Manage Employees</h2>
                         <Row>
-                            <Col md={{ span: 1, offset: 10 }}><button className="elongated-btn">Add New Employee</button></Col>
+                            <Col md={{ span: 0, offset: 10 }}><Link to="/new-employee"><button className="elongated-btn">Add New Employee</button></Link></Col>
                             <Col className="shadow p-4 mb-5 bg-white rounded" id="emp-col" xs={6} md={{ span: 12, offset: 0 }}>
                                 <table class="table table-borderless">
                                     <thead>
