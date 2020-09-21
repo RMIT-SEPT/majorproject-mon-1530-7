@@ -16,6 +16,9 @@ class CustomerBookingPage extends Component {
       loadingStaff: true,
       selectedServiceId: null,
       selectedEmployeeId: null,
+      shouldShowTimes: false,
+      employeeAvailability: [],
+      employeeAvailabilityIds: { service: null, employee: null },
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,6 +32,31 @@ class CustomerBookingPage extends Component {
     // TODO: handle booking conflicts
     this.fetchServices();
     this.fetchStaff();
+  }
+
+  componentDidUpdate() {
+    const shouldUpdateShouldShowTimes =
+      !this.state.shouldShowTimes &&
+      this.state.selectedEmployeeId &&
+      this.state.selectedServiceId;
+
+    const selectedServiceIsStale =
+      this.state.employeeAvailabilityIds.service !==
+      this.state.selectedServiceId;
+
+    const selectedEmployeeIsStale =
+      this.state.employeeAvailabilityIds.employee !==
+      this.state.selectedEmployeeId;
+
+    const appointmentSlotsAreStale =
+      this.state.shouldShowTimes &&
+      (selectedEmployeeIsStale || selectedServiceIsStale);
+
+    if (shouldUpdateShouldShowTimes) {
+      this.setState({ shouldShowTimes: true });
+    }
+
+    if (appointmentSlotsAreStale) this.fetchAppointmentSlots();
   }
 
   onServiceSelect(serviceId) {
@@ -54,6 +82,26 @@ class CustomerBookingPage extends Component {
       .then((data) =>
         // TODO: handle errors
         this.setState({ staff: data["staff"], loadingStaff: false })
+      );
+  }
+
+  fetchAppointmentSlots() {
+    // TODO: handle staff member not found
+    fetch(
+      process.env.REACT_APP_API_URL +
+        "/staff/" +
+        this.state.selectedEmployeeId +
+        "/times"
+    )
+      .then((response) => response.json())
+      .then((data) =>
+        this.setState({
+          employeeAvailability: data["days"],
+          employeeAvailabilityIds: {
+            service: this.state.selectedServiceId,
+            employee: this.state.selectedEmployeeId,
+          },
+        })
       );
   }
 
@@ -102,7 +150,10 @@ class CustomerBookingPage extends Component {
                 loading={this.state.loadingStaff}
                 onSelect={this.onEmployeeSelect}
               />
-              <TimeSelectorCard />
+              <TimeSelectorCard
+                shouldShow={this.state.shouldShowTimes}
+                employeeAvailability={this.state.employeeAvailability}
+              />
             </CardDeck>
           </Container>
           <Container className="makeCusBooking">
