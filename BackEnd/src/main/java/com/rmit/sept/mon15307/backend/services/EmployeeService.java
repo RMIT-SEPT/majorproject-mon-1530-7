@@ -11,8 +11,8 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public Employee findByEmployeeId(String employeeId) throws EmployeeNotFoundException {
-        Employee employee = employeeRepository.findByIdEquals(Long.parseLong(employeeId));
+    public Employee findByEmployeeId(String employeeId) {
+        Employee employee = employeeRepository.findByEmployeeId(Long.parseLong(employeeId));
 
         if (employee == null) {
             throw new EmployeeNotFoundException();
