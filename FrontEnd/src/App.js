@@ -5,6 +5,7 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import LoginPage from './components/pages/LoginPage';  
 import HomePage from './components/pages/HomePage';
 import CustomerBookingPage from './components/pages/CustomerBookingPage.js';
+import NewEmployeePage from './components/pages/NewEmployeePage.js';
 
 import CustomerPastBookingsPage from './components/pages/CustomerPastBookingsPage.js';
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/customer-past-bookings" component={CustomerPastBookingsPage}/>
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/account" component={Account} />
+          <Route path="/new-employee" component={NewEmployeePage} />
           <Route path="/profile" component={Profile} />
         </Switch>
         </BrowserRouter>
