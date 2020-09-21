@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ServiceCard from "../layouts/ServiceCard";
-import EmployeeCard from "../layouts/EmployeeCard";
+import StaffCard from "../layouts/StaffCard";
 import TimeSelectorCard from "../layouts/TimeSelectorCard";
 import { Container, Jumbotron, CardDeck, Form, Button } from "react-bootstrap";
 
@@ -11,13 +11,16 @@ class CustomerBookingPage extends Component {
       showError: false,
       showSuccess: false,
       services: [],
+      staff: [],
       loadingServices: true,
       loadingStaff: true,
       selectedServiceId: null,
+      selectedEmployeeId: null,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onServiceSelect = this.onServiceSelect.bind(this);
+    this.onEmployeeSelect = this.onEmployeeSelect.bind(this);
   }
 
   componentDidMount() {
@@ -25,10 +28,15 @@ class CustomerBookingPage extends Component {
     // If data is stale booking will be rejected by backend and data will be refreshed
     // TODO: handle booking conflicts
     this.fetchServices();
+    this.fetchStaff();
   }
 
   onServiceSelect(serviceId) {
     this.setState({ selectedServiceId: serviceId });
+  }
+
+  onEmployeeSelect(employeeId) {
+    this.setState({ selectedEmployeeId: employeeId });
   }
 
   fetchServices() {
@@ -37,6 +45,15 @@ class CustomerBookingPage extends Component {
       .then((data) =>
         // TODO: handle errors
         this.setState({ services: data["products"], loadingServices: false })
+      );
+  }
+
+  fetchStaff() {
+    fetch(process.env.REACT_APP_API_URL + "/staff")
+      .then((response) => response.json())
+      .then((data) =>
+        // TODO: handle errors
+        this.setState({ staff: data["staff"], loadingStaff: false })
       );
   }
 
@@ -80,7 +97,11 @@ class CustomerBookingPage extends Component {
                 loading={this.state.loadingServices}
                 onSelect={this.onServiceSelect}
               />
-              <EmployeeCard />
+              <StaffCard
+                staff={this.state.staff}
+                loading={this.state.loadingStaff}
+                onSelect={this.onEmployeeSelect}
+              />
               <TimeSelectorCard />
             </CardDeck>
           </Container>
