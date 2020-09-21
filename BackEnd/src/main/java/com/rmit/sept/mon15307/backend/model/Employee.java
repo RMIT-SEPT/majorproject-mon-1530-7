@@ -59,11 +59,11 @@ public class Employee {
         return id.toString();
     }
 
-    public User getUser() {
+    public UserAccount getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserAccount user) {
         this.user = user;
     }
 
