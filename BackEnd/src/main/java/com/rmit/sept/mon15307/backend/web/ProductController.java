@@ -40,9 +40,12 @@ public class ProductController {
         // TODO: document API endpoint
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if (errorMap != null) return errorMap;
-        System.out.println(product);
 
-        Product newProduct = productService.saveOrUpdateProduct(product);
-        return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+        try {
+            Product newProduct = productService.saveOrUpdateProduct(product);
+            return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 }
