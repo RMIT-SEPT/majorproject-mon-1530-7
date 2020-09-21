@@ -11,6 +11,7 @@ import CustomerBookingPage from './components/pages/CustomerBookingPage.js';
 import CustomerPastBookingsPage from './components/pages/CustomerPastBookingsPage.js';
 
 import Dashboard from './components/pages/Dashboard.js';
+import AdminDashboard from './components/pages/AdminDashboard.js';
 import Account from './components/pages/Account.js';
 import Profile from './components/pages/Profile.js';
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/customer-booking-page" component={CustomerBookingPage} />
           <Route path="/customer-past-bookings" component={CustomerPastBookingsPage}/>
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/admin-dashboard" component={AdminDashboard} />
           <Route path="/account" component={Account} />
           <Route path="/profile" component={Profile} />
         </Switch>
