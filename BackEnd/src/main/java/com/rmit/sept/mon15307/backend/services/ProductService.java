@@ -11,7 +11,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public Product findByProductId(String productId) {
-        Product product = productRepository.findByIdEquals(Long.parseLong(productId));
+        Product product = productRepository.findByProductId(Long.parseLong(productId));
 
         if (product == null) {
             // TODO: custom exception

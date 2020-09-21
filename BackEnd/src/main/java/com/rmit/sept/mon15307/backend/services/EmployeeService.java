@@ -11,7 +11,7 @@ public class EmployeeService {
     private EmployeeRepository employeeRepository;
 
     public Employee findByEmployeeId(String employeeId) {
-        Employee employee = employeeRepository.findByIdEquals(Long.parseLong(employeeId));
+        Employee employee = employeeRepository.findByEmployeeId(Long.parseLong(employeeId));
 
         if (employee == null) {
             // TODO: custom exception
