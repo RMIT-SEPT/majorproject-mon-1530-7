@@ -1,7 +1,7 @@
 package com.rmit.sept.mon15307.backend.services;
 
 import com.rmit.sept.mon15307.backend.Repositories.UserRepository;
-import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
 import com.rmit.sept.mon15307.backend.exceptions.UsernameAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public User saveOrUpdateUser(User newUser) {
+    public UserAccount saveOrUpdateUser(UserAccount newUser) {
 
         try{
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
@@ -34,8 +34,8 @@ public class UserService {
 
     
 
-    public User findByUserId(String userId) {
-        User user = userRepository.findByUserId(Long.parseLong(userId));
+    public UserAccount findByUserId(String userId) {
+        UserAccount user = userRepository.findByUserId(Long.parseLong(userId));
 
         if (user == null) {
             // TODO: custom exception
@@ -46,7 +46,7 @@ public class UserService {
     }
 
     public boolean AuthenticateUser(String userId , String password) {
-        User user = userRepository.findByUserId(Long.parseLong(userId));
+        UserAccount user = userRepository.findByUserId(Long.parseLong(userId));
         if(user.getPassword() == password) {
             return true;
         }

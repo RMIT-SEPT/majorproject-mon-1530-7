@@ -1,6 +1,6 @@
 package com.rmit.sept.mon15307.backend.exceptions;
 
-import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
 
 public class UserIdExceptionResponse {
     private String userIdentifier;

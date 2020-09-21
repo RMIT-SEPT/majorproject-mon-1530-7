@@ -1,6 +1,6 @@
 package com.rmit.sept.mon15307.backend.security;
 
-import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
 import com.rmit.sept.mon15307.backend.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if(StringUtils.hasText(jwt)&& tokenProvider.validateToken(jwt)){
                 Long userId = tokenProvider.getUserIdFromJWT(jwt);
-                User userDetails = customUserDetailsService.loadUserById(userId);
+                UserAccount userDetails = customUserDetailsService.loadUserById(userId);
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, Collections.emptyList());

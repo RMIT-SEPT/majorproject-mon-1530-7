@@ -1,6 +1,7 @@
 package com.rmit.sept.mon15307.backend.security;
 
-import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
+
 import io.jsonwebtoken.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class JwtTokenProvider {
     //Generate the token
 
     public String generateToken(Authentication authentication){
-        User user = (User)authentication.getPrincipal();
+        UserAccount user = (UserAccount)authentication.getPrincipal();
         Date now = new Date(System.currentTimeMillis());
 
         Date expiryDate = new Date(now.getTime()+EXPIRATION_TIME);

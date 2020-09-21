@@ -1,6 +1,6 @@
 package com.rmit.sept.mon15307.backend.web;
 
-import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
 import com.rmit.sept.mon15307.backend.services.UserService;
 import com.rmit.sept.mon15307.backend.validator.UserValidator;
@@ -66,15 +66,15 @@ public class UserController {
     }  
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result){
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserAccount user, BindingResult result){
         userValidator.validate(user,result);
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if(errorMap != null)return errorMap;
 
-        User newUser = userService.saveOrUpdateUser(user);
+        UserAccount newUser = userService.saveOrUpdateUser(user);
 
-        return  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+        return  new ResponseEntity<UserAccount>(newUser, HttpStatus.CREATED);
     }
 
 
