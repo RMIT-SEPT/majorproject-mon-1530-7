@@ -79,6 +79,8 @@ ServiceCard.propTypes = {
       duration: PropTypes.number,
     })
   ),
+  loading: PropTypes.bool,
+  onSelect: PropTypes.func,
 };
 
 export default ServiceCard;
