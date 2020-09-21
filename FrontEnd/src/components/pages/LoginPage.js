@@ -25,7 +25,7 @@ class LoginPage extends Component {
             },
             body: JSON.stringify(this.state)     
           }).then(function(response) {
-            console.log(response);
+            console.log(response.status);
             return response.json();
         });
           
