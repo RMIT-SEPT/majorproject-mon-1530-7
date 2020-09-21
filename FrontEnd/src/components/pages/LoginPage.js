@@ -6,7 +6,8 @@ import Button from 'react-bootstrap/Button'
 class LoginPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {username:'',
+                      password:''};
       }
     
       handleChange = (event) => {
@@ -19,12 +20,14 @@ class LoginPage extends Component {
         
         fetch('http://localhost:8080/api/user/login', {
             method: 'POST',
-            // We convert the React state to JSON and send it as the POST body
-            body: JSON.stringify(this.state)
-            
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state)     
           }).then(function(response) {
+            console.log(response);
             return response.json();
-          });
+        });
           
         event.preventDefault();
         
