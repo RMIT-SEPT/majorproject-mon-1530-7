@@ -1,7 +1,8 @@
 package com.rmit.sept.mon15307.backend.services;
 
 import com.rmit.sept.mon15307.backend.Repositories.UserRepository;
-import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,15 +18,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        UserAccount user = userRepository.findByUsername(username);
         if(user==null) new UsernameNotFoundException("User not found");
         return user;
     }
 
 
     @Transactional
-    public User loadUserById(Long id){
-        User user = userRepository.findByUserId(id);
+    public UserAccount loadUserById(Long id){
+        UserAccount user = userRepository.findByUserId(id);
         if(user==null) new UsernameNotFoundException("User not found");
         return user;
 
