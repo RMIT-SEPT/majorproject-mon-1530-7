@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends CrudRepository<User, Long> {
 
         User findByUserId(Long userId);
-        @Override
-        Iterable<User> findAll();
+        User findByUsername(String username);
+        
 }
