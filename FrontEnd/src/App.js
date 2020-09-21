@@ -7,6 +7,7 @@ import HomePage from './components/pages/HomePage';
 import AboutPage from './components/pages/AboutPage';  
 import ContactPage from './components/pages/ContactPage';
 import CustomerBookingPage from './components/pages/CustomerBookingPage.js';
+import NewEmployeePage from './components/pages/NewEmployeePage.js';
 
 import CustomerPastBookingsPage from './components/pages/CustomerPastBookingsPage.js';
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/admin-dashboard" component={AdminDashboard} />
           <Route path="/account" component={Account} />
+          <Route path="/new-employee" component={NewEmployeePage} />
           <Route path="/profile" component={Profile} />
         </Switch>
         </BrowserRouter>
