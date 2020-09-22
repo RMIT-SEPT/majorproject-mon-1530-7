@@ -1,8 +1,9 @@
 var UserProfile = (function() {
   var loggedIn = false;
+  var UID = '';
 
   var getLoggedIn = function() {
-    if(localStorage.getItem("loggedIn") == "true") {
+    if(localStorage.getItem("loggedIn") === "true") {
       return Boolean(true);
     }
     else {
@@ -11,14 +12,23 @@ var UserProfile = (function() {
      
   };
 
-  var setLoggedIn = function(state) {
-    loggedIn = state;   
+  var setLoggedIn = function(state) {  
     localStorage.setItem("loggedIn",state); 
   };
 
+  var getUID = function() {
+    return localStorage.getItem("UID");
+  }
+
+  var setUID = function(state) {
+    localStorage.setItem("UID",state)
+  }
+
   return {
     getLoggedIn: getLoggedIn,
-    setLoggedIn: setLoggedIn
+    setLoggedIn: setLoggedIn,
+    getUID: getUID,
+    setUID: setUID
   }
 
 })();

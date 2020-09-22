@@ -19,7 +19,7 @@ class LoginPage extends Component {
     
       handleSubmit = (event) => {
         
-        
+        var username = this.state.username
         fetch('http://localhost:8080/api/user/login', {
             method: 'POST',
             headers: {
@@ -27,9 +27,11 @@ class LoginPage extends Component {
             },
             body: JSON.stringify(this.state)     
           }).then(function(response) {
+              
               if(response.status === 200) {
                     UserProfile.setLoggedIn(true) 
-                    window.location.reload(false)
+                    UserProfile.setUID(username)
+                    window.location.reload(false)     
               }
               else {
                   alert("incorrect username or password")

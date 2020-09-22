@@ -6,6 +6,7 @@ import com.rmit.sept.mon15307.backend.services.UserService;
 import com.rmit.sept.mon15307.backend.validator.UserValidator;
 import com.rmit.sept.mon15307.backend.security.JwtTokenProvider;
 import com.rmit.sept.mon15307.backend.payload.LoginRequest;
+import com.rmit.sept.mon15307.backend.payload.ProfileLoadRequest;
 import com.rmit.sept.mon15307.backend.payload.JWTLoginSucessReponse;
 
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
 
 import static com.rmit.sept.mon15307.backend.security.SecurityConstant.TOKEN_PREFIX;
 
@@ -75,6 +77,15 @@ public class UserController {
         UserAccount newUser = userService.saveOrUpdateUser(user);
 
         return  new ResponseEntity<UserAccount>(newUser, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/profile")
+    public ResponseEntity<?> getUserDetails(@Valid @RequestBody ProfileLoadRequest profileLoadRequest, BindingResult result) {
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if(errorMap != null)return errorMap;
+        UserAccount user = userService.findByUsername(profileLoadRequest.getUsername());
+
+        return new ResponseEntity<UserAccount>(user,HttpStatus.OK);
     }
 
 

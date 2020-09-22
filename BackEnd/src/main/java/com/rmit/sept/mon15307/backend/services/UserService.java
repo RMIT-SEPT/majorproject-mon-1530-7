@@ -45,6 +45,17 @@ public class UserService {
         return user;
     }
 
+    public UserAccount findByUsername(String username) {
+        UserAccount user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            // TODO: custom exception
+            throw new RuntimeException("Username '" + username + "' does not exist");
+        }
+
+        return user;
+    }
+
     public boolean AuthenticateUser(String userId , String password) {
         UserAccount user = userRepository.findByUserId(Long.parseLong(userId));
         if(user.getPassword() == password) {

@@ -3,11 +3,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Navbar, Nav } from 'react-bootstrap';
 import "../../index.css";
 import { Link } from 'react-router-dom';
-import UserProfile, {UserContext} from '../../UserProfile'
+import UserProfile from '../../UserProfile'
 
 function NavigationBar() {
   console.log(Boolean(UserProfile.getLoggedIn()))
-  if (UserProfile.getLoggedIn() == true) {
+  if (UserProfile.getLoggedIn() === true) {
     return (
       <Navbar fixed="top" bg="white" variant="light">
         <Navbar.Brand href="/">[ Booking System ]</Navbar.Brand>
