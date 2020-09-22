@@ -20,6 +20,10 @@
 
 ## Submission details
 
+- [Submission page](https://www.notion.so/sammellor/Milestone-2-submission-9ab3f670695e4401b991c72a55d31742)
+
+    - Also available in `submission_page.pdf`
+
 - [Peer assessment](https://www.notion.so/sammellor/Milestone-2-submission-9ab3f670695e4401b991c72a55d31742)
 - [App screenshots](https://www.notion.so/sammellor/39fd468ff798459c8b1cec8b5cca7738?v=a3853b9d17f445bfa060e06151424475)
 
