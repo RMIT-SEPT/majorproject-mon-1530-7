@@ -33,7 +33,7 @@ public class JwtTokenProvider {
         claims.put("phoneNumber", user.getPhoneNumber());
         claims.put("isCustomer",user.getCustomer());
         claims.put("isWorker",user.getWorker());
-        claims.put("preferredName",user.getPreName());
+        claims.put("preferredName",user.getPreferredName());
         claims.put("isAdmin",user.getAdmin());
 
         return Jwts.builder()

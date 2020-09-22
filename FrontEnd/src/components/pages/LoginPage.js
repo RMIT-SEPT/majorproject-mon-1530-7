@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
+import UserProfile from '../../UserProfile.js'
 
 
 class LoginPage extends Component {
@@ -25,7 +26,10 @@ class LoginPage extends Component {
             },
             body: JSON.stringify(this.state)     
           }).then(function(response) {
-            console.log(response.status);
+              if(response.status === 200) {
+                    UserProfile.setLoggedIn(true) 
+                    window.location.reload(false)
+              }
             return response.json();
         });
           

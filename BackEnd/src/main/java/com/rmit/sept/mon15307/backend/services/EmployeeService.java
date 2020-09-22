@@ -11,11 +11,11 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public Employee findByEmployeeId(String employeeId) {
+    public Employee findByEmployeeId(String employeeId) throws EmployeeNotFoundException {
         Employee employee = employeeRepository.findByEmployeeId(Long.parseLong(employeeId));
 
         if (employee == null) {
-            throw new EmployeeNotFoundException();
+            throw new EmployeeNotFoundException("Employee not found");
         }
 
         return employee;

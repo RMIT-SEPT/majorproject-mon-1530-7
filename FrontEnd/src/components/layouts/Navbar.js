@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import UserProfile, {UserContext} from '../../UserProfile'
 
 function NavigationBar() {
-  
-  if (UserProfile.getLoggedIn() === true) {
+  console.log(Boolean(UserProfile.getLoggedIn()))
+  if (UserProfile.getLoggedIn() == true) {
     return (
       <Navbar fixed="top" bg="white" variant="light">
         <Navbar.Brand href="/">[ Booking System ]</Navbar.Brand>

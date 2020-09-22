@@ -65,8 +65,11 @@ public class UserAccount implements UserDetails{
 
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
+    }
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getFullName() {
@@ -110,13 +113,8 @@ public class UserAccount implements UserDetails{
     public String getConfirmPassword() {
         return confirmPassword;
     }
-
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Boolean getAdmin() {
