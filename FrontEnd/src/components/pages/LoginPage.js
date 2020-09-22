@@ -28,17 +28,23 @@ class LoginPage extends Component {
             
             body: JSON.stringify({username:this.state.username,password:this.state.password})    
           }).then(function(response) {
+              if (!response.ok) {
+                  console.log('reject')
+                  throw(new Error("Request failed"));
+              }
               
-              if(response.status === 200) {
-                    UserProfile.setLoggedIn(true) 
-                    UserProfile.setUID(username)
-                    window.location.reload(false)     
-              }
-              else {
-                  alert("incorrect username or password")
-              }
+ 
             return response.json();
-        });
+        }).then(data => {
+            
+                console.log(data)
+                UserProfile.setLoggedIn(true) 
+                UserProfile.setUID(username)
+                UserProfile.setToken(data.token)
+                window.location.reload(false) 
+               
+
+        }).catch(error => alert("incorrect username or password"));
           
         event.preventDefault();
         

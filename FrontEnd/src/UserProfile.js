@@ -28,12 +28,21 @@ var UserProfile = (function() {
     localStorage.setItem("UID",state)
   }
 
+  var getToken = function() {
+    return localStorage.getItem("token")
+  }
+  var setToken = function(state) {
+    localStorage.setItem("token",state)
+  }
+
   return {
     getLoggedIn: getLoggedIn,
     setLoggedIn: setLoggedIn,
     setLoggedOut: setLoggedOut,
     getUID: getUID,
-    setUID: setUID
+    setUID: setUID,
+    getToken: getToken,
+    setToken: setToken
   }
 
 })();
