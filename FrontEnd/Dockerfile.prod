@@ -1,6 +1,7 @@
 FROM node:12.18.3-alpine as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
+ENV REACT_APP_API_URL 'http://localhost:8080/api'
 COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci

@@ -68,7 +68,12 @@ class CustomerBookingPage extends Component {
   }
 
   fetchServices() {
-    fetch(process.env.REACT_APP_API_URL + "/products")
+    console.log(UserProfile.getToken())
+    fetch(process.env.REACT_APP_API_URL + "/products", {
+      headers : {
+        Authorization: UserProfile.getToken()
+      }
+    })
       .then((response) => response.json())
       .then((data) =>
         // TODO: handle errors
@@ -77,7 +82,12 @@ class CustomerBookingPage extends Component {
   }
 
   fetchStaff() {
-    fetch(process.env.REACT_APP_API_URL + "/staff")
+    console.log(UserProfile.getToken())
+    fetch(process.env.REACT_APP_API_URL + "/staff", {
+      headers : {
+        Authorization: UserProfile.getToken()
+        }
+      })
       .then((response) => response.json())
       .then((data) =>
         // TODO: handle errors

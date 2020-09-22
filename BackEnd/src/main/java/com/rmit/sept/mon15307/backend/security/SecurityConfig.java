@@ -66,10 +66,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                 .sessionManagement()
+                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                 .and()
                 .headers().frameOptions().sameOrigin() //To enable H2 Database
                 .and()
                 .authorizeRequests()
@@ -85,10 +85,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                 ).permitAll()
                 .antMatchers(SIGN_UP_URLS).permitAll()
-                //.antMatchers("/api/users/**").permitAll()
                 .antMatchers(H2_URL).permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
+  
 }
