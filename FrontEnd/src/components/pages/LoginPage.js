@@ -31,6 +31,9 @@ class LoginPage extends Component {
                     UserProfile.setLoggedIn(true) 
                     window.location.reload(false)
               }
+              else {
+                  alert("incorrect username or password")
+              }
             return response.json();
         });
           
