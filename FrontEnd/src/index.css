@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+.main-container {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px;
+}
+
 .header {
   background-color: #ffffff;
   top: 0;
@@ -21,7 +29,7 @@
 
 body {
   margin-top: 10px;
-  background-color: #cacaca;
+  background-color: #ffffff;
   min-height: 10vh;
   text-align: left;
   align-items: center;
@@ -42,7 +50,22 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
 .h2-main {
   font-weight: 600;
   color: #303030;
-  text-align: left;  
+  text-align: left;
+}
+
+.h2-center {
+  font-weight: 600;
+  color: #303030;
+  text-align: center;
+  margin: 1em;
+
+}
+
+.h5-main {
+  font-weight: 600;
+  color: #303030;
+  margin: 0.55em;
+  margin-top: 1em;
 }
 
 #jumbotron-custom {
@@ -50,6 +73,30 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
   margin: 20px;
   margin-top: 12em;
   margin-bottom: 50px;
+}
+
+#dashboard-jumbotron {
+  background-color: #ffffff;
+  margin-top: 4em;
+  margin-bottom: 4em;
+}
+
+#center-jumbotron {
+  background-color: #ffffff;
+  margin-top: 8em;
+  margin-bottom: 4em;
+}
+
+#col-custom {
+  margin-top: 5em;
+}
+
+#emp-col {
+  margin-top: 2em;
+}
+
+#profile-col {
+  margin-top: 2em;
 }
 
 a {
@@ -94,9 +141,9 @@ a:hover {
   font-size: 16px;
   font-weight: 600;
   min-height: 40px;
-  min-width: 115px;
-  margin-right: 10px;
+  min-width: 145px;
   border-radius: 26px;
+  margin-left: -20px;
   border: 2px solid #2b80ff;
   background-color: #ffffff00;
   color: #1f74f3;
@@ -106,6 +153,60 @@ a:hover {
 .btn-border:hover, .btn-border:focus, .btn-border:active, .btn-border.active {
   color: #303030;
   border: 2px solid #303030;
+}
+
+.cancel-btn {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 10px;
+  min-height: 30px;
+  min-width: 115px;
+  margin-left: 2em;
+  border-radius: 26px;
+  border: 2px solid #303030;
+  background-color: #ffffff;
+  color: #303030;
+  text-decoration: none;
+}
+
+.cancel-btn:hover, .cancel-btn:focus, .cancel-btn:active, .cancel-btn.active {
+  color: #2b80ff;
+  border: 2px solid #2b80ff;
+}
+
+.elongated-btn {
+  font-size: 12px;
+  font-weight: 600;
+  min-height: 35px;
+  min-width: 165px;
+  border-radius: 26px;
+  border: 2px solid #303030;
+  background-color: #ffffff;
+  color: #303030;
+  text-decoration: none;
+}
+
+.elongated-btn:hover, .elongated-btn:focus, .elongated-btn:active, .elongated-btn.active {
+  color: #2b80ff;
+  border: 2px solid #2b80ff;
+}
+
+.edit-btn {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 10px;
+  min-height: 30px;
+  min-width: 115px;
+  border-radius: 26px;
+  border: 2px solid #303030;
+  background-color: #ffffff;
+  color: #303030;
+  text-decoration: none;
+}
+
+.edit-btn:hover, .edit-btn:focus, .edit-btn:active, .edit-btn.active {
+  color: #2b80ff;
+  border: 2px solid #2b80ff;
 }
 
 .btn-large {
@@ -128,6 +229,25 @@ a:hover {
   background-color: #0066ff;
 }
 
+.btnBorder-large {
+  font-size: 18px;
+  font-weight: 600;
+  min-height: 50px;
+  min-width: 240px;
+  border-radius: 26px;
+  border: 2px solid #2b80ff;
+  background-color: #ffffff;
+  color: #1f74f3;
+  display: block;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+}
+
+.btnBorder-large:hover, .btnBorder-large:focus, .btnBorder-large:active, .btnBorder-large.active {
+  color: #303030;
+  border: 2px solid #303030;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -146,21 +266,87 @@ html {
   color: #ffffff;
 }
 
+.profile-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 170px;
+}
 
 .loginContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 240px;
+}
+
+label {
+  font-size: 20px;
+}
+
+input {
+  min-width: 18em;
+}
+
+.customerBookingPageContainer {
   width: 100%;
   height:100%;
   display: flex;
   align-items: center;
   flex-direction: column;
   text-align: center;
-  padding: 240px ;
+  padding-bottom: 10px;
+  padding-top: 20px;
 }
 
-label{
-  font-size: 20px;
+.makeCusBooking{
+  text-align: center;
+  padding-top: 20px;
 }
 
-input {
-  min-width: 18em;
+
+.h2-cus-book-page{
+  font-weight: 600;
+  color: #303030;
+  text-align: left;  
+  padding-bottom: 20px;
+}
+
+#jumbotron-cus-book-page {
+  background-color: #ffffff;
+  margin: 20px;
+  margin-top: 5em;
+  margin-bottom: 50px;
+}
+
+.datePickerContainer{
+  text-align: center;
+  border: 1px solid #2b80ff;
+  color: #1f74f3;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.customer-booking-page-error-modal .modal-header{
+  /* background-color: red; */
+  color:red;
+}
+
+.wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 150px;
+  justify-content: space-between;
+}
+
+.wrapper h1{
+  width: 100%;
+  text-align: center;
+
 }
