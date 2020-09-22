@@ -12,9 +12,13 @@ var UserProfile = (function() {
      
   };
 
-  var setLoggedIn = function(state) {  
-    localStorage.setItem("loggedIn",state); 
+  var setLoggedIn = function() {  
+    localStorage.setItem("loggedIn",true); 
   };
+
+  var setLoggedOut = function() {
+    localStorage.setItem("loggedIn",false)
+  }
 
   var getUID = function() {
     return localStorage.getItem("UID");
@@ -27,6 +31,7 @@ var UserProfile = (function() {
   return {
     getLoggedIn: getLoggedIn,
     setLoggedIn: setLoggedIn,
+    setLoggedOut: setLoggedOut,
     getUID: getUID,
     setUID: setUID
   }

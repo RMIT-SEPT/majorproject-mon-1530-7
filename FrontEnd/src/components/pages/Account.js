@@ -5,7 +5,7 @@ import UserProfile from '../../UserProfile.js'
 
 class Account extends Component {
     handleLogout = (event) => {
-        UserProfile.setLoggedIn(false)
+        UserProfile.setLoggedOut()
         window.location.reload(false)
         
       }

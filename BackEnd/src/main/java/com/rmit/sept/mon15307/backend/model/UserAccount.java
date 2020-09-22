@@ -46,11 +46,13 @@ public class UserAccount implements UserDetails{
     @NotNull
     private String phoneNumber;
 
-    
+    @NotNull
     private Boolean isAdmin;
     
+    @NotNull
     private Boolean isWorker;
     
+    @NotNull
     private Boolean isCustomer;
     @Transient
     private String confirmPassword;

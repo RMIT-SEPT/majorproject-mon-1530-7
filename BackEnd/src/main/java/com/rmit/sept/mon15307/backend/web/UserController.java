@@ -63,8 +63,8 @@ public class UserController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = TOKEN_PREFIX +  tokenProvider.generateToken(authentication);
-
-        return ResponseEntity.ok(new JWTLoginSucessReponse(true, jwt));
+        Boolean adminStatus = userService.findByUsername(loginRequest.getUsername()).getAdmin();
+        return ResponseEntity.ok(new JWTLoginSucessReponse(true, jwt,adminStatus));
     }  
 
     @PostMapping("/register")

@@ -8,8 +8,7 @@ import UserProfile from '../../UserProfile.js'
 class LoginPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {username:'',
-                      password:''};
+        this.state = {}
       }
     
       handleChange = (event) => {
@@ -18,14 +17,16 @@ class LoginPage extends Component {
       }
     
       handleSubmit = (event) => {
-        
+        console.log(this.state)
+        console.log(this.state.username)
         var username = this.state.username
         fetch('http://localhost:8080/api/user/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(this.state)     
+            
+            body: JSON.stringify({username:this.state.username,password:this.state.password})    
           }).then(function(response) {
               
               if(response.status === 200) {

@@ -3,10 +3,12 @@ package com.rmit.sept.mon15307.backend.payload;
 public class JWTLoginSucessReponse {
     private boolean success;
     private String token;
+    private boolean isAdmin;
 
-    public JWTLoginSucessReponse(boolean success, String token) {
+    public JWTLoginSucessReponse(boolean success, String token, boolean isAdmin) {
         this.success = success;
         this.token = token;
+        this.isAdmin = isAdmin;
     }
 
     public boolean isSuccess() {
@@ -24,6 +26,11 @@ public class JWTLoginSucessReponse {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+   
 
     @Override
     public String toString() {
