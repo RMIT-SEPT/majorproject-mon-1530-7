@@ -55,9 +55,7 @@ public class Employee {
         return false;
     }
 
-    public String getId() {
-        return id.toString();
-    }
+    public String getId() { return id.toString(); }
 
     public UserAccount getUser() {
         return user;
