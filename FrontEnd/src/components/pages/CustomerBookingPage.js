@@ -3,6 +3,7 @@ import ServiceCard from "../layouts/ServiceCard";
 import StaffCard from "../layouts/StaffCard";
 import TimeSelectorCard from "../layouts/TimeSelectorCard";
 import { Container, Jumbotron, CardDeck, Form, Button } from "react-bootstrap";
+import UserProfile from "../../UserProfile";
 
 class CustomerBookingPage extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class CustomerBookingPage extends Component {
       employeeAvailability: [],
       employeeAvailabilityIds: { service: null, employee: null },
     };
-
+   
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onServiceSelect = this.onServiceSelect.bind(this);
     this.onEmployeeSelect = this.onEmployeeSelect.bind(this);
@@ -68,7 +69,12 @@ class CustomerBookingPage extends Component {
   }
 
   fetchServices() {
-    fetch(process.env.REACT_APP_API_URL + "/products")
+    console.log(UserProfile.getToken())
+    fetch(process.env.REACT_APP_API_URL + "/products", {
+      headers : {
+        Authorization: UserProfile.getToken()
+      }
+    })
       .then((response) => response.json())
       .then((data) =>
         // TODO: handle errors
@@ -77,7 +83,12 @@ class CustomerBookingPage extends Component {
   }
 
   fetchStaff() {
-    fetch(process.env.REACT_APP_API_URL + "/staff")
+    console.log(UserProfile.getToken())
+    fetch(process.env.REACT_APP_API_URL + "/staff", {
+      headers : {
+        Authorization: UserProfile.getToken()
+        }
+      })
       .then((response) => response.json())
       .then((data) =>
         // TODO: handle errors

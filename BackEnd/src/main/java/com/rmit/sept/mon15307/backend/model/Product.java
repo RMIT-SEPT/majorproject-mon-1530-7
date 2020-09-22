@@ -14,7 +14,7 @@ import java.util.Date;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long productId;
 
     @CreatedDate
     private Date createdAt;
@@ -40,7 +40,7 @@ public class Product {
     @NotNull @Min(1) @Max(1440)  // up to 24 hours
     private int duration;
 
-    public String getId() { return id.toString(); }
+    public String getId() { return productId.toString(); }
 
     public String getName() {
         return name;
@@ -87,7 +87,7 @@ public class Product {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Product{");
-        sb.append("id=").append(id);
+        sb.append("id=").append(productId);
         sb.append(", createdAt=").append(createdAt);
         sb.append(", updatedAt=").append(updatedAt);
         sb.append(", name='").append(name).append('\'');
