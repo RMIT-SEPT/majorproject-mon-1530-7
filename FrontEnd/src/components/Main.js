@@ -2,7 +2,8 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Container, Col, Jumbotron, Row } from 'react-bootstrap';
 import "../index.css";
-import Image from './images/img_11.png';
+import Image2 from './images/img_2.png';
+import Image3 from './images/img_3.png';
 import Icon1 from './images/icon_1.png';
 import Icon2 from './images/icon_2.png';
 import Icon3 from './images/icon_3.png';
@@ -13,7 +14,7 @@ function Main() {
       <Container>
         <Row>
           <Col xs={6} md={{ span: 4, offset: -1 }}>
-            <img src={Image} alt="main_img" height="600"></img>
+            <img src={Image2} alt="main_img" height="600"></img>
           </Col>
           <Col xs={6} md={{ span: 6, offset: 2 }} id="col-main2">
             <h2 className="h2-main">24/7 Access to online bookings</h2>
@@ -48,6 +49,19 @@ function Main() {
           <Col xs={6} md={{ offset: 0 }}><p>Our simple and easy-to-use API is great for beginners and starters. Design is intuitive and will improve productivity.</p></Col>
           <Col xs={6} md={{ offset: 1 }}><p>Our API will help grow and further advance your business in the long run. Produce noticeable results with us.</p></Col>
           <Col xs={6} md={{ offset: 1 }}><p>With our user-friendly API, you will be able to quickly and easily track current and upcoming bookings.</p></Col>
+        </Row>
+        <Row id="row-main">
+          <Col xs={6} md={{ span: 6, offset: 0 }} id="col-main3">
+            <h2 className="h2-main">Get Started With Us Today!</h2>
+            <p>Join us today and kickstart your business ASAP. We guarantee rapid business growth
+              and improved management with our API. We offer many other features available for your
+              business, so get started to find out more!
+            </p>
+            <button className="btn-large">Get Started</button>
+          </Col>
+          <Col xs={6} md={{ span: 4, offset: 0 }}>
+            <img src={Image3} alt="main_img" height="600"></img>
+          </Col>
         </Row>
       </Container>
     </Jumbotron>
