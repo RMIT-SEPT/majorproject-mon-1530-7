@@ -4,6 +4,7 @@ import { Container, Col, Jumbotron, Row } from 'react-bootstrap';
 import CustomerDashboardCurrentBookingsSection from './CustomerDashboardCurrentBookingsSection';
 import CustomerDashboardBookingHistorySection from './CustomerDashboardBookingHistorySection';
 import "../../index.css";
+import UserProfile from "../../UserProfile.js";
 
 // function DashboardLayout() {
   class DashboardLayout extends Component {
@@ -11,13 +12,12 @@ import "../../index.css";
     constructor(props){
       super(props);
       this.state={
-        //TODO AUTHENTICATION AND SELECTION OF USERID?
-        user_id: null,
+        user_id: UserProfile.getUID(),
         currentBookings:[],
         loadingCurrentBookings: true,
         pastBookings:[],
         loadBookingHistory: true,
-        //TODO MORE FOR BOOKING HISTORY
+        //TODO MORE FOR BOOKING HISTORY?
       }
     }
 
@@ -27,22 +27,20 @@ import "../../index.css";
     }
 
     fetchCurrentBookings(){
-      // TODO SELECTION OF USER_ID
-      fetch(process.env.REACT_APP_API_URL + "/bookings?user=:" + {user_id:1})
+      fetch(process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id)
       .then((response) => response.json())
       .then((data) =>
 
-        this.setState({currentBookings: data["bookings?user=:" + {user_id:1}], loadingCurrentBookings: false})
+        this.setState({currentBookings: data["bookings?user=" + this.state.user_id], loadingCurrentBookings: false})
       );
     }
 
     fetchBookingHistory(){
-      // TODO SELECTION OF USER_ID
-      fetch(process.env.REACT_APP_API_URL + "/bookings?user=:" + {user_id:1})
+      fetch(process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id)
       .then((response) => response.json())
       .then((data) =>
 
-        this.setState({pastBookings: data["bookings?user=:" + {user_id:1}], loadBookingHistory: false})
+        this.setState({pastBookings: data["bookings?user=" + this.state.user_id], loadBookingHistory: false})
       );
     }
 
