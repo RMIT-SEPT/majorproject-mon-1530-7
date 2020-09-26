@@ -30,12 +30,64 @@ class CustomerDashboardCurrentBookingsSection extends Component {
 
                   <tbody>
                     {this.props.currentBookings.map((currentBooking) => (
-                        //TODO FORMAT DATE AND TIME ACCORDINGLY
                         <tr>
                             <td>{currentBooking.product.name}</td>
                             <td>{currentBooking.staff_member.name}</td>
-                            <td>{currentBooking.appointment_time}</td>
-                            <td>{currentBooking.appointment_time}</td>
+
+                            <td>{currentBooking.appointment_time.substring(8, 10) + "/" + 
+                            currentBooking.appointment_time.substring(5, 7) + "/" + 
+                            currentBooking.appointment_time.substring(0, 4)}</td>
+
+                            {(currentBooking.appointment_time.substring(11 ,13) === "12") &&
+                            <td>{"12"+ currentBooking.appointment_time.substring(13) + " pm"}</td>} 
+                        {(currentBooking.appointment_time.substring(11 ,13) === "13") &&
+                            <td>{"1" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        {(currentBooking.appointment_time.substring(11 ,13) === "14") &&
+                            <td>{"2" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        {(currentBooking.appointment_time.substring(11 ,13) === "15") &&
+                            <td>{"3" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        {(currentBooking.appointment_time.substring(11 ,13) === "16") &&
+                            <td>{"4" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        {(currentBooking.appointment_time.substring(11 ,13) === "17") &&
+                            <td>{"5" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        {(currentBooking.appointment_time.substring(11 ,13) === "18") &&
+                            <td>{"6" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        {(currentBooking.appointment_time.substring(11 ,13) === "19") &&
+                            <td>{"7" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        {(currentBooking.appointment_time.substring(11 ,13) === "20") &&
+                            <td>{"8" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        {(currentBooking.appointment_time.substring(11 ,13) === "21") &&
+                            <td>{"9" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        {(currentBooking.appointment_time.substring(11 ,13) === "22") &&
+                            <td>{"10" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        {(currentBooking.appointment_time.substring(11 ,13) === "23") &&
+                            <td>{"11" + currentBooking.appointment_time.substring(13) + " pm"}</td>}
+                        
+                            {(currentBooking.appointment_time.substring(11 ,13) === "00") &&
+                            <td>{"12" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "01") &&
+                            <td>{"1" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "02") &&
+                            <td>{"2" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "03") &&
+                            <td>{"3" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "04") &&
+                            <td>{"4" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "05") &&
+                            <td>{"5" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "06") &&
+                            <td>{"6" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "07") &&
+                            <td>{"7" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "08") &&
+                            <td>{"8" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "09") &&
+                            <td>{"9" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "10") &&
+                            <td>{"10" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+                            {(currentBooking.appointment_time.substring(11 ,13) === "11") &&
+                            <td>{"11" + currentBooking.appointment_time.substring(13) + " am"}</td>}
+
                             <button className="cancel-btn">Cancel Booking</button>
                         </tr>
                     ))}
