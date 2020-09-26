@@ -62,8 +62,8 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
 
 .h4-main {
   font-weight: 600;
-  color: #2a94f4;
-  margin-left: 0.75em;
+  margin-top: 1em;
+  color: #303030;
 }
 
 .h4-main2 {
@@ -76,6 +76,12 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
   color: #303030;
   margin: 0.55em;
   margin-top: 1em;
+}
+
+.h5-main2 {
+  font-weight: 600;
+  margin-top: 2em;
+  color: #2a94f4;
 }
 
 #jumbotron-custom {
@@ -143,7 +149,6 @@ a:hover {
   border: 2px solid #2b80ff;
   background-color: #2b80ff;
   color: #ffffff;
-  display: block;
   text-decoration: none;
   transition: all 0.3s ease 0s;
 }
@@ -160,6 +165,7 @@ a:hover {
   min-width: 145px;
   border-radius: 26px;
   margin-left: -20px;
+  margin-right: -20px;
   border: 2px solid #2b80ff;
   background-color: #ffffff00;
   color: #1f74f3;
@@ -377,6 +383,19 @@ input {
   margin-top: 12em;
 }
 
+#col-main4 {
+  margin-left: -6em;
+  margin-top: -6em;
+  margin-bottom: 6em;
+}
+
+#col-main5 {
+  margin-left: 12em;
+  margin-right: -5em;
+  margin-top: -1em;
+  margin-bottom: 6em;
+}
+
 #row-main {
   margin-top: 12em;
 }
@@ -388,4 +407,9 @@ input {
 
 #row-center {
   text-align: center;
+}
+
+#align-btn {
+  margin-top: 1em;
+  margin-left: -1.3em;
 }
