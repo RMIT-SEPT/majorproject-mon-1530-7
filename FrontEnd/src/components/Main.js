@@ -13,17 +13,17 @@ function Main() {
     <Jumbotron id="jumbotron-alt">
       <Container>
         <Row>
-          <Col xs={6} md={{ span: 4, offset: -1 }}>
+          <Col id="col-main6">
             <img src={Image2} alt="main_img" height="600"></img>
           </Col>
-          <Col xs={6} md={{ span: 6, offset: 2 }} id="col-main2">
+          <Col id="col-main2">
             <h2 className="h2-main">24/7 Access to online bookings</h2>
             <p>Your clients will have the ability to book whenever they need,
             allowing your business to thrive even when you are not looking.
             At the click of a button, our easy booking system will help you
-            gain more customers at a faster rate. Our booking system welcomes
+            gain more customers at a faster rate. Our API welcomes
             a variety of businesses and services, and will help reach your
-            business/service to a larger community.</p>
+            business to a larger community and grow your brand.</p>
           </Col>
         </Row>
         <Row id="row-center-main">

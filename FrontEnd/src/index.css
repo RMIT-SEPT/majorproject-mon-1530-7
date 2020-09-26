@@ -93,7 +93,7 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
 #jumbotron-alt {
   background-color: #ffffff;
   margin: 20px;
-  margin-top: 0em;
+  margin-top: -2em;
   margin-bottom: 6em;
 }
 
@@ -376,7 +376,9 @@ input {
 }
 
 #col-main2 {
-  margin-top: 4em;
+  margin-top: 14em;
+  margin-left: 5em;
+  margin-right: -2em;
 }
 
 #col-main3 {
@@ -394,6 +396,10 @@ input {
   margin-right: -5em;
   margin-top: -1em;
   margin-bottom: 6em;
+}
+
+#col-main6 {
+  margin-left: -1em;
 }
 
 #row-main {
