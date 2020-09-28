@@ -1,11 +1,12 @@
 package com.rmit.sept.mon15307.backend.services;
 
 import com.rmit.sept.mon15307.backend.Repositories.UserRepository;
-import com.rmit.sept.mon15307.backend.model.UserAccount;
+import com.rmit.sept.mon15307.backend.exceptions.UserNotFoundException;
 import com.rmit.sept.mon15307.backend.exceptions.UsernameAlreadyExistsException;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
@@ -39,7 +40,7 @@ public class UserService {
 
         if (user == null) {
             // TODO: custom exception
-            throw new RuntimeException("User ID '" + userId + "' does not exist");
+            throw new UserNotFoundException("User ID '" + userId + "' not found");
         }
 
         return user;
@@ -50,7 +51,7 @@ public class UserService {
 
         if (user == null) {
             // TODO: custom exception
-            throw new RuntimeException("Username '" + username + "' does not exist");
+            throw new UserNotFoundException("Username '" + username + "' not found");
         }
 
         return user;
