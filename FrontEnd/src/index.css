@@ -379,7 +379,7 @@ input {
   color: red;
 }
 
-.wrapper {
+.wrapper{
   display: flex;
   flex-wrap: wrap;
   padding: 150px;
