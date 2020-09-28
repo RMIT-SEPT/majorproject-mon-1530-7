@@ -1,24 +1,21 @@
 package com.rmit.sept.mon15307.backend.web;
 
 import com.rmit.sept.mon15307.backend.model.Booking;
-import com.rmit.sept.mon15307.backend.model.User;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
 import com.rmit.sept.mon15307.backend.services.BookingService;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/booking/bookings")
+@RequestMapping("/api/bookings")
 @CrossOrigin
 public class BookingController {
 
@@ -52,7 +49,7 @@ public class BookingController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> listUserBookings(@RequestParam(value="user", required=true) User user) {
+    public ResponseEntity<?> listUserBookings(@RequestParam(value="user", required=true) UserAccount user) {
         Iterable<Booking> allBookings = bookingService.findAllBookings();
         List<Booking> userBookings = new ArrayList<Booking>();
         for(Booking i:allBookings) {
