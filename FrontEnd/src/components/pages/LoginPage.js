@@ -36,13 +36,7 @@ class LoginPage extends Component {
         }).then(data => {
             
                 UserProfile.setLoggedIn()      
-                if(data.admin === true) {
-                    UserProfile.setAdmin("true")
-                    
-                }
-                else {
-                    UserProfile.setAdmin("false")
-                }
+                UserProfile.setAdmin(data.admin)
                 UserProfile.setUID(username)
                 UserProfile.setToken(data.token)
                 
