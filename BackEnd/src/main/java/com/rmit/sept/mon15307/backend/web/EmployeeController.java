@@ -2,7 +2,7 @@ package com.rmit.sept.mon15307.backend.web;
 
 import com.rmit.sept.mon15307.backend.exceptions.EmployeeNotFoundException;
 import com.rmit.sept.mon15307.backend.model.Employee;
-import com.rmit.sept.mon15307.backend.model.EmployeeAvailability;
+import com.rmit.sept.mon15307.backend.payload.EmployeeAvailabilityResponse;
 import com.rmit.sept.mon15307.backend.services.BookingService;
 import com.rmit.sept.mon15307.backend.services.EmployeeService;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
@@ -53,7 +53,8 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        EmployeeAvailability availability = new EmployeeAvailability(employee, bookingService);
+        EmployeeAvailabilityResponse availability =
+            new EmployeeAvailabilityResponse(employee, bookingService);
         return new ResponseEntity<>(availability, HttpStatus.OK);
     }
 }

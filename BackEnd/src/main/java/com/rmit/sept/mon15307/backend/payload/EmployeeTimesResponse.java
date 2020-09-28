@@ -1,17 +1,19 @@
-package com.rmit.sept.mon15307.backend.model;
+package com.rmit.sept.mon15307.backend.payload;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.rmit.sept.mon15307.backend.exceptions.ScheduleFullyBookedException;
+import com.rmit.sept.mon15307.backend.model.Booking;
+import com.rmit.sept.mon15307.backend.model.Schedule;
 import com.rmit.sept.mon15307.backend.services.BookingService;
 
 import java.util.*;
 
-public class EmployeeTimes {
+public class EmployeeTimesResponse {
     private final Date date;
     private final HashSet<String> times;
 
-    EmployeeTimes(Schedule schedule, BookingService bookingService)
+    EmployeeTimesResponse(Schedule schedule, BookingService bookingService)
         throws ScheduleFullyBookedException {
         this.date = schedule.getDate();
         this.times = new HashSet<>();

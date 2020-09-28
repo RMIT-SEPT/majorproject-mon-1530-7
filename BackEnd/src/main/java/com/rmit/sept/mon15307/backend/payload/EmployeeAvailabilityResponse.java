@@ -1,7 +1,9 @@
-package com.rmit.sept.mon15307.backend.model;
+package com.rmit.sept.mon15307.backend.payload;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.rmit.sept.mon15307.backend.exceptions.ScheduleFullyBookedException;
+import com.rmit.sept.mon15307.backend.model.Employee;
+import com.rmit.sept.mon15307.backend.model.Schedule;
 import com.rmit.sept.mon15307.backend.services.BookingService;
 
 import java.util.ArrayList;
@@ -9,11 +11,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class EmployeeAvailability {
+public class EmployeeAvailabilityResponse {
     private final Employee employee;
     private final BookingService bookingService;
 
-    public EmployeeAvailability(Employee employee, BookingService bookingService) {
+    public EmployeeAvailabilityResponse(Employee employee, BookingService bookingService) {
         this.employee = employee;
         this.bookingService = bookingService;
     }
@@ -28,8 +30,8 @@ public class EmployeeAvailability {
     }
 
     @JsonGetter("days")
-    public List<EmployeeTimes> getTimes() {
-        List<EmployeeTimes> times = new ArrayList<>();
+    public List<EmployeeTimesResponse> getTimes() {
+        List<EmployeeTimesResponse> times = new ArrayList<>();
 
         Calendar yesterdayCal = Calendar.getInstance();
         yesterdayCal.add(Calendar.DATE, -1);
@@ -44,7 +46,7 @@ public class EmployeeAvailability {
         for (Schedule schedule : employeeSchedule) {
             if (schedule.getDate().after(yesterday) && schedule.getDate().before(plus14)) {
                 try {
-                    times.add(new EmployeeTimes(schedule, bookingService));
+                    times.add(new EmployeeTimesResponse(schedule, bookingService));
                 } catch (ScheduleFullyBookedException e) {
                     // skip this day
                 }
