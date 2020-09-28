@@ -3,14 +3,8 @@ var UserProfile = (function() {
   var UID = '';
 
   var getLoggedIn = function() {
-    if(localStorage.getItem("loggedIn") === "true") {
-      return Boolean(true);
-    }
-    else {
-      return Boolean(false);
-    }
-     
-  };
+    return localStorage.getItem("loggedIn") === "true"
+  }
 
   var setLoggedIn = function() {  
     localStorage.setItem("loggedIn",true); 
@@ -36,12 +30,7 @@ var UserProfile = (function() {
   }
 
   var getAdmin = function() {
-    if(localStorage.getItem("admin") === "true") {
-      return Boolean(true);
-    }
-    else {
-      return Boolean(false);
-    }
+    return localStorage.getItem("admin") === "true"
   }
   var setAdmin = function(state) {
     localStorage.setItem("admin",state)
