@@ -3,6 +3,8 @@ import ServiceCard from "../layouts/ServiceCard";
 import StaffCard from "../layouts/StaffCard";
 import TimeSelectorCard from "../layouts/TimeSelectorCard";
 import { Container, Jumbotron, CardDeck, Form, Button } from "react-bootstrap";
+import CustomerBookingPageErrorModal from '../layouts/CustomerBookingPageErrorModal';
+import CustomerBookingPageConfirmationModal from '../layouts/CustomerBookingPageConfirmationModal';
 import UserProfile from "../../UserProfile";
 
 class CustomerBookingPage extends Component {
@@ -176,6 +178,16 @@ class CustomerBookingPage extends Component {
             >
               Make Booking
             </Button>
+            <CustomerBookingPageErrorModal 
+                className="customer-booking-page-error-modal"
+                show={this.state.showError}
+                onHide={this.hideErrorAlert}
+            />
+            <CustomerBookingPageConfirmationModal
+                className="customer-booking-page-confirmation-modal"
+                show={this.state.showSuccess}
+                onHide={this.hideSuccessAlert}
+            />
           </Container>
         </Jumbotron>
       </Form>
