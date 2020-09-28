@@ -1,51 +1,38 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
-import { Container, Jumbotron, Button, Form} from 'react-bootstrap';
-
+import { Container, Col, Jumbotron, Form, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class ContactPage extends Component {
     render() {
         return (
-            <Jumbotron id="jumbotron-custom">
+            <Jumbotron id="jumbotron-alt2">
                 <Container>
-                    <h1>
-                        Contact Us.
-                    </h1>    
-                    <p>
-                        We look forward to hearing what our cutz-omers have to say about our services, 
-                        so please contact us and let us know how your experience with Fresh-Cutz was.
-                    </p>
+                    <h2 className="h2-center">Contact Us</h2>
 
-                    <p>
-                        Phone Number : 1300-CUTZ
-                    </p>
-                    <p>    
-                        Email : FreshCutz@gmail.com
-                    </p>
+                    <h5 className="h5-center">Phone Number : 1300 0000</h5>
+                    <h5 className="h5-center">Email : bookingsystem@gmail.com</h5>
 
-                    <h4>
-                        OR Leave Feedback in this form below!
-                    </h4>
+                    <Row>
+                        <Col className="shadow p-3 mb-5 bg-white rounded" id="contact-card">
 
-                    <Form>
-                        <Form.Group controlId="formName">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Name"/>
-                        </Form.Group>
-                        <Form.Group controlId="formEmail">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" placeholder="Enter Email (If you want a reply!)" />
-                        </Form.Group>
-                        <Form.Group controlId="formFeedback">
-                            <Form.Label>Feedback</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Feedback" />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Leave Feedback!
-                        </Button>
-                    </Form>
+                            <h4 className="h5-main3">Have any questions?</h4>
+                            <Form>
+                                <Form.Group controlId="formName" id="form-custom">
+                                    <Form.Control type="text" placeholder="Enter Name" />
+                                </Form.Group>
+                                <Form.Group controlId="formEmail" id="form-custom">
+                                    <Form.Control type="email" placeholder="Enter Email" />
+                                </Form.Group>
+                                <Form.Group controlId="formFeedback" id="form-custom">
+                                    <Form.Control type="text" placeholder="Enter Feedback" />
+                                </Form.Group>
+                                <Link to="/signup"><button className="btn-filled" id="align-btn">Submit Now</button></Link>
+                            </Form>
+                        </Col>
+                    </Row>
                 </Container>
-            </Jumbotron>  
+            </Jumbotron>
         );
     }
 }

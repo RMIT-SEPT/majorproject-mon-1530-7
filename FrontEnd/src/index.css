@@ -84,6 +84,20 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
   color: #2a94f4;
 }
 
+.h5-main3 {
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  color: #2a94f4;
+}
+
+.h5-center {
+  font-size: 16px;
+  font-weight: 600;
+  color: #303030;
+  text-align: center;
+}
+
 #jumbotron-custom {
   background-color: #ffffff;
   margin: 20px;
@@ -94,6 +108,12 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
   background-color: #ffffff;
   margin: 20px;
   margin-top: -2em;
+  margin-bottom: 6em;
+}
+
+#jumbotron-alt2 {
+  background-color: #ffffff;
+  margin-top: 4em;
   margin-bottom: 6em;
 }
 
@@ -418,4 +438,17 @@ input {
 #align-btn {
   margin-top: 1em;
   margin-left: -1.3em;
+  margin-bottom: 1em;
+}
+
+#form-custom {
+  margin-left: 10em;
+  margin-right: 10em;
+}
+
+#contact-card {
+  text-align: center;
+  margin-left: 8em;
+  margin-right: 8em;
+  margin-top: 3em;
 }
