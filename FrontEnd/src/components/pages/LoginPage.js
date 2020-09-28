@@ -17,8 +17,6 @@ class LoginPage extends Component {
       }
     
       handleSubmit = (event) => {
-        console.log(this.state)
-        console.log(this.state.username)
         var username = this.state.username
         fetch('http://localhost:8080/api/user/login', {
             method: 'POST',
@@ -37,10 +35,11 @@ class LoginPage extends Component {
             return response.json();
         }).then(data => {
             
-                console.log(data)
-                UserProfile.setLoggedIn(true) 
+                UserProfile.setLoggedIn()      
+                UserProfile.setAdmin(data.admin)
                 UserProfile.setUID(username)
                 UserProfile.setToken(data.token)
+                
                 window.location.reload(false) 
                
 
