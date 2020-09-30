@@ -1,6 +1,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Container, Col, Jumbotron, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import "../index.css";
 import Image2 from './images/img_2.png';
 import Image3 from './images/img_3.png';
@@ -57,7 +58,7 @@ function Main() {
               and improved management with our API. We offer many other features available for your
               business, so get started to find out more!
             </p>
-            <button className="btn-large">Get Started</button>
+            <Link href="/signup"><button className="btn-large">Get Started</button></Link>
           </Col>
           <Col xs={6} md={{ span: 4, offset: 0 }}>
             <img src={Image3} alt="main_img" height="600"></img>
