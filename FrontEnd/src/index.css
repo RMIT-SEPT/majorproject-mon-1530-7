@@ -180,6 +180,25 @@ a:hover {
   background-color: #0066ff;
 }
 
+.btn-filled-extended {
+  font-size: 16px;
+  font-weight: 600;
+  min-height: 45px;
+  min-width: 180px;
+  margin-right: 20px;
+  border-radius: 26px;
+  border: 2px solid #2b80ff;
+  background-color: #2b80ff;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-filled-extended:hover, .btn-filled-extended:focus, .btn-filled-extended:active, .btn-filled-extended.active {
+  border: 2px solid #0066ff;
+  background-color: #0066ff;
+}
+
 .btn-border {
   font-size: 16px;
   font-weight: 600;
@@ -357,8 +376,7 @@ input {
 .h2-cus-book-page {
   font-weight: 600;
   color: #303030;
-  text-align: left;
-  margin-left: 0.4em;
+  text-align: center;
   padding-bottom: 20px;
 }
 
