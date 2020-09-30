@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'
 import UserProfile from '../../UserProfile.js'
 
 
@@ -9,14 +8,14 @@ class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {}
-      }
-    
-      handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-        
-      }
-    
-      handleSubmit = (event) => {
+    }
+
+    handleChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
+
+    }
+
+    handleSubmit = (event) => {
         console.log(this.state)
         console.log(this.state.username)
         var username = this.state.username
@@ -25,49 +24,47 @@ class LoginPage extends Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            
-            body: JSON.stringify({username:this.state.username,password:this.state.password})    
-          }).then(function(response) {
-              if (!response.ok) {
-                  console.log('reject')
-                  throw(new Error("Request failed"));
-              }
-              
- 
+
+            body: JSON.stringify({ username: this.state.username, password: this.state.password })
+        }).then(function (response) {
+            if (!response.ok) {
+                console.log('reject')
+                throw (new Error("Request failed"));
+            }
+
+
             return response.json();
         }).then(data => {
-            
-                console.log(data)
-                UserProfile.setLoggedIn(true) 
-                UserProfile.setUID(username)
-                UserProfile.setToken(data.token)
-                window.location.reload(false) 
-               
+
+            console.log(data)
+            UserProfile.setLoggedIn(true)
+            UserProfile.setUID(username)
+            UserProfile.setToken(data.token)
+            window.location.reload(false)
+
 
         }).catch(error => alert("incorrect username or password"));
-          
+
         event.preventDefault();
-        
+
     }
-    
-    
+
+
     render() {
-        
-        
+
+
         return (
-            <div className="loginContainer">
+            <div className="login-container">
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="formUsername">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control name="username" value={this.state.value} onChange={this.handleChange} type="username"  placeholder="Enter Username"/>
+                    <Form.Group controlId="formUsername" id="form-layout">
+                        <Form.Label id="custom-form-label">Username</Form.Label>
+                        <Form.Control name="username" value={this.state.value} onChange={this.handleChange} type="username" placeholder="Enter Username" />
                     </Form.Group>
-                    <Form.Group controlId="formPassword">
-                        <Form.Label>Password</Form.Label>
+                    <Form.Group controlId="formPassword" id="form-layout">
+                        <Form.Label id="custom-form-label">Password</Form.Label>
                         <Form.Control name="password" value={this.state.value} onChange={this.handleChange} type="password" placeholder="Enter Password" />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Login
-                    </Button>
+                    <button className="btn-filled-alt">Log In</button>
                 </Form>
             </div>
         )

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ServiceCard from "../layouts/ServiceCard";
 import StaffCard from "../layouts/StaffCard";
 import TimeSelectorCard from "../layouts/TimeSelectorCard";
-import { Container, Jumbotron, CardDeck, Form, Button } from "react-bootstrap";
+import { Container, Jumbotron, CardDeck, Form } from "react-bootstrap";
 import CustomerBookingPageErrorModal from '../layouts/CustomerBookingPageErrorModal';
 import CustomerBookingPageConfirmationModal from '../layouts/CustomerBookingPageConfirmationModal';
 import UserProfile from "../../UserProfile";
