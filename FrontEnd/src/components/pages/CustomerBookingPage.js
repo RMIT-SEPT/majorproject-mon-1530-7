@@ -23,7 +23,7 @@ class CustomerBookingPage extends Component {
       employeeAvailability: [],
       employeeAvailabilityIds: { service: null, employee: null },
     };
-   
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onServiceSelect = this.onServiceSelect.bind(this);
     this.onEmployeeSelect = this.onEmployeeSelect.bind(this);
@@ -73,7 +73,7 @@ class CustomerBookingPage extends Component {
   fetchServices() {
     console.log(UserProfile.getToken())
     fetch(process.env.REACT_APP_API_URL + "/products", {
-      headers : {
+      headers: {
         Authorization: UserProfile.getToken()
       }
     })
@@ -87,10 +87,10 @@ class CustomerBookingPage extends Component {
   fetchStaff() {
     console.log(UserProfile.getToken())
     fetch(process.env.REACT_APP_API_URL + "/staff", {
-      headers : {
+      headers: {
         Authorization: UserProfile.getToken()
-        }
-      })
+      }
+    })
       .then((response) => response.json())
       .then((data) =>
         // TODO: handle errors
@@ -102,9 +102,9 @@ class CustomerBookingPage extends Component {
     // TODO: handle staff member not found
     fetch(
       process.env.REACT_APP_API_URL +
-        "/staff/" +
-        this.state.selectedEmployeeId +
-        "/times"
+      "/staff/" +
+      this.state.selectedEmployeeId +
+      "/times"
     )
       .then((response) => response.json())
       .then((data) =>
@@ -170,23 +170,19 @@ class CustomerBookingPage extends Component {
             </CardDeck>
           </Container>
           <Container className="makeCusBooking">
-            <Button
-              variant="primary"
-              size="lg"
-              type="submit"
+            <button className="btn-filled-extended"
               onClick={this.showErrorAlert}
-            >
-              Make Booking
-            </Button>
-            <CustomerBookingPageErrorModal 
-                className="customer-booking-page-error-modal"
-                show={this.state.showError}
-                onHide={this.hideErrorAlert}
+            >Book Now
+            </button>
+            <CustomerBookingPageErrorModal
+              className="customer-booking-page-error-modal"
+              show={this.state.showError}
+              onHide={this.hideErrorAlert}
             />
             <CustomerBookingPageConfirmationModal
-                className="customer-booking-page-confirmation-modal"
-                show={this.state.showSuccess}
-                onHide={this.hideSuccessAlert}
+              className="customer-booking-page-confirmation-modal"
+              show={this.state.showSuccess}
+              onHide={this.hideSuccessAlert}
             />
           </Container>
         </Jumbotron>
