@@ -71,6 +71,12 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
   color: #2a94f4;
 }
 
+.h4-main3 {
+  font-weight: 600;
+  margin-top: 3em;
+  color: #303030;
+}
+
 .h5-main {
   font-weight: 600;
   color: #303030;
@@ -473,6 +479,14 @@ input {
 
 #row-center {
   text-align: center;
+}
+
+#row-custom {
+  margin-top: 3em;
+}
+
+#row-custom2 {
+  margin-top: 2em;
 }
 
 #align-btn {

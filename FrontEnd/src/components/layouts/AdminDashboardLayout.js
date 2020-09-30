@@ -7,8 +7,8 @@ function AdminDashboardLayout() {
   return (
     <Jumbotron id="dashboard-jumbotron">
       <Container>
-        <h2 className="h2-main">Administrator Dashboard</h2>
-          <Row className="shadow p-3 mb-5 bg-white rounded">
+        <h2 className="h2-main">Admin Dashboard</h2>
+          <Row className="shadow p-3 mb-5 bg-white rounded" id="row-custom">
             <h5 className="h5-main">Upcoming Bookings</h5>
             <table class="table table-borderless">
               <thead>
@@ -64,9 +64,8 @@ function AdminDashboardLayout() {
             </table>
           </Row>
 
-          <h3>Schedule</h3>
-
-          <Row className="shadow p-3 mb-5 bg-white rounded">
+          <h4 className="h4-main3">Schedule</h4>
+          <Row className="shadow p-3 mb-5 bg-white rounded" id="row-custom2">
             <table class="table table-bordered">
               <thead >
                 <tr>
