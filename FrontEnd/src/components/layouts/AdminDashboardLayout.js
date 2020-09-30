@@ -25,40 +25,45 @@ function AdminDashboardLayout() {
                   <td>Corey Odajian</td>
                   <td>21/09/2020</td>
                   <td>10:30am</td>
-                  <button className="cancel-btn">Edit</button>
-                  <button className="cancel-btn">Schedule</button>
+                  <button className="cancel-btn">Pending</button>
+                  <button className="cancel-btn">Confirm</button>
+                  <button className="cancel-btn">Cancel</button>
                 </tr>
                 <tr>
                   <td>Service 2</td>
                   <td>Matea Hoppus</td>
                   <td>22/09/2020</td>
                   <td>9:30am</td>
-                  <button className="cancel-btn">Edit</button>
-                  <button className="cancel-btn">Schedule</button>
+                  <button className="cancel-btn">Pending</button>
+                  <button className="cancel-btn">Confirm</button>
+                  <button className="cancel-btn">Cancel</button>
                 </tr>
                 <tr>
                   <td>Service 3</td>
                   <td>Corey Odajian</td>
                   <td>22/09/2020</td>
                   <td>10:30am</td>
-                  <button className="cancel-btn">Edit</button>
-                  <button className="cancel-btn">Schedule</button>
+                  <button className="cancel-btn">Pending</button>
+                  <button className="cancel-btn">Confirm</button>
+                  <button className="cancel-btn">Cancel</button>
                 </tr>
                 <tr>
                   <td>Service 4</td>
                   <td>Matea Hoppus</td>
                   <td>22/09/2020</td>
                   <td>12:30pm</td>
-                  <button className="cancel-btn">Edit</button>
-                  <button className="cancel-btn">Schedule</button>
+                  <button className="cancel-btn">Pending</button>
+                  <button className="cancel-btn">Confirm</button>
+                  <button className="cancel-btn">Cancel</button>
                 </tr>
                 <tr>
                   <td>Service 5</td>
                   <td>Kurt Smith</td>
                   <td>23/09/2020</td>
                   <td>10:30am</td>
-                  <button className="cancel-btn">Edit</button>
-                  <button className="cancel-btn">Schedule</button>
+                  <button className="cancel-btn">Pending</button>
+                  <button className="cancel-btn">Confirm</button>
+                  <button className="cancel-btn">Cancel</button>
                 </tr>
               </tbody>
             </table>
