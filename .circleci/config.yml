@@ -2,21 +2,22 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
   aws-ecs: circleci/aws-ecs@1.3.0
-
+# Above orbs might not be needed, need more customisation so the manual code approach might be needed
 jobs:
   build-backend:
-
     working_directory: ~/repo/BackEnd
     docker:
       - image: circleci/openjdk:11-jdk-stretch
-      - image: circleci/postgres:9.6.3-alpine
+      - image: circleci/postgres:9.6.3-alpine 
+      # Above postgres image might not be needed
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: backenddb
           POSTGRES_PASSWORD: postgres
+          # Might need to remove the above env variables if LOCAL postgres is not used but not sure
     environment:
-      ECR_REPOSITORY_NAME: xxx
-      FULL_IMAGE_NAME: xxx
+      ECR_REPOSITORY_NAME: ${BACKEND_ECR_REPOSITORY_NAME}
+      FULL_IMAGE_NAME: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}
 
     steps:
 
@@ -55,21 +56,35 @@ jobs:
 
       - run:
           name: Build backend image
+          # command: |
+          #   docker build -t $FULL_IMAGE_NAME .
           command: |
-            docker build -t $FULL_IMAGE_NAME .
+            docker-compose up --build
 
+      - run:
+          name: Tag backend image
+          command: |
+            docker tag ${BACKEND_IMAGE_NAME} ${FULL_IMAGE_NAME}
+                            
       - run:
           name: Push backend image
           command: |
-            aws ecr get-login-password --region us-east-1 | docker login AWS --password-stdin xxxx.dkr.ecr.us-east-1.amazonaws.com
+            aws ecr get-login-password | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com                                                            
             docker push $FULL_IMAGE_NAME
+
+          # command: |
+          #   aws ecr get-login-password --region us-east-1 | docker login AWS --password-stdin xxxx.dkr.ecr.us-east-1.amazonaws.com
+          #   docker push $FULL_IMAGE_NAME
+
+          # Above only pushes backend spring boot application w/out postgres database
+          # Probably going to reconfigure backend so backend image can connect to a terraform deployed postgres RDS instead of using a local postgres
     
   build-frontend: 
     docker:
       - image: circleci/node:12.18.3-browsers
     environment:
-      ECR_REPOSITORY_NAME: xxx
-      FULL_IMAGE_NAME: xxx
+      ECR_REPOSITORY_NAME: ${FRONTEND_ECR_REPOSITORY_NAME}
+      FULL_IMAGE_NAME: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}
       
     working_directory: ~/repo/FrontEnd
 
@@ -106,17 +121,24 @@ jobs:
 
       - run:
           name: Build frontend image
+          # command: |
+          #   docker build -t $FULL_IMAGE_NAME .
           command: |
-            docker build -t $FULL_IMAGE_NAME .
+            docker-compose -f docker-compose.prod.yml up --build
+
+      - run:
+          name: Tag frontend image
+          command: |
+            docker tag ${FRONTEND_IMAGE_NAME} ${FULL_IMAGE_NAME}
 
       - run:
           name: Push frontend image
           command: |
-            aws ecr get-login-password --region us-east-1 | docker login AWS --password-stdin xxxx.dkr.ecr.us-east-1.amazonaws.com
+            aws ecr get-login-password | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com                                                            
             docker push $FULL_IMAGE_NAME
 
 workflows:
-  version: 2
+  # version: 2
   build_frontend_and_backend:
     jobs:
       - build-backend:
@@ -124,6 +146,51 @@ workflows:
             branches:
               only: develop
       - build-frontend:
+          requires:
+            - build-backend
           filters:
             branches:
               only: develop
+      - aws-ecs/deploy-service-update:
+          requires:
+            - build-backend
+            - build-frontend
+          filters:
+            branches:
+              only: develop
+          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          container-image-name-updates: container=${AWS-RESOURCE_NAME_PREFIX}-service, image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${FRONTEND_ECR_REPOSITORY_NAME}:latest, container=${AWS-RESOURCE_NAME_PREFIX}-service, image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${BACKEND_ECR_REPOSITORY_NAME}:latest                                                                                           
+          
+          
+          # container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}"
+
+
+# version: 2.1
+# orbs:
+#   aws-ecr: circleci/aws-ecr@0.0.2
+#   aws-ecs: circleci/aws-ecs@0.0.10
+# workflows:
+#   build-and-deploy:
+#     jobs:
+#       - aws-ecr/build_and_push_image:
+#           account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+#           repo: "${AWS_RESOURCE_NAME_PREFIX}"
+#           region: ${AWS_DEFAULT_REGION}
+#           tag: "${CIRCLE_SHA1}"
+#       - aws-ecs/deploy-service-update:
+#           requires:
+#             - aws-ecr/build_and_push_image
+#           aws-region: ${AWS_DEFAULT_REGION}
+#           family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+#           cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+#           container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}"
+#           verify-revision-is-deployed: true
+#           post-steps:
+#             - run:
+#                 name: Test the deployment
+#                 command: |
+#                   TARGET_GROUP_ARN=$(aws ecs describe-services --cluster ${AWS_RESOURCE_NAME_PREFIX}-cluster --services ${AWS_RESOURCE_NAME_PREFIX}-service | jq -r '.services[0].loadBalancers[0].targetGroupArn')
+#                   ELB_ARN=$(aws elbv2 describe-target-groups --target-group-arns $TARGET_GROUP_ARN | jq -r '.TargetGroups[0].LoadBalancerArns[0]')
+#                   ELB_DNS_NAME=$(aws elbv2 describe-load-balancers --load-balancer-arns $ELB_ARN | jq -r '.LoadBalancers[0].DNSName')
+#                   curl -s --retry 10 http://$ELB_DNS_NAME | grep "Welcome to nginx!"
