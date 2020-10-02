@@ -8,16 +8,14 @@ class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {}
-    }
-
-    handleChange = (event) => {
-        this.setState({ [event.target.name]: event.target.value });
-
-    }
-
-    handleSubmit = (event) => {
-        console.log(this.state)
-        console.log(this.state.username)
+      }
+    
+      handleChange = (event) => {
+        this.setState({[event.target.name]: event.target.value});
+        
+      }
+    
+      handleSubmit = (event) => {
         var username = this.state.username
         fetch('http://localhost:8080/api/user/login', {
             method: 'POST',
@@ -35,13 +33,12 @@ class LoginPage extends Component {
 
             return response.json();
         }).then(data => {
-
-            console.log(data)
-            UserProfile.setLoggedIn(true)
-            UserProfile.setUID(username)
-            UserProfile.setToken(data.token)
-            window.location.reload(false)
-
+                UserProfile.setLoggedIn()      
+                UserProfile.setAdmin(data.admin)
+                UserProfile.setUID(username)
+                UserProfile.setToken(data.token)
+                
+                window.location.reload(false)
 
         }).catch(error => alert("incorrect username or password"));
 
