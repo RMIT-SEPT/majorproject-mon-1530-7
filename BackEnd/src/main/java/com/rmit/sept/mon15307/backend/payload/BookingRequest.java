@@ -47,6 +47,7 @@ public class BookingRequest {
         return date;
     }
 
+    @JsonSetter("appointment_date")
     public void setDate(LocalDate date) {
         this.date = date;
     }
@@ -67,7 +68,7 @@ public class BookingRequest {
         this.product_id = product_id;
     }
 
-    @JsonSetter("time")
+    @JsonSetter("appointment_time")
     public void setTime_slot(String time_slot) {
         if (!Booking.permittedTimes.contains(time_slot)) {
             throw new InvalidTimeSlotException("Time slot not supported");
