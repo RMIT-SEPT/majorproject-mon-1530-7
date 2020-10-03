@@ -49,8 +49,6 @@ function App() {
             <Route path="/admin-dashboard" component={AdminDashboard} >
               {UserProfile.getAdmin() ?   <AdminDashboard /> : <Redirect to="/dashboard" /> }
             </Route>
-
-
             <Route path="/account" component={Account} >
               {UserProfile.getLoggedIn() ? <Account /> : <Redirect to="/login"/>}
             </Route>
