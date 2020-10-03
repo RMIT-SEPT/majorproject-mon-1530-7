@@ -8,22 +8,35 @@ import com.rmit.sept.mon15307.backend.model.Schedule;
 import com.rmit.sept.mon15307.backend.services.BookingService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class EmployeeTimesResponse {
     private final LocalDate date;
-    private final Set<String> times;
+    private Set<String> times;
 
     EmployeeTimesResponse(Schedule schedule, BookingService bookingService)
         throws ScheduleFullyBookedException {
         this.date = schedule.getDate();
-        this.times = Booking.permittedTimes;
 
+        if (this.date.isEqual(LocalDate.now())) {
+            // only times that are still in the future
+            LocalTime now = LocalTime.now();
+            this.times = Booking.permittedTimes
+                .stream()
+                .filter(t -> LocalTime.parse(t).isAfter(now))
+                .collect(Collectors.toSet());
+        } else {
+            // otherwise start with all times
+            this.times = Booking.permittedTimes;
+        }
+
+        // exclude times that have already been booked
         Iterable<Booking> bookings = bookingService.findBookingsBySchedule(schedule);
-
         if (bookings != null) {
             for (Booking booking : bookings) {
                 this.times.remove(booking.getTime());

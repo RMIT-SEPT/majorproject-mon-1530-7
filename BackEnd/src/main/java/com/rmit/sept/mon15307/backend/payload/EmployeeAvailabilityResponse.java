@@ -38,7 +38,7 @@ public class EmployeeAvailabilityResponse {
         List<EmployeeTimesResponse> times = new ArrayList<>();
 
         LocalDate startDate = LocalDate.now().minusDays(1);
-        LocalDate endDate = LocalDate.now().plusDays(14);
+        LocalDate endDate = LocalDate.now().plusDays(13);
 
         Iterable<Schedule> employeeSchedules =
             scheduleService.findByEmployeeAndDateRange(employee, startDate, endDate);
