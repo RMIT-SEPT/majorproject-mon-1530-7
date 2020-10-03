@@ -36,18 +36,17 @@ class LoginPage extends Component {
             }
 
             return response.json();
-        }).then(data => {
-            
-                UserProfile.setLoggedIn()      
-                UserProfile.setAdmin(data.admin)
-                UserProfile.setUID(username)
-                UserProfile.setToken(data.token)
-                
-                window.location.reload(false) 
-               
+          })
+          .then((data) => {
+            UserProfile.setLoggedIn();
+            UserProfile.setAdmin(data.admin);
+            UserProfile.setUID(data.userId);
+            UserProfile.setToken(data.token);
 
-        }).catch(error => alert("incorrect username or password"));
-          
+            window.location.reload(false);
+          })
+          .catch((error) => alert("incorrect username or password"));
+
         event.preventDefault();
         
     }
