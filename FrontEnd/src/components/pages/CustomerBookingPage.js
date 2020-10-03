@@ -23,6 +23,7 @@ class CustomerBookingPage extends Component {
       shouldShowTimes: false,
       employeeAvailability: [],
       employeeAvailabilityIds: { service: null, employee: null },
+      errorMessage: "Unknown error",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -210,15 +211,16 @@ class CustomerBookingPage extends Component {
             >
               Make Booking
             </Button>
-            <CustomerBookingPageErrorModal 
-                className="customer-booking-page-error-modal"
-                show={this.state.showError}
-                onHide={this.hideErrorAlert}
+            <CustomerBookingPageErrorModal
+              className="customer-booking-page-error-modal"
+              show={this.state.showError}
+              onHide={this.hideErrorAlert}
+              message={this.state.errorMessage}
             />
             <CustomerBookingPageConfirmationModal
-                className="customer-booking-page-confirmation-modal"
-                show={this.state.showSuccess}
-                onHide={this.hideSuccessAlert}
+              className="customer-booking-page-confirmation-modal"
+              show={this.state.showSuccess}
+              onHide={this.hideSuccessAlert}
             />
           </Container>
         </Jumbotron>
