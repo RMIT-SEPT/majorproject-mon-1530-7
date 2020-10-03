@@ -78,31 +78,31 @@ class CustomerBookingPage extends Component {
   }
 
   fetchServices() {
-    console.log(UserProfile.getToken())
     fetch(process.env.REACT_APP_API_URL + "/products", {
-      headers : {
-        Authorization: UserProfile.getToken()
-      }
+      headers: {
+        Authorization: UserProfile.getToken(),
+      },
     })
       .then((response) => response.json())
       .then((data) =>
         // TODO: handle errors
         this.setState({ services: data["products"], loadingServices: false })
-      );
+      )
+      .catch((e) => console.log(e));
   }
 
   fetchStaff() {
-    console.log(UserProfile.getToken())
     fetch(process.env.REACT_APP_API_URL + "/staff", {
-      headers : {
-        Authorization: UserProfile.getToken()
-        }
-      })
+      headers: {
+        Authorization: UserProfile.getToken(),
+      },
+    })
       .then((response) => response.json())
       .then((data) =>
         // TODO: handle errors
         this.setState({ staff: data["staff"], loadingStaff: false })
-      );
+      )
+      .catch((e) => console.log(e));
   }
 
   fetchAppointmentSlots() {
@@ -111,7 +111,12 @@ class CustomerBookingPage extends Component {
       process.env.REACT_APP_API_URL +
         "/staff/" +
         this.state.selectedEmployeeId +
-        "/times"
+        "/times",
+      {
+        headers: {
+          Authorization: UserProfile.getToken(),
+        },
+      }
     )
       .then((response) => response.json())
       .then((data) =>
@@ -122,7 +127,9 @@ class CustomerBookingPage extends Component {
             employee: this.state.selectedEmployeeId,
           },
         })
-      );
+      )
+      .catch((e) => console.log(e));
+  }
 
   postBooking() {
     const booking_details = {
