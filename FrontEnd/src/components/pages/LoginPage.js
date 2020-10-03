@@ -18,20 +18,23 @@ class LoginPage extends Component {
     
       handleSubmit = (event) => {
         var username = this.state.username
-        fetch('http://localhost:8080/api/user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            
-            body: JSON.stringify({username:this.state.username,password:this.state.password})    
-          }).then(function(response) {
-              if (!response.ok) {
-                  console.log('reject')
-                  throw(new Error("Request failed"));
-              }
-              
- 
+        fetch(process.env["REACT_APP_API_URL"] + "/user/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            username: this.state.username,
+            password: this.state.password,
+          }),
+        })
+          .then(function (response) {
+            if (!response.ok) {
+              console.log("reject");
+              throw new Error("Request failed");
+            }
+
             return response.json();
         }).then(data => {
             
