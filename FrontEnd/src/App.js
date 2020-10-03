@@ -27,11 +27,11 @@ function App() {
     <div className="page-container">
       <div className="content-wrap">
         <BrowserRouter>
-          <NavigationBar loggedIn={UserProfile.getLoggedIn()} />
+          <NavigationBar loggedIn={UserProfile.getToken()} />
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/login" component={LoginPage} >
-              {UserProfile.getLoggedIn() ? <Redirect to="/"/> : <LoginPage />   }
+              {UserProfile.getLoggedIn() ? <Redirect to="/dashboard"/> : <LoginPage />   }
             </Route>
             <Route path="/about" component={AboutPage} />
             <Route path="/contact" component={ContactPage} />
@@ -40,8 +40,12 @@ function App() {
               path="/customer-past-bookings"
               component={CustomerPastBookingsPage}
             />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/admin-dashboard" component={AdminDashboard} />
+            <Route path="/dashboard" component={Dashboard} >
+              {UserProfile.getAdmin() ? <Redirect to="/admin-dashboard" /> : <Dashboard />}
+            </Route>
+            <Route path="/admin-dashboard" component={AdminDashboard} >
+              {UserProfile.getAdmin() ?   <AdminDashboard /> : <Redirect to="/dashboard" /> }
+            </Route>
             <Route path="/account" component={Account} >
               {UserProfile.getLoggedIn() ? <Account /> : <Redirect to="/login"/>}
             </Route>

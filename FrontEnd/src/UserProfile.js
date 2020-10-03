@@ -3,14 +3,8 @@ var UserProfile = (function() {
   var UID = '';
 
   var getLoggedIn = function() {
-    if(localStorage.getItem("loggedIn") === "true") {
-      return Boolean(true);
-    }
-    else {
-      return Boolean(false);
-    }
-     
-  };
+    return localStorage.getItem("loggedIn") === "true"
+  }
 
   var setLoggedIn = function() {  
     localStorage.setItem("loggedIn",true); 
@@ -35,6 +29,13 @@ var UserProfile = (function() {
     localStorage.setItem("token",state)
   }
 
+  var getAdmin = function() {
+    return localStorage.getItem("admin") === "true"
+  }
+  var setAdmin = function(state) {
+    localStorage.setItem("admin",state)
+  }
+
   return {
     getLoggedIn: getLoggedIn,
     setLoggedIn: setLoggedIn,
@@ -42,7 +43,9 @@ var UserProfile = (function() {
     getUID: getUID,
     setUID: setUID,
     getToken: getToken,
-    setToken: setToken
+    setToken: setToken,
+    getAdmin:getAdmin,
+    setAdmin:setAdmin
   }
 
 })();
