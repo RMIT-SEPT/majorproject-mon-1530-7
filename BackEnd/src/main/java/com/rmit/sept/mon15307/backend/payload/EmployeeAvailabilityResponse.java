@@ -5,19 +5,23 @@ import com.rmit.sept.mon15307.backend.exceptions.ScheduleFullyBookedException;
 import com.rmit.sept.mon15307.backend.model.Employee;
 import com.rmit.sept.mon15307.backend.model.Schedule;
 import com.rmit.sept.mon15307.backend.services.BookingService;
+import com.rmit.sept.mon15307.backend.services.ScheduleService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class EmployeeAvailabilityResponse {
     private final Employee employee;
     private final BookingService bookingService;
+    private final ScheduleService scheduleService;
 
-    public EmployeeAvailabilityResponse(Employee employee, BookingService bookingService) {
+    public EmployeeAvailabilityResponse(
+        Employee employee, BookingService bookingService, ScheduleService scheduleService
+    ) {
         this.employee = employee;
         this.bookingService = bookingService;
+        this.scheduleService = scheduleService;
     }
 
     @JsonGetter("staff_id")
@@ -33,23 +37,17 @@ public class EmployeeAvailabilityResponse {
     public List<EmployeeTimesResponse> getTimes() {
         List<EmployeeTimesResponse> times = new ArrayList<>();
 
-        Calendar yesterdayCal = Calendar.getInstance();
-        yesterdayCal.add(Calendar.DATE, -1);
-        Date yesterday = yesterdayCal.getTime();
+        LocalDate startDate = LocalDate.now().minusDays(1);
+        LocalDate endDate = LocalDate.now().plusDays(14);
 
-        Calendar plus14Cal = Calendar.getInstance();
-        plus14Cal.add(Calendar.DATE, 14);  // TODO: check if off by one
-        Date plus14 = plus14Cal.getTime();
+        Iterable<Schedule> employeeSchedules =
+            scheduleService.findByEmployeeAndDateRange(employee, startDate, endDate);
 
-        // TODO: find a more efficient way to filter dates
-        List<Schedule> employeeSchedule = this.employee.getSchedules();
-        for (Schedule schedule : employeeSchedule) {
-            if (schedule.getDate().after(yesterday) && schedule.getDate().before(plus14)) {
-                try {
-                    times.add(new EmployeeTimesResponse(schedule, bookingService));
-                } catch (ScheduleFullyBookedException e) {
-                    // skip this day
-                }
+        for (Schedule schedule : employeeSchedules) {
+            try {
+                times.add(new EmployeeTimesResponse(schedule, bookingService));
+            } catch (ScheduleFullyBookedException e) {
+                // skip this day
             }
         }
 

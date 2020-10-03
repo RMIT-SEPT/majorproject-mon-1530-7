@@ -7,36 +7,20 @@ import com.rmit.sept.mon15307.backend.model.Booking;
 import com.rmit.sept.mon15307.backend.model.Schedule;
 import com.rmit.sept.mon15307.backend.services.BookingService;
 
-import java.util.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 public class EmployeeTimesResponse {
-    private final Date date;
-    private final HashSet<String> times;
+    private final LocalDate date;
+    private final Set<String> times;
 
     EmployeeTimesResponse(Schedule schedule, BookingService bookingService)
         throws ScheduleFullyBookedException {
         this.date = schedule.getDate();
-        this.times = new HashSet<>();
-
-        // TODO: specify time slots in config
-        // open hours: 10am – 5pm
-        Collections.addAll(
-            this.times,
-            "10:00",
-            "10:30",
-            "11:00",
-            "11:30",
-            "12:00",
-            "12:30",
-            "13:00",
-            "13:30",
-            "14:00",
-            "14:30",
-            "15:00",
-            "15:30",
-            "16:00",
-            "16:30"
-        );
+        this.times = Booking.permittedTimes;
 
         Iterable<Booking> bookings = bookingService.findBookingsBySchedule(schedule);
 
@@ -54,7 +38,7 @@ public class EmployeeTimesResponse {
 
     @JsonGetter("date")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    public Date getDate() {
+    public LocalDate getDate() {
         // TODO: check date format in json output
         return this.date;
     }

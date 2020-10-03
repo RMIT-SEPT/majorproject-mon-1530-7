@@ -6,6 +6,7 @@ import com.rmit.sept.mon15307.backend.payload.EmployeeAvailabilityResponse;
 import com.rmit.sept.mon15307.backend.services.BookingService;
 import com.rmit.sept.mon15307.backend.services.EmployeeService;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
+import com.rmit.sept.mon15307.backend.services.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,9 @@ public class EmployeeController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
     @Autowired
     private MapValidationErrorService mapValidationErrorService;
@@ -54,7 +58,7 @@ public class EmployeeController {
         }
 
         EmployeeAvailabilityResponse availability =
-            new EmployeeAvailabilityResponse(employee, bookingService);
+            new EmployeeAvailabilityResponse(employee, bookingService, scheduleService);
         return new ResponseEntity<>(availability, HttpStatus.OK);
     }
 }
