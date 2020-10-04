@@ -29,7 +29,7 @@ class CustomerPastBookingsPage extends Component {
         .then((response) => response.json())
         .then((data) => 
         
-            this.setState({pastBookings: data["bookings?user=" + this.state.user_id], loadingPastBookings: false})
+            this.setState({pastBookings: data["bookings"], loadingPastBookings: false})
         );
     }
 
