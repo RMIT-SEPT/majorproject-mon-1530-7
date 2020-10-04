@@ -333,11 +333,6 @@ input {
   padding-bottom: 20px;
 }
 
-.customer-booking-page-error-modal .modal-header{
-  /* background-color: red; */
-  color:red;
-}
-
 .wrapper{
   display: flex;
   flex-wrap: wrap;
