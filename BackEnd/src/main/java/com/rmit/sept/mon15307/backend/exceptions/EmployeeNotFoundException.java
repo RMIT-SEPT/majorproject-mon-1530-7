@@ -1,5 +1,7 @@
 package com.rmit.sept.mon15307.backend.exceptions;
 
 public class EmployeeNotFoundException extends Throwable {
-    public EmployeeNotFoundException() {}
+    public EmployeeNotFoundException(String message) {
+        super(message);
+    }
 }

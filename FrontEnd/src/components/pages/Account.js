@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
 import { Container, Jumbotron } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import UserProfile from '../../UserProfile.js'
 
 class Account extends Component {
+    handleLogout = (event) => {
+        UserProfile.setLoggedOut()
+        UserProfile.setToken("")
+        UserProfile.setAdmin("false")
+        UserProfile.setUID("")
+        window.location.reload(false)
+        
+      }
     render() {
         return (
             <div className="d-flex justify-content-center">
@@ -16,8 +25,8 @@ class Account extends Component {
                             <Link to="/customer-past-bookings">
                             <button className="btnBorder-large">Booking History</button>
                             </Link>
-                            <Link to="/logout">
-                            <button className="btnBorder-large">Log Out</button>
+                            <Link to="/account">
+                            <button onClick={this.handleLogout} className="btnBorder-large">Log Out</button>
                             </Link>
                         </Container>
                     </Jumbotron>

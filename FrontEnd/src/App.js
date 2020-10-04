@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from 'react-router';
 import NavigationBar from "./components/layouts/Navbar.js";
 import Footer from "./components/layouts/Footer.js";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
@@ -19,15 +20,19 @@ import Profile from "./components/pages/Profile.js";
 import ManageEmp from "./components/pages/ManageEmp.js";
 import EmpDetails from "./components/pages/EmpDetails.js";
 
+import UserProfile from "./UserProfile.js"
+
 function App() {
   return (
     <div className="page-container">
       <div className="content-wrap">
         <BrowserRouter>
-          <NavigationBar loggedIn={true} />
+          <NavigationBar loggedIn={UserProfile.getToken()} />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path="/login" component={LoginPage} />
+            <Route path="/login" component={LoginPage} >
+              {UserProfile.getLoggedIn() ? <Redirect to="/dashboard"/> : <LoginPage />   }
+            </Route>
             <Route path="/about" component={AboutPage} />
             <Route path="/contact" component={ContactPage} />
             <Route path="/booking" component={CustomerBookingPage} />
@@ -35,13 +40,19 @@ function App() {
               path="/customer-past-bookings"
               component={CustomerPastBookingsPage}
             />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/admin-dashboard" component={AdminDashboard} />
-            <Route path="/account" component={Account} />
+            <Route path="/dashboard" component={Dashboard} >
+              {UserProfile.getAdmin() ? <Redirect to="/admin-dashboard" /> : <Dashboard />}
+            </Route>
+            <Route path="/admin-dashboard" component={AdminDashboard} >
+              {UserProfile.getAdmin() ?   <AdminDashboard /> : <Redirect to="/dashboard" /> }
+            </Route>
+            <Route path="/account" component={Account} >
+              {UserProfile.getLoggedIn() ? <Account /> : <Redirect to="/login"/>}
+            </Route>
             <Route path="/new-employee" component={NewEmployeePage} />
             <Route path="/profile" component={Profile} />
             <Route path="/manage-emp" component={ManageEmp} />
-            <Route path="/emp-details" component={EmpDetails} />
+            <Route path="/emp-details" component={EmpDetails} />   
           </Switch>
         </BrowserRouter>
       </div>

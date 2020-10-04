@@ -14,7 +14,7 @@ import java.util.List;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long employeeId;
 
     @NotNull
     @CreatedDate
@@ -55,7 +55,9 @@ public class Employee {
         return false;
     }
 
-    public String getId() { return id.toString(); }
+    public String getId() {
+        return employeeId.toString();
+    }
 
     public UserAccount getUser() {
         return user;
