@@ -10,6 +10,7 @@ import ContactPage from "./components/pages/ContactPage";
 import CustomerBookingPage from "./components/pages/CustomerBookingPage.js";
 import NewEmployeePage from "./components/pages/NewEmployeePage.js";
 
+import AdminPastBooking from "./components/pages/AdminPastBooking.js";
 import CustomerPastBookingsPage from "./components/pages/CustomerPastBookingsPage.js";
 
 import Dashboard from "./components/pages/Dashboard.js";
@@ -36,10 +37,12 @@ function App() {
             <Route path="/about" component={AboutPage} />
             <Route path="/contact" component={ContactPage} />
             <Route path="/booking" component={CustomerBookingPage} />
-            <Route
-              path="/customer-past-bookings"
-              component={CustomerPastBookingsPage}
-            />
+            <Route path="/customer-past-bookings" component={CustomerPastBookingsPage} >
+              {UserProfile.getAdmin() ? <Redirect to="/admin-past-bookings" /> : <CustomerPastBookingsPage />}
+            </Route>
+            <Route path="/admin-past-bookings" component={AdminPastBooking} >
+              {UserProfile.getAdmin() ?   <AdminPastBooking /> : <Redirect to="/customer-past-bookings" /> }
+            </Route>
             <Route path="/dashboard" component={Dashboard} >
               {UserProfile.getAdmin() ? <Redirect to="/admin-dashboard" /> : <Dashboard />}
             </Route>
