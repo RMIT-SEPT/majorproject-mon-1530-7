@@ -24,6 +24,7 @@ import UserProfile from "../../UserProfile.js";
     componentDidMount(){
 
       this.fetchCurrentBookings();
+      this.fetchBookingHistory();
     }
     
     fetchCurrentBookings(){
@@ -35,7 +36,7 @@ import UserProfile from "../../UserProfile.js";
       .then((response) => response.json())
       .then((data) =>
 
-        this.setState({currentBookings: data["bookings?user=" + this.state.user_id], loadingCurrentBookings: false})
+        this.setState({currentBookings: data["bookings"], loadingCurrentBookings: false})
       );
     }
 
@@ -48,7 +49,7 @@ import UserProfile from "../../UserProfile.js";
       .then((response) => response.json())
       .then((data) =>
 
-        this.setState({pastBookings: data["bookings?user=" + this.state.user_id], loadBookingHistory: false})
+        this.setState({pastBookings: data["bookings"], loadBookingHistory: false})
       );
     }
 

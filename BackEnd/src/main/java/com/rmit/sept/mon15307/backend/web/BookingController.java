@@ -149,6 +149,7 @@ public class BookingController {
         @RequestParam(value = "user", required = true)
             UserAccount user
     ) {
+        Map<String, Iterable<Booking>> response = new HashMap<>();
         Iterable<Booking> allBookings = bookingService.findAllBookings();
         List<Booking> userBookings = new ArrayList<Booking>();
         for (Booking i : allBookings) {
@@ -156,7 +157,8 @@ public class BookingController {
                 userBookings.add(i);
             }
         }
-        return new ResponseEntity<List>(userBookings, HttpStatus.OK);
+        response.put("bookings", userBookings);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/bookings/{bookingId}")
