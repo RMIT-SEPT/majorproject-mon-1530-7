@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Container, Col, Jumbotron, Row } from 'react-bootstrap';
 import "../../index.css";
 
-function AdminDashboardLayout() {
-  return (
-    <Jumbotron id="dashboard-jumbotron">
-      <Container>
-        <h2 className="h2-main">Admin Dashboard</h2>
+class AdminDashboardLayout extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { value: 'Pending' };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  render() {
+    return (
+      <Jumbotron id="dashboard-jumbotron">
+        <Container>
+
+          <h2 className="h2-main">Admin Dashboard</h2>
           <Row className="shadow p-3 mb-5 bg-white rounded" id="row-custom">
             <h5 className="h5-main">Upcoming Bookings</h5>
             <table class="table table-borderless">
@@ -25,7 +39,15 @@ function AdminDashboardLayout() {
                   <td>Corey Odajian</td>
                   <td>21/09/2020</td>
                   <td>10:30am</td>
-                  <button className="cancel-btn">Pending</button>
+                  <td>
+                    <div>
+                      <select className="custom-select" value={this.state.value} onChange={this.handleChange}>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="rejected">Rejected</option>
+                      </select>
+                    </div>
+                  </td>
                   <button className="cancel-btn">Confirm</button>
                   <button className="cancel-btn">Cancel</button>
                 </tr>
@@ -34,7 +56,15 @@ function AdminDashboardLayout() {
                   <td>Matea Hoppus</td>
                   <td>22/09/2020</td>
                   <td>9:30am</td>
-                  <button className="cancel-btn">Pending</button>
+                  <td>
+                    <div>
+                      <select className="custom-select" value={this.state.value} onChange={this.handleChange}>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="rejected">Rejected</option>
+                      </select>
+                    </div>
+                  </td>
                   <button className="cancel-btn">Confirm</button>
                   <button className="cancel-btn">Cancel</button>
                 </tr>
@@ -43,7 +73,15 @@ function AdminDashboardLayout() {
                   <td>Corey Odajian</td>
                   <td>22/09/2020</td>
                   <td>10:30am</td>
-                  <button className="cancel-btn">Pending</button>
+                  <td>
+                    <div>
+                      <select className="custom-select" value={this.state.value} onChange={this.handleChange}>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="rejected">Rejected</option>
+                      </select>
+                    </div>
+                  </td>
                   <button className="cancel-btn">Confirm</button>
                   <button className="cancel-btn">Cancel</button>
                 </tr>
@@ -52,7 +90,15 @@ function AdminDashboardLayout() {
                   <td>Matea Hoppus</td>
                   <td>22/09/2020</td>
                   <td>12:30pm</td>
-                  <button className="cancel-btn">Pending</button>
+                  <td>
+                    <div>
+                      <select className="custom-select" value={this.state.value} onChange={this.handleChange}>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="rejected">Rejected</option>
+                      </select>
+                    </div>
+                  </td>
                   <button className="cancel-btn">Confirm</button>
                   <button className="cancel-btn">Cancel</button>
                 </tr>
@@ -61,7 +107,15 @@ function AdminDashboardLayout() {
                   <td>Kurt Smith</td>
                   <td>23/09/2020</td>
                   <td>10:30am</td>
-                  <button className="cancel-btn">Pending</button>
+                  <td>
+                    <div>
+                      <select className="custom-select" value={this.state.value} onChange={this.handleChange}>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="rejected">Rejected</option>
+                      </select>
+                    </div>
+                  </td>
                   <button className="cancel-btn">Confirm</button>
                   <button className="cancel-btn">Cancel</button>
                 </tr>
@@ -84,7 +138,7 @@ function AdminDashboardLayout() {
                 </tr>
               </thead>
               <tbody>
-              <tr>
+                <tr>
                   <td>      </td>
                   <td>      </td>
                   <td><p class="text-center">[9:30]</p><p class="text-center" >Matea Hoppus</p></td>
@@ -123,9 +177,10 @@ function AdminDashboardLayout() {
               </tbody>
             </table>
           </Row>
-      </Container>
-    </Jumbotron>
-  )
+        </Container>
+      </Jumbotron>
+    );
+  }
 }
 
 export default AdminDashboardLayout;
