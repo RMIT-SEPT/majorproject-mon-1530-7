@@ -4,11 +4,13 @@ public class JWTLoginSucessReponse {
     private boolean success;
     private String token;
     private boolean isAdmin;
+    private String userId;
 
-    public JWTLoginSucessReponse(boolean success, String token, boolean isAdmin) {
+    public JWTLoginSucessReponse(boolean success, String token, boolean isAdmin, String userId) {
         this.success = success;
         this.token = token;
         this.isAdmin = isAdmin;
+        this.userId = userId;
     }
 
     public boolean isSuccess() {
@@ -30,13 +32,19 @@ public class JWTLoginSucessReponse {
     public boolean isAdmin() {
         return isAdmin;
     }
-   
+
+    public String getUserId() {
+        return userId;
+    }
 
     @Override
     public String toString() {
-        return "JWTLoginSucessReponse{" +
-                "success=" + success +
-                ", token='" + token + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("JWTLoginSucessReponse{");
+        sb.append("success=").append(success);
+        sb.append(", token='").append(token).append('\'');
+        sb.append(", isAdmin=").append(isAdmin);
+        sb.append(", userId='").append(userId).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

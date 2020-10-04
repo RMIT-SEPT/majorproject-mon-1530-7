@@ -5,9 +5,11 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "employee_id"})})
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class Schedule {
     private Date updatedAt;
 
     @NotNull
-    private Date date;
+    private LocalDate date;
 
     @NotNull
     private boolean scheduled;
@@ -35,7 +37,7 @@ public class Schedule {
         return id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
 

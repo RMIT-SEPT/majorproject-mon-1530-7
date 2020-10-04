@@ -14,21 +14,23 @@ class Profile extends Component {
     handleLoad() {
 
         var phoneNumber = ''
-        fetch('http://localhost:8080/api/user/profile', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state)
-        }).then(function (response) {
+        fetch(process.env["REACT_APP_API_URL"] + "/user/profile", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.state),
+        })
+          .then(function (response) {
             return response.json();
+          })
+          .then((data) => {
+            this.setState({
+              phoneNumber: data.phoneNumber,
+              name: data.fullName,
+            });
+          });
 
-        }).then(data => { this.setState({
-            phoneNumber: data.phoneNumber,
-            name: data.fullName
-        })}
-        )    
-   
     }
     componentWillMount() {
         this.handleLoad();

@@ -2,10 +2,11 @@ package com.rmit.sept.mon15307.backend.web;
 
 import com.rmit.sept.mon15307.backend.exceptions.EmployeeNotFoundException;
 import com.rmit.sept.mon15307.backend.model.Employee;
-import com.rmit.sept.mon15307.backend.model.EmployeeAvailability;
+import com.rmit.sept.mon15307.backend.payload.EmployeeAvailabilityResponse;
 import com.rmit.sept.mon15307.backend.services.BookingService;
 import com.rmit.sept.mon15307.backend.services.EmployeeService;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
+import com.rmit.sept.mon15307.backend.services.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,9 @@ public class EmployeeController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
     @Autowired
     private MapValidationErrorService mapValidationErrorService;
@@ -53,7 +57,8 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        EmployeeAvailability availability = new EmployeeAvailability(employee, bookingService);
+        EmployeeAvailabilityResponse availability =
+            new EmployeeAvailabilityResponse(employee, bookingService, scheduleService);
         return new ResponseEntity<>(availability, HttpStatus.OK);
     }
 }
