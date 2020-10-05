@@ -12,6 +12,14 @@ class AdminDashboardLayout extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  handleConfirm() {
+    alert('Booking successfully confirmed');
+  }
+
+  handleCancel() {
+    alert('Booking successfully cancelled');
+  }
+
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
@@ -48,8 +56,8 @@ class AdminDashboardLayout extends Component {
                       </select>
                     </div>
                   </td>
-                  <button className="cancel-btn">Confirm</button>
-                  <button className="cancel-btn">Cancel</button>
+                  <button className="cancel-btn" onClick={this.handleConfirm}>Confirm</button>
+                  <button className="cancel-btn" onClick={this.handleCancel}>Cancel</button>
                 </tr>
                 <tr>
                   <td>Service 2</td>
@@ -65,8 +73,8 @@ class AdminDashboardLayout extends Component {
                       </select>
                     </div>
                   </td>
-                  <button className="cancel-btn">Confirm</button>
-                  <button className="cancel-btn">Cancel</button>
+                  <button className="cancel-btn" onClick={this.handleConfirm}>Confirm</button>
+                  <button className="cancel-btn" onClick={this.handleCancel}>Cancel</button>
                 </tr>
                 <tr>
                   <td>Service 3</td>
@@ -82,8 +90,8 @@ class AdminDashboardLayout extends Component {
                       </select>
                     </div>
                   </td>
-                  <button className="cancel-btn">Confirm</button>
-                  <button className="cancel-btn">Cancel</button>
+                  <button className="cancel-btn" onClick={this.handleConfirm}>Confirm</button>
+                  <button className="cancel-btn" onClick={this.handleCancel}>Cancel</button>
                 </tr>
                 <tr>
                   <td>Service 4</td>
@@ -99,8 +107,8 @@ class AdminDashboardLayout extends Component {
                       </select>
                     </div>
                   </td>
-                  <button className="cancel-btn">Confirm</button>
-                  <button className="cancel-btn">Cancel</button>
+                  <button className="cancel-btn" onClick={this.handleConfirm}>Confirm</button>
+                  <button className="cancel-btn" onClick={this.handleCancel}>Cancel</button>
                 </tr>
                 <tr>
                   <td>Service 5</td>
@@ -116,8 +124,8 @@ class AdminDashboardLayout extends Component {
                       </select>
                     </div>
                   </td>
-                  <button className="cancel-btn">Confirm</button>
-                  <button className="cancel-btn">Cancel</button>
+                  <button className="cancel-btn" onClick={this.handleConfirm}>Confirm</button>
+                  <button className="cancel-btn" onClick={this.handleCancel}>Cancel</button>
                 </tr>
               </tbody>
             </table>
