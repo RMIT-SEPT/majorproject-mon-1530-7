@@ -14,8 +14,7 @@ class CustomerDashboardCurrentBookingsSection extends Component {
 
     renderCurrentBookings(){
 
-        if(!this.props.loading && this.props.currentBookings.length > 0 
-            && this.props.currentBookings.status === "upcoming"){
+        if(!this.props.loading && this.props.currentBookings.length > 0){
 
             return(
                 <table class="table table-borderless">

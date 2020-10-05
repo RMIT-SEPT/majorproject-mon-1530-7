@@ -28,7 +28,7 @@ import UserProfile from "../../UserProfile.js";
     }
     
     fetchCurrentBookings(){
-      fetch(process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id, {
+      fetch(process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id + "&status=upcoming", {
         headers : {
           Authorization: UserProfile.getToken()
         }
@@ -41,7 +41,7 @@ import UserProfile from "../../UserProfile.js";
     }
 
     fetchBookingHistory(){
-      fetch(process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id, {
+      fetch(process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id + "&status=completed", {
         headers : {
           Authorization: UserProfile.getToken()
         }
