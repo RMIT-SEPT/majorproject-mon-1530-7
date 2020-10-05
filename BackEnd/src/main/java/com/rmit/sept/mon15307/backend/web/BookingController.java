@@ -48,14 +48,17 @@ public class BookingController {
         return new ResponseEntity<Booking>(booking, HttpStatus.OK);
     }
 
-    @GetMapping("")
-    public ResponseEntity<?> listUserBookings(@RequestParam(value="user", required=true) UserAccount user) {
+    @PostMapping("/userBooking")
+    public ResponseEntity<?> listUserBookings(@Valid @RequestBody Long userId, BindingResult result) {
         Iterable<Booking> allBookings = bookingService.findAllBookings();
         List<Booking> userBookings = new ArrayList<Booking>();
         for(Booking i:allBookings) {
-            if(i.getCustomer() == user) {
+            if(i.getCustomer().getUserId().equals(userId)) {
                 userBookings.add(i);
             }
+        }
+        if(userBookings.isEmpty()) {
+            return new ResponseEntity("empty bookings", HttpStatus.OK);
         }
         return new ResponseEntity<List>(userBookings,HttpStatus.OK);
     }
