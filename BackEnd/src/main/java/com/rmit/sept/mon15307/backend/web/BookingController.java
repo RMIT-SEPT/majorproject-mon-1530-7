@@ -147,24 +147,14 @@ public class BookingController {
 
     @GetMapping("")
     public ResponseEntity<?> listUserBookings(
-        @Valid
         @RequestParam
-            String user,
-        @RequestParam
-            String status, BindingResult result
+            String status,
+        @AuthenticationPrincipal
+            UserAccount user, BindingResult result
     ) {
 
         Map<String, Map<String, String>> errorResponse = new HashMap<>();
         Map<String, String> errorMessage = new HashMap<>();
-
-        UserAccount userAccount;
-        try {
-            userAccount = userService.findByUserId(user);
-        } catch (NotFoundException e) {
-            errorMessage.put("message", e.getMessage());
-            errorResponse.put("error", errorMessage);
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-        }
 
         BookingStatus bookingStatus;
         try {
@@ -174,9 +164,14 @@ public class BookingController {
             errorResponse.put("error", errorMessage);
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
-
-        Iterable<Booking> bookings =
-            bookingService.findUserBookingsByStatus(userAccount, bookingStatus);
+        Iterable<Booking> bookings;
+        if (user.getAdmin() || user.getWorker()) {
+            // current authenticated user is permitted to retrieve bookings for all customers
+            bookings = bookingService.findAllBookingsByStatus(bookingStatus);
+        } else {
+            // only bookings for current user
+            bookings = bookingService.findUserBookingsByStatus(user, bookingStatus);
+        }
 
         Map<String, Iterable<Booking>> response = new HashMap<>();
         response.put("bookings", bookings);

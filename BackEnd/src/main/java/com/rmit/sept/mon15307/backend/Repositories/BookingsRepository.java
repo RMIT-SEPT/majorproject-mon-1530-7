@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface BookingsRepository extends CrudRepository<Booking, Long> {
     Iterable<Booking> findBookingsByCustomerAndStatus(UserAccount customer, BookingStatus status);
 
+    Iterable<Booking> findBookingsByStatus(BookingStatus status);
+
     Iterable<Booking> findBookingsByScheduleId(Long scheduleId);
 
     Booking findByBookingId(Long bookingId);

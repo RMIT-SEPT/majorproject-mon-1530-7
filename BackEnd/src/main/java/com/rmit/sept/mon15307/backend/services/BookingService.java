@@ -22,10 +22,6 @@ public class BookingService {
         return bookingsRepository.save(booking);
     }
 
-    public Iterable<Booking> findAllBookings() {
-        return bookingsRepository.findAll();
-    }
-
     public Iterable<Booking> findBookingsBySchedule(Schedule schedule) {
         return this.bookingsRepository.findBookingsByScheduleId(schedule.getId());
     }
@@ -80,6 +76,10 @@ public class BookingService {
 
     public Iterable<Booking> findUserBookingsByStatus(UserAccount user, BookingStatus status) {
         return bookingsRepository.findBookingsByCustomerAndStatus(user, status);
+    }
+
+    public Iterable<Booking> findAllBookingsByStatus(BookingStatus status) {
+        return bookingsRepository.findBookingsByStatus(status);
     }
 }
 
