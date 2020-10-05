@@ -150,7 +150,8 @@ public class BookingController {
         @RequestParam
             String status,
         @AuthenticationPrincipal
-            UserAccount user, BindingResult result
+//            UserAccount user, BindingResult result
+            UserAccount user
     ) {
 
         Map<String, Map<String, String>> errorResponse = new HashMap<>();

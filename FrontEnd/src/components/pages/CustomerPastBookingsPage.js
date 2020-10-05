@@ -21,7 +21,7 @@ class CustomerPastBookingsPage extends Component {
     }
 
     fetchPastBookings(){
-        fetch(process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id, {
+        fetch(process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id + "&status=completed", {
             headers : {
                 Authorization: UserProfile.getToken()
             }
