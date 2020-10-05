@@ -16,9 +16,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -73,7 +71,8 @@ public class BookingController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
 
-        // customer must be the same as the current user, unless current user is an admin
+        // customer must be the same as the current user, unless current user is an
+        // admin
         if (!user.getUserId().equals(customer.getUserId()) && !user.getAdmin()) {
             errorMessage.put("message", "Action not permitted for this user");
             errorResponse.put("error", errorMessage);
@@ -114,8 +113,10 @@ public class BookingController {
             return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
         }
 
-        // now we can make the booking (and hopefully no new conflict has arisen in the meantime)
-        // TODO: handle race conditions (create, check conflicts, maybe rollback and error)
+        // now we can make the booking (and hopefully no new conflict has arisen in the
+        // meantime)
+        // TODO: handle race conditions (create, check conflicts, maybe rollback and
+        // error)
 
         Booking booking = new Booking();
         booking.setStatus(BookingStatus.upcoming);
@@ -146,18 +147,40 @@ public class BookingController {
 
     @GetMapping("")
     public ResponseEntity<?> listUserBookings(
-        @RequestParam(value = "user", required = true)
-            UserAccount user
+        @Valid
+        @RequestParam
+            String user,
+        @RequestParam
+            String status, BindingResult result
     ) {
-        Map<String, Iterable<Booking>> response = new HashMap<>();
-        Iterable<Booking> allBookings = bookingService.findAllBookings();
-        List<Booking> userBookings = new ArrayList<Booking>();
-        for (Booking i : allBookings) {
-            if (i.getCustomer() == user) {
-                userBookings.add(i);
-            }
+
+        Map<String, Map<String, String>> errorResponse = new HashMap<>();
+        Map<String, String> errorMessage = new HashMap<>();
+
+        UserAccount userAccount;
+        try {
+            userAccount = userService.findByUserId(user);
+        } catch (NotFoundException e) {
+            errorMessage.put("message", e.getMessage());
+            errorResponse.put("error", errorMessage);
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
-        response.put("bookings", userBookings);
+
+        BookingStatus bookingStatus;
+        try {
+            bookingStatus = BookingStatus.valueOf(status);
+        } catch (IllegalArgumentException e) {
+            errorMessage.put("message", "invalid status: " + status);
+            errorResponse.put("error", errorMessage);
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
+        Iterable<Booking> bookings =
+            bookingService.findUserBookingsByStatus(userAccount, bookingStatus);
+
+        Map<String, Iterable<Booking>> response = new HashMap<>();
+        response.put("bookings", bookings);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
