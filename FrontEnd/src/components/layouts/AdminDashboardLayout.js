@@ -39,6 +39,7 @@ class AdminDashboardLayout extends Component {
                   <th scope="col">Employee</th>
                   <th scope="col">Date</th>
                   <th scope="col">Time</th>
+                  <th scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
