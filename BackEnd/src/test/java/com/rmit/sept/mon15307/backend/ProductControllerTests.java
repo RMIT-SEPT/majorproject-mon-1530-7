@@ -1,15 +1,17 @@
 package com.rmit.sept.mon15307.backend;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rmit.sept.mon15307.backend.Repositories.ProductRepository;
 import com.rmit.sept.mon15307.backend.model.Product;
+import com.rmit.sept.mon15307.backend.security.JwtAuthenticationEntryPoint;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
 import com.rmit.sept.mon15307.backend.services.ProductService;
 import com.rmit.sept.mon15307.backend.web.ProductController;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -17,19 +19,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ProductController.class)
+@WebMvcTest
+@ContextConfiguration(classes = {
+    JwtAuthenticationEntryPoint.class
+})
+@Import({ProductController.class, ProductService.class, MapValidationErrorService.class})
 public class ProductControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @MockBean
-    private ProductService productService;
-
-    @MockBean
-    private MapValidationErrorService mapValidationErrorService;
+    private ProductRepository productRepository;
 
     @Test
     public void contextsLoads() {

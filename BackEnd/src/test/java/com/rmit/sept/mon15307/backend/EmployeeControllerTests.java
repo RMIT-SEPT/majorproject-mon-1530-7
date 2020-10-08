@@ -1,26 +1,50 @@
 package com.rmit.sept.mon15307.backend;
 
+import com.rmit.sept.mon15307.backend.Repositories.BookingsRepository;
+import com.rmit.sept.mon15307.backend.Repositories.EmployeeRepository;
+import com.rmit.sept.mon15307.backend.Repositories.ScheduleRepository;
+import com.rmit.sept.mon15307.backend.security.JwtAuthenticationEntryPoint;
+import com.rmit.sept.mon15307.backend.services.BookingService;
 import com.rmit.sept.mon15307.backend.services.EmployeeService;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
+import com.rmit.sept.mon15307.backend.services.ScheduleService;
 import com.rmit.sept.mon15307.backend.web.EmployeeController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(EmployeeController.class)
+@WebMvcTest
+@ContextConfiguration(classes = {
+    JwtAuthenticationEntryPoint.class
+})
+@Import({
+            EmployeeController.class,
+            EmployeeService.class,
+            BookingService.class,
+            ScheduleService.class,
+            MapValidationErrorService.class
+        })
 public class EmployeeControllerTests {
-    @MockBean
-    EmployeeService employeeService;
     @Autowired
     private MockMvc mockMvc;
+
     @MockBean
-    private MapValidationErrorService mapValidationErrorService;
+    private EmployeeRepository employeeRepository;
+
+    @MockBean
+    private BookingsRepository bookingsRepository;
+
+    @MockBean
+    private ScheduleRepository scheduleRepository;
 
     @Test
     public void contextsLoads() {
