@@ -1,7 +1,5 @@
 package com.rmit.sept.mon15307.backend.ModelTests;
 
-import com.rmit.sept.mon15307.backend.Repositories.BookingsRepository;
-import com.rmit.sept.mon15307.backend.model.Booking;
 import com.rmit.sept.mon15307.backend.model.Employee;
 import com.rmit.sept.mon15307.backend.model.Schedule;
 import com.rmit.sept.mon15307.backend.model.UserAccount;
@@ -9,11 +7,7 @@ import com.rmit.sept.mon15307.backend.services.EmployeeService;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -24,8 +18,7 @@ public class EmployeeTest {
     EmployeeService testService;
     Schedule testSchedule;
     UserAccount employeeUser;
-    private List<Schedule> schedules;
-    long id;
+    String id;
 
     @Before
     public void init() {
@@ -34,8 +27,6 @@ public class EmployeeTest {
         employeeUser = new UserAccount();
         testService = new EmployeeService();
         id = testEmployee.getId();
-        schedules.add(testSchedule);
-        testEmployee.setSchedules(schedules);
     }
 
     @Test

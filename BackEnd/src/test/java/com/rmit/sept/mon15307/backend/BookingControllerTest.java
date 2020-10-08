@@ -1,8 +1,6 @@
 package com.rmit.sept.mon15307.backend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rmit.sept.mon15307.backend.model.Product;
-import com.rmit.sept.mon15307.backend.model.UserAccount;
 import com.rmit.sept.mon15307.backend.services.BookingService;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
 import com.rmit.sept.mon15307.backend.services.ProductService;

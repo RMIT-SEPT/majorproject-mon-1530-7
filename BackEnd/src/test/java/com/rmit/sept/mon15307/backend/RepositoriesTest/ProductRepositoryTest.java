@@ -16,11 +16,10 @@ import static org.junit.Assert.assertEquals;
 @DataJpaTest
 public class ProductRepositoryTest {
 
+    Product testProduct;
+    String testID;
     @Autowired
     private ProductRepository proRepoTest;
-
-    Product testProduct;
-    Long testID;
 
     @Before
     public void init() {
@@ -37,7 +36,7 @@ public class ProductRepositoryTest {
     public void saveAndFetchProductbyId() throws Exception {
         proRepoTest.save(testProduct);
 
-        Product repoTest = proRepoTest.findByIdEquals(testID);
+        Product repoTest = proRepoTest.findByProductId(Long.parseLong(testID));
 
         assertEquals(repoTest, testProduct);
     }

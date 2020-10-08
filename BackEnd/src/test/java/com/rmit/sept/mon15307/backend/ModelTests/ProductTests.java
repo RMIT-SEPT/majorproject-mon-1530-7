@@ -14,7 +14,7 @@ public class ProductTests {
 
     Product testProduct;
     ProductService proService;
-    long id;
+    String id;
 
 
     @Before
