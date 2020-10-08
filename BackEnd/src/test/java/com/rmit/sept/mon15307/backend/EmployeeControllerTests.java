@@ -11,6 +11,7 @@ import com.rmit.sept.mon15307.backend.services.ScheduleService;
 import com.rmit.sept.mon15307.backend.web.EmployeeController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
@@ -23,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
+@AutoConfigureMockMvc(addFilters = false)  // disable CSRF protection
 @ContextConfiguration(classes = {
     JwtAuthenticationEntryPoint.class
 })
@@ -54,9 +56,7 @@ public class EmployeeControllerTests {
     @WithMockUser
     public void shouldListWithNoEmployees() throws Exception {
         String expected = "{\n  \"staff\": []\n}";
-        mockMvc
-            .perform(get("/api/staff"))
-            .andExpect(status().is2xxSuccessful())
+        mockMvc.perform(get("/api/staff")).andExpect(status().isOk())
             .andExpect(content().json(expected));
     }
 
@@ -77,7 +77,7 @@ public class EmployeeControllerTests {
 
     @Test
     public void shouldRejectUnrecognisedId() throws Exception {
-        mockMvc.perform(get("/api/staff/1/times")).andExpect(status().is4xxClientError());
+        mockMvc.perform(get("/api/staff/1/times")).andExpect(status().isNotFound());
     }
 
     @Test

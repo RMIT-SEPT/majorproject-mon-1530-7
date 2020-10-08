@@ -1,13 +1,16 @@
 package com.rmit.sept.mon15307.backend;
 
 import com.rmit.sept.mon15307.backend.Repositories.*;
+import com.rmit.sept.mon15307.backend.model.Booking;
 import com.rmit.sept.mon15307.backend.security.JwtAuthenticationEntryPoint;
 import com.rmit.sept.mon15307.backend.services.*;
 import com.rmit.sept.mon15307.backend.web.BookingController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
@@ -19,6 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
+@AutoConfigureMockMvc(addFilters = false)  // disable CSRF protection
 @ContextConfiguration(classes = {
     JwtAuthenticationEntryPoint.class
 })
@@ -72,19 +76,25 @@ class BookingControllerTest {
                       ("\"appointment_date\": \"2020-01-01\"}");
         mockMvc
             .perform(post("/api/bookings").contentType("application/json").content(body))
-            .andExpect(status().is4xxClientError());
+            .andExpect(status().isBadRequest());
+
+        Mockito.verify(bookingsRepository, Mockito.never()).save(Mockito.any(Booking.class));
     }
 
     @Test
     public void shouldRejectNonExistentCustomer() throws Exception {
-        String body = ("{\"customer_id\": \"1\",") +
-                      ("\"product_id\": \"1\",") +
-                      ("\"staff_id\": \"1\",") +
-                      ("\"appointment_date\": \"2020-01-01\"}") +
-                      ("\"appointment_time\": \"10:30\"}");
+        String body = "{\n" +
+                      "  \"customer_id\": \"123\",\n" +
+                      "  \"employee_id\": \"1\",\n" +
+                      "  \"product_id\": \"1\",\n" +
+                      "  \"appointment_date\": \"2020-10-09\",\n" +
+                      "  \"appointment_time\": \"15:00\"\n" +
+                      "}";
         mockMvc
             .perform(post("/api/bookings").contentType("application/json").content(body))
-            .andExpect(status().is4xxClientError());
+            .andExpect(status().isNotFound());
+
+        Mockito.verify(bookingsRepository, Mockito.never()).save(Mockito.any(Booking.class));
     }
 
     @Test

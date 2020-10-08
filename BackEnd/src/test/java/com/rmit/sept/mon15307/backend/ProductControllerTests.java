@@ -7,13 +7,18 @@ import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
 import com.rmit.sept.mon15307.backend.services.ProductService;
 import com.rmit.sept.mon15307.backend.web.ProductController;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -21,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
+@AutoConfigureMockMvc(addFilters = false)  // disable CSRF protection
 @ContextConfiguration(classes = {
     JwtAuthenticationEntryPoint.class
 })
@@ -41,8 +47,8 @@ public class ProductControllerTests {
     public void shouldListWithNoProducts() throws Exception {
         String expected = "{\n  \"products\": []\n}";
         mockMvc
-            .perform(get("/api/products"))
-            .andExpect(status().is2xxSuccessful())
+            .perform(get("/api/products").accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
             .andExpect(content().json(expected));
     }
 
@@ -57,7 +63,9 @@ public class ProductControllerTests {
                       "}";
         mockMvc
             .perform(post("/api/products").contentType("application/json").content(body))
-            .andExpect(status().is2xxSuccessful());
+            .andExpect(status().isCreated());
+
+        Mockito.verify(productRepository, Mockito.times(1)).save(Mockito.any(Product.class));
     }
 
     @Test
@@ -70,18 +78,21 @@ public class ProductControllerTests {
                       "}";
         mockMvc
             .perform(post("/api/products").contentType("application/json").content(body))
-            .andExpect(status().is4xxClientError());
+            .andExpect(status().isBadRequest());
+
+        Mockito.verify(productRepository, Mockito.never()).save(Mockito.any(Product.class));
     }
 
     @Test
     @WithMockUser
-    public void shouldListWithProducts() throws Exception {
+    public void shouldListWithProduct() throws Exception {
         Product newProduct = new Product();
         newProduct.setDescription("test product description");
         newProduct.setName("test product");
         newProduct.setDuration(30);
         newProduct.setPrice(50);
-        this.productService.saveOrUpdateProduct(newProduct);
+
+        Mockito.when(productRepository.findAll()).thenReturn(Collections.singletonList(newProduct));
 
         String expected = "{\n" +
                           "  \"products\": [\n" +
@@ -94,9 +105,7 @@ public class ProductControllerTests {
                           "    }\n" +
                           "  ]\n" +
                           "}";
-        mockMvc
-            .perform(get("/api/products"))
-            .andExpect(status().is2xxSuccessful())
+        mockMvc.perform(get("/api/products")).andExpect(status().isOk())
             .andExpect(content().json(expected));
     }
 }
