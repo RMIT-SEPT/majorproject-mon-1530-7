@@ -51,6 +51,7 @@ public class EmployeeControllerTests {
     }
 
     @Test
+    @WithMockUser
     public void shouldListWithNoEmployees() throws Exception {
         String expected = "{\n  \"staff\": []\n}";
         mockMvc

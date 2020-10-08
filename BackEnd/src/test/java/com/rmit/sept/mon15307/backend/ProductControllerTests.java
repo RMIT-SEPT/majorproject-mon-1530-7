@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -36,6 +37,7 @@ public class ProductControllerTests {
     }
 
     @Test
+    @WithMockUser
     public void shouldListWithNoProducts() throws Exception {
         String expected = "{\n  \"products\": []\n}";
         mockMvc
@@ -45,6 +47,7 @@ public class ProductControllerTests {
     }
 
     @Test
+    @WithMockUser
     public void shouldCreateValidProduct() throws Exception {
         String body = "{\n" +
                       "  \"name\": \"test product\",\n" +
@@ -58,6 +61,7 @@ public class ProductControllerTests {
     }
 
     @Test
+    @WithMockUser
     public void shouldRejectInvalidProduct() throws Exception {
         String body = "{\n" +
                       "  \"name\": \"test product\",\n" +
@@ -70,6 +74,7 @@ public class ProductControllerTests {
     }
 
     @Test
+    @WithMockUser
     public void shouldListWithProducts() throws Exception {
         Product newProduct = new Product();
         newProduct.setDescription("test product description");
