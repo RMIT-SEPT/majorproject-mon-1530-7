@@ -14,25 +14,23 @@ public class ProductTests {
 
     Product testProduct;
     ProductService proService;
-    String id;
-
 
     @Before
     public void init() {
         testProduct = new Product();
         proService = new ProductService();
-        id = testProduct.getId();
+        proService.saveOrUpdateProduct(testProduct);
     }
 
     @Test
     public void idGenerationTest(){
-        assertNotNull("Checks product ID is actaully being generated", id);
+        assertNotNull("Checks product ID is actaully being generated", testProduct.getId());
     }
 
     @Test
     public void productSearchByIdTest(){
         proService.saveOrUpdateProduct(testProduct);
-        Product testProDup = proService.findByProductId(id);
+        Product testProDup = proService.findByProductId(testProduct.getId());
 
         assertEquals("Should save and locate the saved product by ID: ",testProduct, testProDup);
     }
@@ -41,10 +39,10 @@ public class ProductTests {
     @Test
     public void updateProductTest(){
         proService.saveOrUpdateProduct(testProduct);
-        Product testProDup = proService.findByProductId(id);
+        Product testProDup = proService.findByProductId(testProduct.getId());
 
         testProduct.setDescription("Updated Discription");
-        Product testUpdate = proService.findByProductId(id);
+        Product testUpdate = proService.findByProductId(testProduct.getId());
 
         assertNotEquals("Product should NOT match the original product as it should have been updated in the repo: ", testUpdate, testProDup);
     }
