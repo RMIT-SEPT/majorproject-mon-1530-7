@@ -22,19 +22,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
-@AutoConfigureMockMvc(addFilters = false)  // disable CSRF protection
-@ContextConfiguration(classes = {
-    JwtAuthenticationEntryPoint.class
-})
-@Import({
-            BookingController.class,
-            BookingService.class,
-            UserService.class,
-            EmployeeService.class,
-            ScheduleService.class,
-            ProductService.class,
-            MapValidationErrorService.class
-        })
+@AutoConfigureMockMvc(addFilters = false) // disable CSRF protection
+@ContextConfiguration(classes = { JwtAuthenticationEntryPoint.class })
+@Import({ BookingController.class, BookingService.class, UserService.class, EmployeeService.class,
+        ScheduleService.class, ProductService.class, MapValidationErrorService.class })
 class BookingControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -71,28 +62,21 @@ class BookingControllerTest {
 
     @Test
     public void shouldRejectIncompleteData() throws Exception {
-        String body = ("{\"customer_id\": \"1\",") +
-                      ("\"product_id\": \"1\",") +
-                      ("\"appointment_date\": \"2020-01-01\"}");
-        mockMvc
-            .perform(post("/api/bookings").contentType("application/json").content(body))
-            .andExpect(status().isBadRequest());
+        String body = ("{\"customer_id\": \"1\",") + ("\"product_id\": \"1\",")
+                + ("\"appointment_date\": \"2020-01-01\"}");
+        mockMvc.perform(post("/api/bookings").contentType("application/json").content(body))
+                .andExpect(status().isBadRequest());
 
         Mockito.verify(bookingsRepository, Mockito.never()).save(Mockito.any(Booking.class));
     }
 
     @Test
     public void shouldRejectNonExistentCustomer() throws Exception {
-        String body = "{\n" +
-                      "  \"customer_id\": \"123\",\n" +
-                      "  \"employee_id\": \"1\",\n" +
-                      "  \"product_id\": \"1\",\n" +
-                      "  \"appointment_date\": \"2020-10-09\",\n" +
-                      "  \"appointment_time\": \"15:00\"\n" +
-                      "}";
-        mockMvc
-            .perform(post("/api/bookings").contentType("application/json").content(body))
-            .andExpect(status().isNotFound());
+        String body = "{\n" + "  \"customer_id\": \"123\",\n" + "  \"employee_id\": \"1\",\n"
+                + "  \"product_id\": \"1\",\n" + "  \"appointment_date\": \"2020-10-09\",\n"
+                + "  \"appointment_time\": \"15:00\"\n" + "}";
+        mockMvc.perform(post("/api/bookings").contentType("application/json").content(body))
+                .andExpect(status().isNotFound());
 
         Mockito.verify(bookingsRepository, Mockito.never()).save(Mockito.any(Booking.class));
     }

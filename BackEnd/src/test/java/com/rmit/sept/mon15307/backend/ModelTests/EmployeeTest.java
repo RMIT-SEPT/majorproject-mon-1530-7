@@ -45,14 +45,14 @@ public class EmployeeTest {
     }
 
     @Test
-    public void employeeScheduleTest(){
+    public void employeeScheduleTest() {
         boolean testTrue = testEmployee.isScheduled(testSchedule.getDate());
 
-        assertTrue("Employee is booked for date: ",testTrue);
+        assertTrue("Employee is booked for date: ", testTrue);
     }
 
     @Test
-    public void employeeUserTest(){
+    public void employeeUserTest() {
         UserAccount userTest = testEmployee.getUser();
 
         assertEquals("Employee that belongs to a user is valid: ", userTest, employeeUser);
