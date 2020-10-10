@@ -150,6 +150,25 @@ public class Booking {
         this.createdAt = new Date();
     }
 
+    @PreUpdate
+    public void onUpdate() {
+        if (this.status != BookingStatus.CANCELLED) {
+            this.cancelledAt = null;
+        }
+
+        if (this.status != BookingStatus.COMPLETED) {
+            this.completedAt = null;
+        }
+
+        if (this.status == BookingStatus.CANCELLED && this.cancelledAt == null) {
+            this.cancelledAt = new Date();
+        }
+
+        if (this.status == BookingStatus.COMPLETED && this.completedAt == null) {
+            this.completedAt = new Date();
+        }
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Booking{");
