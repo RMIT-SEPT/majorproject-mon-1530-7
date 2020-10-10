@@ -1,5 +1,6 @@
 package com.rmit.sept.mon15307.backend.web;
 
+import com.rmit.sept.mon15307.backend.exceptions.BookingException;
 import com.rmit.sept.mon15307.backend.exceptions.NotFoundException;
 import com.rmit.sept.mon15307.backend.model.*;
 import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
@@ -26,22 +27,16 @@ import java.util.Map;
 @RequestMapping("/api/bookings")
 @CrossOrigin
 public class BookingController {
-
     @Autowired
     private BookingService bookingService;
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private EmployeeService employeeService;
-
     @Autowired
     private ScheduleService scheduleService;
-
     @Autowired
     private ProductService productService;
-
     @Autowired
     private MapValidationErrorService mapValidationErrorService;
 
@@ -150,26 +145,24 @@ public class BookingController {
         @RequestParam
             String status,
         @AuthenticationPrincipal
-            UserAccount user, BindingResult result
+            UserAccount user
     ) {
-
-        Map<String, Map<String, String>> errorResponse = new HashMap<>();
-        Map<String, String> errorMessage = new HashMap<>();
-
         BookingStatus bookingStatus;
         try {
             bookingStatus = BookingStatus.valueOf(status);
         } catch (IllegalArgumentException e) {
-            errorMessage.put("message", "invalid status: " + status);
-            errorResponse.put("error", errorMessage);
-            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+            throw new BookingException("Invalid booking status: " + status);
         }
+
         Iterable<Booking> bookings;
-        if (user.getAdmin() || user.getWorker()) {
-            // current authenticated user is permitted to retrieve bookings for all customers
+        if (user.getAdmin()) {
+            // user is permitted to retrieve bookings for all customers
             bookings = bookingService.findAllBookingsByStatus(bookingStatus);
+        } else if (user.getWorker()) {
+            // user is permitted to retrieve bookings for all customers to which they are assigned
+            bookings = bookingService.findWorkerBookingsByStatus(user, bookingStatus);
         } else {
-            // only bookings for current user
+            // user is permitted to retrieve only their own bookings
             bookings = bookingService.findUserBookingsByStatus(user, bookingStatus);
         }
 

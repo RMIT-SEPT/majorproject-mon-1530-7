@@ -21,6 +21,9 @@ public class BookingService {
     @Autowired
     private BookingsRepository bookingsRepository;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     public Booking saveOrUpdateBooking(Booking booking) {
         return bookingsRepository.save(booking);
     }
@@ -63,6 +66,11 @@ public class BookingService {
 
     public Iterable<Booking> findUserBookingsByStatus(UserAccount user, BookingStatus status) {
         return bookingsRepository.findBookingsByCustomerAndStatus(user, status);
+    }
+
+    public Iterable<Booking> findWorkerBookingsByStatus(UserAccount user, BookingStatus status) {
+        Employee employee = employeeService.findByByUser(user);
+        return bookingsRepository.findBookingsByEmployeeAndStatus(employee, status);
     }
 
     public Iterable<Booking> findAllBookingsByStatus(BookingStatus status) {
