@@ -1,17 +1,20 @@
 package com.rmit.sept.mon15307.backend.services;
 
 import com.rmit.sept.mon15307.backend.Repositories.BookingsRepository;
-import com.rmit.sept.mon15307.backend.exceptions.BookingException;
+import com.rmit.sept.mon15307.backend.exceptions.BookingNotFoundException;
+import com.rmit.sept.mon15307.backend.exceptions.InvalidBookingStatusTransitionException;
+import com.rmit.sept.mon15307.backend.exceptions.NotAuthorisedException;
+import com.rmit.sept.mon15307.backend.exceptions.UserNotAuthorisedException;
 import com.rmit.sept.mon15307.backend.model.Booking;
 import com.rmit.sept.mon15307.backend.model.Employee;
 import com.rmit.sept.mon15307.backend.model.Schedule;
 import com.rmit.sept.mon15307.backend.model.UserAccount;
 import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
+import com.rmit.sept.mon15307.backend.payload.BookingPatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Service
 public class BookingService {
@@ -26,30 +29,14 @@ public class BookingService {
         return this.bookingsRepository.findBookingsByScheduleId(schedule.getId());
     }
 
-    public Booking findByBookingId(Long bookingId) {
-
+    public Booking findByBookingId(Long bookingId) throws BookingNotFoundException {
         Booking booking = bookingsRepository.findByBookingId(bookingId);
 
         if (booking == null) {
-            throw new BookingException("Booking ID '" + bookingId + "' does not exist");
-
+            throw new BookingNotFoundException("Booking ID '" + bookingId + "' was not found");
         }
 
         return booking;
-    }
-
-    public void cancelBookingById(Long bookingId) {
-        Booking booking = bookingsRepository.findByBookingId(bookingId);
-
-        if (booking == null) {
-            throw new BookingException("Cannot find booking with ID '" +
-                                       bookingId +
-                                       "'. This booking does not exist");
-        }
-
-        Date cancelledAt = new Date();
-
-        booking.setCancelledAt(cancelledAt);
     }
 
     public boolean conflictsWithExisting(
@@ -81,5 +68,56 @@ public class BookingService {
     public Iterable<Booking> findAllBookingsByStatus(BookingStatus status) {
         return bookingsRepository.findBookingsByStatus(status);
     }
+
+    public Booking setBookingStatus(Booking booking, BookingStatus status) {
+        booking.setStatus(status);
+        return bookingsRepository.save(booking);
+    }
+
+    public Booking updateBooking(Booking booking, BookingPatch bookingPatch, UserAccount user) {
+        // user must have authority to edit this booking
+        boolean bookingIsForUser = booking.getCustomer().getUserId().equals(user.getUserId());
+        if (!bookingIsForUser && !user.getAdmin() && !user.getWorker()) {
+            throw new NotAuthorisedException("User not authorised");
+        }
+
+        // admin can set pending -> confirmed or confirmed -> pending
+        BookingStatus currentStatus = booking.getStatus();
+        BookingStatus targetStatus = bookingPatch.getStatus();
+        boolean isAdminConfirmation =
+            (currentStatus == BookingStatus.pending && targetStatus == BookingStatus.confirmed) ||
+            (currentStatus == BookingStatus.confirmed && targetStatus == BookingStatus.pending);
+
+        // worker can set notcompleted -> completed or completed -> notcompleted
+        boolean isWorkerCompletion = (currentStatus == BookingStatus.notcompleted &&
+                                      targetStatus == BookingStatus.completed) ||
+                                     (currentStatus == BookingStatus.completed &&
+                                      targetStatus == BookingStatus.notcompleted);
+
+        // admin or applicable user can set (confirmed or pending) -> cancelled
+        boolean isAdminOrUserCancellation =
+            (currentStatus == BookingStatus.confirmed || currentStatus == BookingStatus.pending) &&
+            targetStatus == BookingStatus.cancelled;
+
+        // change must be a valid operation given current status
+        if (!(isAdminConfirmation || isWorkerCompletion || isAdminOrUserCancellation)) {
+            throw new InvalidBookingStatusTransitionException();
+        }
+
+        // user must be authorised to make this change
+        boolean isAuthorisedAdminConfirmation = isAdminConfirmation && user.getAdmin();
+        boolean isAuthorisedWorkerCompletion = isWorkerCompletion && user.getWorker();
+        boolean isAuthorisedAdminOrUserCancellation =
+            isAdminOrUserCancellation && (user.getAdmin() || bookingIsForUser);
+
+        if (!(isAuthorisedAdminConfirmation ||
+              isAuthorisedWorkerCompletion ||
+              isAuthorisedAdminOrUserCancellation)) {
+            throw new UserNotAuthorisedException("User not authorised to make this change");
+        }
+
+        return this.setBookingStatus(booking, targetStatus);
+    }
+
 }
 

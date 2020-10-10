@@ -3,6 +3,7 @@ package com.rmit.sept.mon15307.backend.web;
 import com.rmit.sept.mon15307.backend.exceptions.NotFoundException;
 import com.rmit.sept.mon15307.backend.model.*;
 import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
+import com.rmit.sept.mon15307.backend.payload.BookingPatch;
 import com.rmit.sept.mon15307.backend.payload.BookingRequest;
 import com.rmit.sept.mon15307.backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -119,7 +122,7 @@ public class BookingController {
         // error)
 
         Booking booking = new Booking();
-        booking.setStatus(BookingStatus.upcoming);
+        booking.setStatus(BookingStatus.pending);
         booking.setCustomer(customer);
         booking.setEmployee(employee);
         booking.setProduct(product);
@@ -137,12 +140,9 @@ public class BookingController {
     public ResponseEntity<?> getBookingById(
         @PathVariable
             Long bookingId
-
     ) {
-
         Booking booking = bookingService.findByBookingId(bookingId);
-
-        return new ResponseEntity<Booking>(booking, HttpStatus.OK);
+        return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
     @GetMapping("")
@@ -179,15 +179,22 @@ public class BookingController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/bookings/{bookingId}")
-    public ResponseEntity<?> cancelProject(
+    @PatchMapping("/{bookingId}")
+    public ResponseEntity<?> editBooking(
         @PathVariable
-            Long bookingId
+        @Min(1) @NotNull Long bookingId,
+        @Valid
+        @RequestBody
+            BookingPatch bookingPatch,
+        BindingResult result,
+        @AuthenticationPrincipal
+            UserAccount user
     ) {
-        bookingService.cancelBookingById(bookingId);
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap != null) return errorMap;
 
-        return new ResponseEntity<String>("Booking with ID: '" + bookingId + "' was cancelled",
-                                          HttpStatus.OK
-        );
+        Booking booking = bookingService.findByBookingId(bookingId);
+        Booking updatedBooking = bookingService.updateBooking(booking, bookingPatch, user);
+        return new ResponseEntity<>(updatedBooking, HttpStatus.OK);
     }
 }
