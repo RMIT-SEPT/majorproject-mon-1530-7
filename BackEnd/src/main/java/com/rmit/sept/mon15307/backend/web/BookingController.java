@@ -1,5 +1,7 @@
 package com.rmit.sept.mon15307.backend.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rmit.sept.mon15307.backend.exceptions.NotFoundException;
 import com.rmit.sept.mon15307.backend.model.*;
 import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -152,7 +155,7 @@ public class BookingController {
         @AuthenticationPrincipal
 //            UserAccount user, BindingResult result
             UserAccount user
-    ) {
+    ) throws JsonProcessingException {
 
         Map<String, Map<String, String>> errorResponse = new HashMap<>();
         Map<String, String> errorMessage = new HashMap<>();
@@ -173,11 +176,9 @@ public class BookingController {
             // only bookings for current user
             bookings = bookingService.findUserBookingsByStatus(user, bookingStatus);
         }
-
-        Map<String, Iterable<Booking>> response = new HashMap<>();
-        response.put("bookings", bookings);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        BookingsList bookingsList = new BookingsList((List<Booking>) bookings);
+        String serialized = new ObjectMapper().writeValueAsString(bookingsList);
+        return new ResponseEntity<>(serialized, HttpStatus.OK);
     }
 
     @DeleteMapping("/bookings/{bookingId}")

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Spinner from "react-bootstrap/Spinner";
 import PropTypes from "prop-types";
+import { format } from "date-fns";
 
 class CustomerDashboardBookingHistorySection extends Component {
     
     constructor(props){
         super(props);
         this.state = {
-            // TODO --> MAYBE REMOVE
-            // userId: null,
+            
         };
     }
 
@@ -32,60 +32,8 @@ class CustomerDashboardBookingHistorySection extends Component {
                         <tr>
                             <td>{pastBooking.product.name}</td>
                             <td>{pastBooking.staff_member.name}</td>
-                            <td>{pastBooking.appointment_time.substring(8, 10) + "/" + 
-                            pastBooking.appointment_time.substring(5, 7) + "/" + 
-                            pastBooking.appointment_time.substring(0, 4)}</td>
-
-                            {(pastBooking.appointment_time.substring(11 ,13) === "12") &&
-                            <td>{"12"+ pastBooking.appointment_time.substring(13) + " pm"}</td>} 
-                        {(pastBooking.appointment_time.substring(11 ,13) === "13") &&
-                            <td>{"1" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        {(pastBooking.appointment_time.substring(11 ,13) === "14") &&
-                            <td>{"2" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        {(pastBooking.appointment_time.substring(11 ,13) === "15") &&
-                            <td>{"3" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        {(pastBooking.appointment_time.substring(11 ,13) === "16") &&
-                            <td>{"4" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        {(pastBooking.appointment_time.substring(11 ,13) === "17") &&
-                            <td>{"5" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        {(pastBooking.appointment_time.substring(11 ,13) === "18") &&
-                            <td>{"6" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        {(pastBooking.appointment_time.substring(11 ,13) === "19") &&
-                            <td>{"7" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        {(pastBooking.appointment_time.substring(11 ,13) === "20") &&
-                            <td>{"8" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        {(pastBooking.appointment_time.substring(11 ,13) === "21") &&
-                            <td>{"9" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        {(pastBooking.appointment_time.substring(11 ,13) === "22") &&
-                            <td>{"10" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        {(pastBooking.appointment_time.substring(11 ,13) === "23") &&
-                            <td>{"11" + pastBooking.appointment_time.substring(13) + " pm"}</td>}
-                        
-                            {(pastBooking.appointment_time.substring(11 ,13) === "00") &&
-                            <td>{"12" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "01") &&
-                            <td>{"1" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "02") &&
-                            <td>{"2" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "03") &&
-                            <td>{"3" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "04") &&
-                            <td>{"4" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "05") &&
-                            <td>{"5" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "06") &&
-                            <td>{"6" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "07") &&
-                            <td>{"7" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "08") &&
-                            <td>{"8" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "09") &&
-                            <td>{"9" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "10") &&
-                            <td>{"10" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-                            {(pastBooking.appointment_time.substring(11 ,13) === "11") &&
-                            <td>{"11" + pastBooking.appointment_time.substring(13) + " am"}</td>}
-
+                            <td>{format(new Date(pastBooking.appointment_time), "d/M/yyyy")}</td>
+                            <td>{format(new Date(pastBooking.appointment_time), "h:m a")}</td>
                         </tr>
                     ))}
                   </tbody>
@@ -99,7 +47,6 @@ class CustomerDashboardBookingHistorySection extends Component {
                 </Spinner>
                 
             );
-            // return <p>No past bookings</p>;
         }
     }
     

@@ -6,7 +6,6 @@ import CustomerDashboardBookingHistorySection from './CustomerDashboardBookingHi
 import "../../index.css";
 import UserProfile from "../../UserProfile.js";
 
-// function DashboardLayout() {
   class DashboardLayout extends Component {
 
     constructor(props){
@@ -17,7 +16,6 @@ import UserProfile from "../../UserProfile.js";
         loadingCurrentBookings: true,
         pastBookings:[],
         loadBookingHistory: true,
-        //TODO MORE FOR BOOKING HISTORY?
       }
     }
 
@@ -28,7 +26,10 @@ import UserProfile from "../../UserProfile.js";
     }
     
     fetchCurrentBookings(){
-      fetch(process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id + "&status=upcoming", {
+      const fetchBookingsURL = new URL("bookings", process.env.REACT_APP_API_URL);
+      fetchBookingsURL.searchParams.append("user", this.state.user_id);
+      fetchBookingsURL.searchParams.append("status", "upcoming");
+      fetch(fetchBookingsURL, {
         headers : {
           Authorization: UserProfile.getToken()
         }
@@ -41,7 +42,10 @@ import UserProfile from "../../UserProfile.js";
     }
 
     fetchBookingHistory(){
-      fetch(process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id + "&status=completed", {
+      const fetchBookingsURL = new URL("bookings", process.env.REACT_APP_API_URL);
+      fetchBookingsURL.searchParams.append("user", this.state.user_id);
+      fetchBookingsURL.searchParams.append("status", "completed");
+      fetch(fetchBookingsURL, {
         headers : {
           Authorization: UserProfile.getToken()
         }
