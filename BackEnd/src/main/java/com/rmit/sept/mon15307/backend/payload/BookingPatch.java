@@ -14,7 +14,7 @@ public class BookingPatch {
 
     public BookingStatus getStatus() {
         try {
-            return BookingStatus.valueOf(status);
+            return BookingStatus.valueOf(status.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new BookingException("Invalid booking status");
         }

@@ -117,7 +117,7 @@ public class BookingController {
         // error)
 
         Booking booking = new Booking();
-        booking.setStatus(BookingStatus.pending);
+        booking.setStatus(BookingStatus.PENDING);
         booking.setCustomer(customer);
         booking.setEmployee(employee);
         booking.setProduct(product);
@@ -149,7 +149,7 @@ public class BookingController {
     ) {
         BookingStatus bookingStatus;
         try {
-            bookingStatus = BookingStatus.valueOf(status);
+            bookingStatus = BookingStatus.valueOf(status.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new BookingException("Invalid booking status: " + status);
         }

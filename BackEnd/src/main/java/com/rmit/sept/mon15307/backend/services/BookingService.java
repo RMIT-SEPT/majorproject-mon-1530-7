@@ -93,19 +93,19 @@ public class BookingService {
         BookingStatus currentStatus = booking.getStatus();
         BookingStatus targetStatus = bookingPatch.getStatus();
         boolean isAdminConfirmation =
-            (currentStatus == BookingStatus.pending && targetStatus == BookingStatus.confirmed) ||
-            (currentStatus == BookingStatus.confirmed && targetStatus == BookingStatus.pending);
+            (currentStatus == BookingStatus.PENDING && targetStatus == BookingStatus.CONFIRMED) ||
+            (currentStatus == BookingStatus.CONFIRMED && targetStatus == BookingStatus.PENDING);
 
         // worker can set notcompleted -> completed or completed -> notcompleted
-        boolean isWorkerCompletion = (currentStatus == BookingStatus.notcompleted &&
-                                      targetStatus == BookingStatus.completed) ||
-                                     (currentStatus == BookingStatus.completed &&
-                                      targetStatus == BookingStatus.notcompleted);
+        boolean isWorkerCompletion = (currentStatus == BookingStatus.NOT_COMPLETED &&
+                                      targetStatus == BookingStatus.COMPLETED) ||
+                                     (currentStatus == BookingStatus.COMPLETED &&
+                                      targetStatus == BookingStatus.NOT_COMPLETED);
 
         // admin or applicable user can set (confirmed or pending) -> cancelled
         boolean isAdminOrUserCancellation =
-            (currentStatus == BookingStatus.confirmed || currentStatus == BookingStatus.pending) &&
-            targetStatus == BookingStatus.cancelled;
+            (currentStatus == BookingStatus.CONFIRMED || currentStatus == BookingStatus.PENDING) &&
+            targetStatus == BookingStatus.CANCELLED;
 
         // change must be a valid operation given current status
         if (!(isAdminConfirmation || isWorkerCompletion || isAdminOrUserCancellation)) {
