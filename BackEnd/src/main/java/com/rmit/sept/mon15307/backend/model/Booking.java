@@ -121,7 +121,7 @@ public class Booking {
         this.time = time;
     }
 
-    public Date getCreatedDate() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
@@ -129,8 +129,8 @@ public class Booking {
         return cancelledAt;
     }
 
-    public void setCancelledAt(Date cancelledAt) {
-        this.cancelledAt = cancelledAt;
+    public Date getCompletedAt() {
+        return completedAt;
     }
 
     @JsonIgnore
