@@ -12,16 +12,42 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private final ResponseEntity<Object> handleCustomException(
+        Exception ex, HttpStatus httpStatus
+    ) {
+        return new ResponseEntity<>(new CustomErrorResponse(ex.getMessage()), httpStatus);
+    }
+
     @ExceptionHandler
-    public final ResponseEntity<Object> handleProjectIdException(UserException ex, WebRequest request){
+    public final ResponseEntity<Object> handleProjectIdException(
+        UserException ex, WebRequest request
+    ) {
         UserIdExceptionResponse exceptionResponse = new UserIdExceptionResponse(ex.getMessage());
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler
-    public final ResponseEntity<Object> handleUsernameAlreadyExists(UsernameAlreadyExistsException ex, WebRequest request){
-        UsernameAlreadyExistsResponse exceptionResponse = new UsernameAlreadyExistsResponse(ex.getMessage());
+    public final ResponseEntity<Object> handleUsernameAlreadyExists(
+        UsernameAlreadyExistsException ex, WebRequest request
+    ) {
+        UsernameAlreadyExistsResponse exceptionResponse =
+            new UsernameAlreadyExistsResponse(ex.getMessage());
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleBookingException(BookingException ex) {
+        return this.handleCustomException(ex, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {
+        return this.handleCustomException(ex, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleNotAuthorisedException(NotAuthorisedException ex) {
+        return this.handleCustomException(ex, HttpStatus.FORBIDDEN);
     }
 }
 
