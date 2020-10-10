@@ -5,6 +5,7 @@ import com.rmit.sept.mon15307.backend.exceptions.UserNotAuthorisedException;
 import com.rmit.sept.mon15307.backend.model.UserAccount;
 import com.rmit.sept.mon15307.backend.payload.JWTLoginSucessReponse;
 import com.rmit.sept.mon15307.backend.payload.LoginRequest;
+import com.rmit.sept.mon15307.backend.payload.UserProfilePatch;
 import com.rmit.sept.mon15307.backend.security.JwtTokenProvider;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
 import com.rmit.sept.mon15307.backend.services.UserService;
@@ -104,6 +105,27 @@ public class UserController {
 
         Map<String, UserAccount> response = new HashMap<>();
         response.put("user", targetUser);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @JsonView(UserAccount.UserAccountViews.Public.class)
+    @PatchMapping("/profile")
+    public ResponseEntity<?> editUserDetails(
+        @Valid
+        @RequestBody
+            UserProfilePatch userProfilePatch,
+        BindingResult result,
+        @AuthenticationPrincipal
+            UserAccount user
+    ) {
+        ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        if (errorMap != null) return errorMap;
+
+        UserAccount updatedUser = userService.editUser(user, userProfilePatch);
+
+        Map<String, UserAccount> response = new HashMap<>();
+        response.put("user", updatedUser);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
