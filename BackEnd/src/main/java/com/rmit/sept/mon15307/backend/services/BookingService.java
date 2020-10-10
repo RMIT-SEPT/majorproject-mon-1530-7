@@ -1,20 +1,17 @@
 package com.rmit.sept.mon15307.backend.services;
 
 import com.rmit.sept.mon15307.backend.Repositories.BookingsRepository;
-import com.rmit.sept.mon15307.backend.exceptions.BookingNotFoundException;
-import com.rmit.sept.mon15307.backend.exceptions.InvalidBookingStatusTransitionException;
-import com.rmit.sept.mon15307.backend.exceptions.NotAuthorisedException;
-import com.rmit.sept.mon15307.backend.exceptions.UserNotAuthorisedException;
-import com.rmit.sept.mon15307.backend.model.Booking;
-import com.rmit.sept.mon15307.backend.model.Employee;
-import com.rmit.sept.mon15307.backend.model.Schedule;
-import com.rmit.sept.mon15307.backend.model.UserAccount;
+import com.rmit.sept.mon15307.backend.exceptions.*;
+import com.rmit.sept.mon15307.backend.model.*;
 import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
 import com.rmit.sept.mon15307.backend.payload.BookingPatch;
+import com.rmit.sept.mon15307.backend.payload.BookingRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Service
 public class BookingService {
@@ -23,6 +20,9 @@ public class BookingService {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
     public Booking saveOrUpdateBooking(Booking booking) {
         return bookingsRepository.save(booking);
@@ -78,8 +78,59 @@ public class BookingService {
     }
 
     public Booking setBookingStatus(Booking booking, BookingStatus status) {
+
         booking.setStatus(status);
         return bookingsRepository.save(booking);
+    }
+
+    public Booking createBooking(
+        UserAccount customer, Employee employee, Product product, BookingRequest bookingRequest
+    ) {
+        // employee must be scheduled for the selected date
+        Schedule schedule =
+            scheduleService.findByEmployeeAndDate(employee, bookingRequest.getDate());
+        boolean employeeNotScheduled = schedule == null;
+
+        // date must be in next 14 days (including today)
+        LocalDate future = LocalDate.now().plusDays(14);
+        boolean invalidDate = !bookingRequest.getDate().isBefore(future);
+
+        // time must be one of the permitted options
+        boolean unsupportedTime = !Booking.permittedTimes.contains(bookingRequest.getTimeSlot());
+
+        // booking must not have already started
+        LocalDateTime startTime = LocalDateTime.of(bookingRequest.getDate(),
+                                                   LocalTime.parse(bookingRequest.getTimeSlot())
+        );
+        boolean invalidAppointmentStart = !startTime.isAfter(LocalDateTime.now());
+
+        // employee must not have any preexisting overlapping bookings
+        LocalDateTime endTime = startTime.plusMinutes(product.getDuration());
+        boolean bookingConflict =
+            this.conflictsWithExisting(schedule, employee, startTime, endTime);
+
+        if (employeeNotScheduled ||
+            invalidDate ||
+            unsupportedTime ||
+            invalidAppointmentStart ||
+            bookingConflict) {
+            throw new ConflictException("Appointment time not available");
+        }
+
+        // now we can make the booking (and hopefully no new conflict has arisen in the
+        // meantime)
+        // TODO: handle race conditions (create, check conflicts, maybe rollback and error)
+
+        Booking booking = new Booking();
+        booking.setStatus(BookingStatus.PENDING);
+        booking.setCustomer(customer);
+        booking.setEmployee(employee);
+        booking.setProduct(product);
+        booking.setSchedule(schedule);
+        booking.setTime(bookingRequest.getTimeSlot());
+        this.saveOrUpdateBooking(booking);
+
+        return booking;
     }
 
     public Booking updateBooking(Booking booking, BookingPatch bookingPatch, UserAccount user) {

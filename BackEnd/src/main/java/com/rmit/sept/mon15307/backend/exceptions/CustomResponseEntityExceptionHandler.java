@@ -49,5 +49,10 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     public final ResponseEntity<Object> handleNotAuthorisedException(NotAuthorisedException ex) {
         return this.handleCustomException(ex, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleConflictException(ConflictException ex) {
+        return this.handleCustomException(ex, HttpStatus.CONFLICT);
+    }
 }
 

@@ -39,7 +39,6 @@ public class UserService {
         UserAccount user = userRepository.findByUserId(Long.parseLong(userId));
 
         if (user == null) {
-            // TODO: custom exception
             throw new UserNotFoundException("User ID '" + userId + "' not found");
         }
 
@@ -50,7 +49,6 @@ public class UserService {
         UserAccount user = userRepository.findByUsername(username);
 
         if (user == null) {
-            // TODO: custom exception
             throw new UserNotFoundException("Username '" + username + "' not found");
         }
 
