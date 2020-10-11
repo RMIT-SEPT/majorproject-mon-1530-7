@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import PropTypes from "prop-types";
-import { format } from "date-fns";
+import { format, subHours } from "date-fns";
 
 class CustomerDashboardCurrentBookingsSection extends Component {
 
@@ -13,7 +13,6 @@ class CustomerDashboardCurrentBookingsSection extends Component {
     }
 
     renderCurrentBookings(){
-
         if(!this.props.loading && this.props.currentBookings.length > 0){
 
             return(
@@ -32,8 +31,8 @@ class CustomerDashboardCurrentBookingsSection extends Component {
                         <tr>
                             <td>{currentBooking.product.name}</td>
                             <td>{currentBooking.staff_member.name}</td>
-                            <td>{format(new Date(currentBooking.appointment_time), "d/M/yyyy")}</td>
-                            <td>{format(new Date(currentBooking.appointment_time), "h:m a")}</td>
+                            <td>{format(subHours(new Date(currentBooking.appointment_time), 11), "d/MM/yyyy")}</td>
+                            <td>{format(subHours(new Date(currentBooking.appointment_time), 11), "h:mm a")}</td>
                             <button className="cancel-btn">Cancel Booking</button>
                         </tr>
                     ))}

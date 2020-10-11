@@ -8,6 +8,8 @@ import com.rmit.sept.mon15307.backend.model.Booking;
 import com.rmit.sept.mon15307.backend.model.BookingsList;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class BookingSerializer extends StdSerializer<BookingsList> {
@@ -56,8 +58,9 @@ public class BookingSerializer extends StdSerializer<BookingsList> {
                 jsonGenerator.writeStringField("fullName", booking.getCustomer().getFullName());
                 jsonGenerator.writeStringField("phoneNumber", booking.getCustomer().getPhoneNumber());
                 jsonGenerator.writeEndObject();
-                jsonGenerator.writeStringField("appointment_time", booking.getSchedule().getDate()
-                        + "T" + booking.getTime());
+                jsonGenerator.writeStringField("appointment_time", LocalDateTime.of(
+                        booking.getSchedule().getDate(),
+                        LocalTime.parse(booking.getTime())).toString());
                 jsonGenerator.writeEndObject();
             }
             jsonGenerator.writeEndArray();

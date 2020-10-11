@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Spinner from "react-bootstrap/Spinner";
 import PropTypes from "prop-types";
-import { format } from "date-fns";
+import { format, subHours } from "date-fns";
+
 
 class CustomerDashboardBookingHistorySection extends Component {
     
@@ -32,8 +33,8 @@ class CustomerDashboardBookingHistorySection extends Component {
                         <tr>
                             <td>{pastBooking.product.name}</td>
                             <td>{pastBooking.staff_member.name}</td>
-                            <td>{format(new Date(pastBooking.appointment_time), "d/M/yyyy")}</td>
-                            <td>{format(new Date(pastBooking.appointment_time), "h:m a")}</td>
+                            <td>{format(subHours(new Date(pastBooking.appointment_time), 11), "d/MM/yyyy")}</td>
+                            <td>{format(subHours(new Date(pastBooking.appointment_time), 11), "h:mm a")}</td>
                         </tr>
                     ))}
                   </tbody>

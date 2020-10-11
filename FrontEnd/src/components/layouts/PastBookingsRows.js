@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Row, Col} from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import PropTypes from 'prop-types';
-import { format } from "date-fns";
+import { format, subHours } from "date-fns";
 
 
 class PastBookingsRows extends Component {
@@ -24,8 +24,8 @@ class PastBookingsRows extends Component {
                         <Row>
                             <Col>{pastBooking.product.name}</Col>
                             <Col>{pastBooking.staff_member.name}</Col>
-                            <Col>{format(new Date(pastBooking.appointment_time), "d/M/yyyy")}</Col>
-                            <Col>{format(new Date(pastBooking.appointment_time), "h:m a")}</Col>
+                            <Col>{format(subHours(new Date(pastBooking.appointment_time), 11), "d/MM/yyyy")}</Col>
+                            <Col>{format(subHours(new Date(pastBooking.appointment_time), 11), "h:mm a")}</Col>
                             <br/><br/>
                         </Row>
                         
