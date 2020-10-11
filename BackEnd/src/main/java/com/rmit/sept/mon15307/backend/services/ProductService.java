@@ -1,6 +1,7 @@
 package com.rmit.sept.mon15307.backend.services;
 
 import com.rmit.sept.mon15307.backend.Repositories.ProductRepository;
+import com.rmit.sept.mon15307.backend.exceptions.ProductNotFoundException;
 import com.rmit.sept.mon15307.backend.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ProductService {
 
         if (product == null) {
             // TODO: custom exception
-            throw new RuntimeException("Service ID '" + productId + "' does not exist");
+            throw new ProductNotFoundException("Product ID '" + productId + "' not found");
         }
 
         return product;
