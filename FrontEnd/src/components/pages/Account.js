@@ -5,12 +5,11 @@ import UserProfile from '../../UserProfile.js'
 
 class Account extends Component {
     handleLogout = (event) => {
-        UserProfile.setLoggedOut()
-        UserProfile.setToken("")
-        UserProfile.setAdmin("false")
-        UserProfile.setUID("")
-        window.location.reload(false)
-        
+        UserProfile.setLoggedOut();
+        UserProfile.setToken("");
+        UserProfile.setRole("");
+        UserProfile.setUID("");
+        window.location.reload(false);
       }
     render() {
         return (
