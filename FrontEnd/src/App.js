@@ -22,6 +22,7 @@ import ManageEmp from "./components/pages/ManageEmp.js";
 import EmpDetails from "./components/pages/EmpDetails.js";
 
 import UserProfile from "./UserProfile.js"
+import AdminPastBookingsPage from "./components/pages/AdminPastBookingsPage.js";
 
 function App() {
   console.log(UserProfile.getLoggedIn())
