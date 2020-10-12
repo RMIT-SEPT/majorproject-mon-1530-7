@@ -20,18 +20,18 @@ class AdminDashboardLayout extends Component {
   }
 
   fetchUpcomingBookings() {
-    fetch(
-      process.env.REACT_APP_API_URL + "/bookings?user=" + this.state.user_id,
-      {
-        headers: {
-          Authorization: UserProfile.getToken(),
-        },
-      }
-    )
+    const fetchBookingsURL = new URL("bookings", process.env.REACT_APP_API_URL);
+    fetchBookingsURL.searchParams.append("user", UserProfile.getUID());
+    fetchBookingsURL.searchParams.append("status", "upcoming");
+    fetch(fetchBookingsURL, {
+      headers: {
+        Authorization: UserProfile.getToken(),
+      },
+    })
       .then((response) => response.json())
       .then((data) =>
         this.setState({
-          upcomingBookings: data["bookings?user=" + this.state.user_id],
+          upcomingBookings: data["bookings"],
           loadingUpcomingBookings: false,
         })
       );
