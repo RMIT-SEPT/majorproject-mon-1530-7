@@ -14,7 +14,7 @@ class Profile extends Component {
     handleLoad() {
 
         var phoneNumber = ''
-        fetch(process.env["REACT_APP_API_URL"] + "/user/profile", {
+        fetch(process.env["REACT_APP_API_URL"] + "user/profile", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
