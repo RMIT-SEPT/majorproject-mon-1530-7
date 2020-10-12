@@ -1,40 +1,13 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { Container, Col, Jumbotron, Row } from "react-bootstrap";
-import CustomerDashboardCurrentBookingsSection from "./CustomerDashboardCurrentBookingsSection";
 import "../../index.css";
-import UserProfile from "../../UserProfile.js";
-import CustomerPastBookingsPage from "../pages/CustomerPastBookingsPage";
+import { Container, Col, Jumbotron, Row } from "react-bootstrap";
+import BookingsList from "../components/BookingsList";
 
 class DashboardLayout extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentBookings: [],
-      loadingCurrentBookings: true,
-    };
-  }
-
-  componentDidMount() {
-    this.fetchCurrentBookings();
-  }
-
-  fetchCurrentBookings() {
-    const fetchBookingsURL = new URL("bookings", process.env.REACT_APP_API_URL);
-    fetchBookingsURL.searchParams.append("user", UserProfile.getUID());
-    fetchBookingsURL.searchParams.append("status", "pending,confirmed");
-    fetch(fetchBookingsURL, {
-      headers: {
-        Authorization: UserProfile.getToken(),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) =>
-        this.setState({
-          currentBookings: data["bookings"],
-          loadingCurrentBookings: false,
-        })
-      );
+    this.state = {};
   }
 
   render() {
@@ -51,10 +24,7 @@ class DashboardLayout extends Component {
               md={{ span: 6, offset: 0 }}
             >
               <h5 className="h5-main">Current Bookings</h5>
-              <CustomerDashboardCurrentBookingsSection
-                currentBookings={this.state.currentBookings}
-                loading={this.state.loadingCurrentBookings}
-              />
+              <BookingsList upcoming  />
             </Col>
             <Col
               className="shadow p-3 mb-5 bg-white rounded"
@@ -63,10 +33,7 @@ class DashboardLayout extends Component {
             >
               <h5 className="h5-main">Booking History</h5>
 
-              <CustomerPastBookingsPage
-                loadingCustomerDashboardBookingHistorySection={true}
-                loadingCustomerPastBookingsPage={false}
-              />
+              <BookingsList />
             </Col>
           </Row>
         </Container>
