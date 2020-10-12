@@ -6,8 +6,9 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.rmit.sept.mon15307.backend.model.Booking;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class BookingSerializer extends StdSerializer<Booking> {
 
@@ -44,10 +45,13 @@ public class BookingSerializer extends StdSerializer<Booking> {
         jsonGenerator.writeEndObject();
 
         jsonGenerator.writeStringField("appointment_time",
-                                       LocalDateTime
+                                       ZonedDateTime
                                            .of(booking.getSchedule().getDate(),
-                                               LocalTime.parse(booking.getTime())
+                                               LocalTime.parse(booking.getTime()),
+                                               // TODO: pull from app config
+                                               ZoneId.of("Australia/Melbourne")
                                            )
+                                           .toOffsetDateTime()
                                            .toString()
         );
         return jsonGenerator;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { format, subHours } from "date-fns";
+import { format } from "date-fns";
 
 import UserProfile from "../../UserProfile";
 
@@ -39,11 +39,11 @@ class BookingsList extends Component {
   }
 
   formatDate(appointment_time) {
-    return format(subHours(new Date(appointment_time), 11), "d/MM/yyyy");
+    return format(new Date(appointment_time), "d/MM/yyyy");
   }
 
   formatTime(appointment_time) {
-    return format(subHours(new Date(appointment_time), 11), "h:mm a");
+    return format(new Date(appointment_time), "h:mm a");
   }
 
   renderCancelButton() {
