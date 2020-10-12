@@ -13,11 +13,7 @@ class CustomerDashboardBookingHistorySection extends Component {
   }
 
   renderBookingHistory() {
-    if (
-      !this.props.loading &&
-      this.props.pastBookings.length > 0 &&
-      this.props.pastBookings.status === "completed"
-    ) {
+    if (!this.props.loading && this.props.pastBookings.length) {
       return (
         <table class="table table-borderless">
           <thead>
