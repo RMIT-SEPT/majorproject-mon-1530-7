@@ -22,7 +22,7 @@ class DashboardLayout extends Component {
   fetchCurrentBookings() {
     const fetchBookingsURL = new URL("bookings", process.env.REACT_APP_API_URL);
     fetchBookingsURL.searchParams.append("user", UserProfile.getUID());
-    fetchBookingsURL.searchParams.append("status", "upcoming");
+    fetchBookingsURL.searchParams.append("status", "pending,confirmed");
     fetch(fetchBookingsURL, {
       headers: {
         Authorization: UserProfile.getToken(),

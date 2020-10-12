@@ -1,27 +1,21 @@
 package com.rmit.sept.mon15307.backend.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.rmit.sept.mon15307.backend.customSerializers.BookingSerializer;
+import com.rmit.sept.mon15307.backend.customSerializers.BookingsListSerializer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 
-@JsonSerialize(using = BookingSerializer.class)
-public class BookingsList {
+@JsonSerialize(using = BookingsListSerializer.class)
+public class BookingsList implements Iterable<Booking> {
 
-    private List<Booking> bookingsList = new ArrayList<Booking>();
+    private final Iterable<Booking> bookingsList;
 
-    public BookingsList(){
-        this.bookingsList = new ArrayList<Booking>();
-    }
-
-    public BookingsList(List<Booking> bookingsList){
-        super();
+    public BookingsList(Iterable<Booking> bookingsList) {
         this.bookingsList = bookingsList;
     }
 
-    public List<Booking> getBookingsList() { return this.bookingsList; }
-
-    public void setBookingsList(List<Booking> bookingsList) { this.bookingsList = bookingsList; }
-
+    @Override
+    public Iterator<Booking> iterator() {
+        return this.bookingsList.iterator();
+    }
 }
