@@ -1,5 +1,7 @@
 package com.rmit.sept.mon15307.backend.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rmit.sept.mon15307.backend.exceptions.NotFoundException;
 import com.rmit.sept.mon15307.backend.model.*;
 import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
@@ -16,7 +18,6 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +74,8 @@ public class BookingController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
 
-        // customer must be the same as the current user, unless current user is an admin
+        // customer must be the same as the current user, unless current user is an
+        // admin
         if (!user.getUserId().equals(customer.getUserId()) && !user.getAdmin()) {
             errorMessage.put("message", "Action not permitted for this user");
             errorResponse.put("error", errorMessage);
@@ -114,8 +116,10 @@ public class BookingController {
             return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
         }
 
-        // now we can make the booking (and hopefully no new conflict has arisen in the meantime)
-        // TODO: handle race conditions (create, check conflicts, maybe rollback and error)
+        // now we can make the booking (and hopefully no new conflict has arisen in the
+        // meantime)
+        // TODO: handle race conditions (create, check conflicts, maybe rollback and
+        // error)
 
         Booking booking = new Booking();
         booking.setStatus(BookingStatus.upcoming);
@@ -146,17 +150,35 @@ public class BookingController {
 
     @GetMapping("")
     public ResponseEntity<?> listUserBookings(
-        @RequestParam(value = "user", required = true)
+        @RequestParam
+            String status,
+        @AuthenticationPrincipal
+//            UserAccount user, BindingResult result
             UserAccount user
-    ) {
-        Iterable<Booking> allBookings = bookingService.findAllBookings();
-        List<Booking> userBookings = new ArrayList<Booking>();
-        for (Booking i : allBookings) {
-            if (i.getCustomer() == user) {
-                userBookings.add(i);
-            }
+    ) throws JsonProcessingException {
+
+        Map<String, Map<String, String>> errorResponse = new HashMap<>();
+        Map<String, String> errorMessage = new HashMap<>();
+
+        BookingStatus bookingStatus;
+        try {
+            bookingStatus = BookingStatus.valueOf(status);
+        } catch (IllegalArgumentException e) {
+            errorMessage.put("message", "invalid status: " + status);
+            errorResponse.put("error", errorMessage);
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<List>(userBookings, HttpStatus.OK);
+        Iterable<Booking> bookings;
+        if (user.getAdmin() || user.getWorker()) {
+            // current authenticated user is permitted to retrieve bookings for all customers
+            bookings = bookingService.findAllBookingsByStatus(bookingStatus);
+        } else {
+            // only bookings for current user
+            bookings = bookingService.findUserBookingsByStatus(user, bookingStatus);
+        }
+        BookingsList bookingsList = new BookingsList((List<Booking>) bookings);
+        String serialized = new ObjectMapper().writeValueAsString(bookingsList);
+        return new ResponseEntity<>(serialized, HttpStatus.OK);
     }
 
     @DeleteMapping("/bookings/{bookingId}")

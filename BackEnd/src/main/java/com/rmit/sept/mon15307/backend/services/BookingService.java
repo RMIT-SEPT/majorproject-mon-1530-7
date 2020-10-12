@@ -5,6 +5,8 @@ import com.rmit.sept.mon15307.backend.exceptions.BookingException;
 import com.rmit.sept.mon15307.backend.model.Booking;
 import com.rmit.sept.mon15307.backend.model.Employee;
 import com.rmit.sept.mon15307.backend.model.Schedule;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
+import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +22,8 @@ public class BookingService {
         return bookingsRepository.save(booking);
     }
 
-    public Iterable<Booking> findAllBookings() {
-        return bookingsRepository.findAll();
-    }
-
     public Iterable<Booking> findBookingsBySchedule(Schedule schedule) {
-                return this.bookingsRepository.findBookingsByScheduleId(schedule.getId());
+        return this.bookingsRepository.findBookingsByScheduleId(schedule.getId());
     }
 
     public Booking findByBookingId(Long bookingId) {
@@ -74,6 +72,14 @@ public class BookingService {
 
         // no conflicts found
         return false;
+    }
+
+    public Iterable<Booking> findUserBookingsByStatus(UserAccount user, BookingStatus status) {
+        return bookingsRepository.findBookingsByCustomerAndStatus(user, status);
+    }
+
+    public Iterable<Booking> findAllBookingsByStatus(BookingStatus status) {
+        return bookingsRepository.findBookingsByStatus(status);
     }
 }
 
