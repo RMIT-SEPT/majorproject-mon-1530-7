@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Form from "react-bootstrap/Form";
+import { Form, Button } from "react-bootstrap";
 import UserProfile from "../../UserProfile.js";
 
 class LoginPage extends Component {
@@ -47,10 +47,10 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className="loginContainer">
+      <div className="login-container">
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="formUsername">
-            <Form.Label>Username</Form.Label>
+          <Form.Group controlId="formUsername" id="form-layout">
+            <Form.Label id="custom-form-label">Username</Form.Label>
             <Form.Control
               name="username"
               value={this.state.value}
@@ -59,8 +59,8 @@ class LoginPage extends Component {
               placeholder="Enter Username"
             />
           </Form.Group>
-          <Form.Group controlId="formPassword">
-            <Form.Label>Password</Form.Label>
+          <Form.Group controlId="formPassword" id="form-layout">
+            <Form.Label id="custom-form-label">Password</Form.Label>
             <Form.Control
               name="password"
               value={this.state.value}
@@ -69,9 +69,7 @@ class LoginPage extends Component {
               placeholder="Enter Password"
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
+          <Button className="btn-filled-alt">Log In</Button>
         </Form>
       </div>
     );
