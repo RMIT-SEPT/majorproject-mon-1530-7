@@ -210,14 +210,10 @@ class CustomerBookingPage extends Component {
             </CardDeck>
           </Container>
           <Container className="makeCusBooking">
-            <Button
-              variant="primary"
-              size="lg"
-              type="submit"
+            <button className="btn-filled-extended"
               onClick={this.handleSubmit}
-            >
-              Make Booking
-            </Button>
+            >Book Now
+            </button>
             <CustomerBookingPageErrorModal
               className="customer-booking-page-error-modal"
               show={this.state.showError}

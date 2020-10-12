@@ -40,7 +40,7 @@ class CustomerPastBookingsPage extends Component {
         return(
             <Jumbotron id="jumbotron-cus-book-page">
                 <Container>
-                    <h2 className="h2-cus-book-page">Booking History</h2>
+                    <h2 className="h2-center">Booking History</h2>
                 </Container>
                 <Container className="customerBookingPageContainer">
                     <Card className="shadow p-3 mb-5 bg-white rounded"  border="light" style={{ width: '68rem' }}>

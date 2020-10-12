@@ -1,72 +1,72 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import NewEmployeeForm from '../layouts/NewEmployeeForm';
-import { Container, Jumbotron, CardDeck, Form, Button} from 'react-bootstrap';
+import { Container, Jumbotron, CardDeck, Form } from 'react-bootstrap';
 
 class NewEmployeePage extends Component {
-NewEmployeePage
-    constructor(props){
+    NewEmployeePage
+    constructor(props) {
 
         super(props);
         this.state = {
-            
-            showError:false,
-            showSuccess:false
+
+            showError: false,
+            showSuccess: false
         };
 
-        this.handleSubmit = this.handleSubmit.bind(this); 
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event){
+    handleSubmit(event) {
 
-        if(this.state.showError){
+        if (this.state.showError) {
             alert('Invalid Employee Creation: Please input a name and set availability.');
             event.preventDefault();
         }
-        else{
+        else {
             alert('Employee Successfully Added!');
             event.preventDefault();
         }
-        
+
     }
 
-    showSuccessAlert = () =>{
+    showSuccessAlert = () => {
 
-        this.setState({showSuccess:true});
+        this.setState({ showSuccess: true });
     }
 
-    hideSuccessAlert = () =>{
+    hideSuccessAlert = () => {
 
-        this.setState({showSuccess:false})
+        this.setState({ showSuccess: false })
     }
 
-    showErrorAlert = () =>{
+    showErrorAlert = () => {
 
-        this.setState({showError:true});
+        this.setState({ showError: true });
     }
 
-    hideErrorAlert = () =>{
+    hideErrorAlert = () => {
 
-        this.setState({showError:false})
+        this.setState({ showError: false })
     }
 
     render() {
 
         return (
             <Form onSubmit={this.handleSubmit}>
-            <Jumbotron id="jumbotron-cus-book-page">
-                <h2 className="h2-cus-book-page" class="text-center">Add Employee</h2>
-                <Container className="customerBookingPageContainer">
-                    <CardDeck>
-                        <NewEmployeeForm/>
-                    </CardDeck>
-                </Container>
-                <Container className="makeCusBooking">
-                    <Button variant="primary" size="lg" type="submit"
-                        onClick={this.showErrorAlert}>
-                        Add Employee!
-                    </Button>
-                </Container>
-            </Jumbotron>
+                <Jumbotron id="jumbotron-cus-book-page">
+                    <h2 className="h2-cus-book-page">Add Employee</h2>
+                    <Container className="customerBookingPageContainer">
+                        <CardDeck>
+                            <NewEmployeeForm />
+                        </CardDeck>
+                    </Container>
+                    <Container className="makeCusBooking">
+                        <button className="btn-filled-extended"
+                            onClick={this.showErrorAlert}>
+                            Add Employee
+                    </button>
+                    </Container>
+                </Jumbotron>
             </Form>
         )
     }

@@ -5,7 +5,7 @@ import Select from 'react-select';
 const NewEmployeeForm = () => {
 
     return (
-        <Card className="shadow p-3 mb-5 bg-white rounded"  border="light" style={{ width: '68rem' }}>
+        <Card className="shadow p-3 mb-5 bg-white rounded"  border="light" style={{ width: '50em' }}>
             <Card.Body>
 
                 <textarea class="form-control form-rounded text-center" placeholder="Name"></textarea>
