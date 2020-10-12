@@ -106,10 +106,7 @@ public class BookingController {
             bookings = bookingService.findUserBookingsByStatus(user, bookingStatus);
         }
 
-        Map<String, Iterable<Booking>> response = new HashMap<>();
-        response.put("bookings", bookings);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new BookingsList(bookings), HttpStatus.OK);
     }
 
     @PatchMapping("/{bookingId}")

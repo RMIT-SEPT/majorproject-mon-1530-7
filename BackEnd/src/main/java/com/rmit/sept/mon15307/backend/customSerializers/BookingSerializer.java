@@ -1,70 +1,71 @@
 package com.rmit.sept.mon15307.backend.customSerializers;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.rmit.sept.mon15307.backend.model.Booking;
-import com.rmit.sept.mon15307.backend.model.BookingsList;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
-public class BookingSerializer extends StdSerializer<BookingsList> {
+public class BookingSerializer extends StdSerializer<Booking> {
 
-    public BookingSerializer(){
+    public BookingSerializer() {
         this(null);
     }
 
-    public BookingSerializer(Class<BookingsList> t){
+    public BookingSerializer(Class<Booking> t) {
         super(t);
+    }
+
+    static JsonGenerator serializeBookingFields(JsonGenerator jsonGenerator, Booking booking)
+        throws IOException {
+        jsonGenerator.writeStringField("id", booking.getBookingId().toString());
+
+        jsonGenerator.writeStringField("status", booking.getStatus().toString().toLowerCase());
+
+        jsonGenerator.writeObjectFieldStart("staff_member");
+        jsonGenerator.writeStringField("id", booking.getEmployee().getId());
+        jsonGenerator.writeStringField("name", booking.getEmployee().getName());
+        jsonGenerator.writeEndObject();
+
+        jsonGenerator.writeObjectFieldStart("product");
+        jsonGenerator.writeStringField("id", booking.getProduct().getId());
+        jsonGenerator.writeStringField("name", booking.getProduct().getName());
+        jsonGenerator.writeNumberField("duration", booking.getProduct().getDuration());
+        jsonGenerator.writeEndObject();
+
+        jsonGenerator.writeObjectFieldStart("user");
+        jsonGenerator.writeNumberField("id", booking.getCustomer().getUserId());
+        jsonGenerator.writeStringField("preferredName", booking.getCustomer().getPreferredName());
+        jsonGenerator.writeStringField("fullName", booking.getCustomer().getFullName());
+        jsonGenerator.writeStringField("phoneNumber", booking.getCustomer().getPhoneNumber());
+        jsonGenerator.writeEndObject();
+
+        jsonGenerator.writeStringField("appointment_time",
+                                       LocalDateTime
+                                           .of(booking.getSchedule().getDate(),
+                                               LocalTime.parse(booking.getTime())
+                                           )
+                                           .toString()
+        );
+        return jsonGenerator;
     }
 
     @Override
     public void serialize(
-            BookingsList bookingsList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
-            throws IOException, JsonProcessingException {
+        Booking booking, JsonGenerator jsonGenerator, SerializerProvider serializerProvider
+    ) throws IOException {
+        jsonGenerator.writeStartObject();
 
-        List<Booking> bookings = bookingsList.getBookingsList();
+        jsonGenerator.writeObjectFieldStart("booking");
 
-        if (bookings.isEmpty()) {
-            jsonGenerator.writeStartObject();
-            jsonGenerator.writeArrayFieldStart("bookings");
-            jsonGenerator.writeEndArray();
-            jsonGenerator.writeEndObject();
-        }
-        else {
-            jsonGenerator.writeStartObject();
-            jsonGenerator.writeArrayFieldStart("bookings");
-            for (Booking booking : bookings) {
-                jsonGenerator.writeStartObject();
-                jsonGenerator.writeFieldName("id");
-                jsonGenerator.writeObject(booking.getBookingId());
-                jsonGenerator.writeStringField("status", String.valueOf(booking.getStatus()));
-                jsonGenerator.writeObjectFieldStart("staff_member");
-                jsonGenerator.writeStringField("id", booking.getEmployee().getId());
-                jsonGenerator.writeStringField("name", booking.getEmployee().getName());
-                jsonGenerator.writeEndObject();
-                jsonGenerator.writeObjectFieldStart("product");
-                jsonGenerator.writeStringField("id", booking.getProduct().getId());
-                jsonGenerator.writeStringField("name", booking.getProduct().getName());
-                jsonGenerator.writeNumberField("duration", booking.getProduct().getDuration());
-                jsonGenerator.writeEndObject();
-                jsonGenerator.writeObjectFieldStart("user");
-                jsonGenerator.writeNumberField("id", booking.getCustomer().getUserId());
-                jsonGenerator.writeStringField("preferredName", booking.getCustomer().getPreferredName());
-                jsonGenerator.writeStringField("fullName", booking.getCustomer().getFullName());
-                jsonGenerator.writeStringField("phoneNumber", booking.getCustomer().getPhoneNumber());
-                jsonGenerator.writeEndObject();
-                jsonGenerator.writeStringField("appointment_time", LocalDateTime.of(
-                        booking.getSchedule().getDate(),
-                        LocalTime.parse(booking.getTime())).toString());
-                jsonGenerator.writeEndObject();
-            }
-            jsonGenerator.writeEndArray();
-        }
+        serializeBookingFields(jsonGenerator, booking);
+
+        jsonGenerator.writeEndObject();
+
+        jsonGenerator.writeEndObject();
     }
 }
 
