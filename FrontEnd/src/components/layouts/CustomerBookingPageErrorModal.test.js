@@ -11,7 +11,6 @@ describe('Testing CustomerBookingPageErrorModal rendering', () => {
 
         const wrapper = mount(<CustomerBookingPageErrorModal show={true}/>);
         
-        expect(wrapper.find(CustomerBookingPageErrorModal).text()).toBe('Error×CloseInvalid BookingPlease ' + 
-        'select one service, one employee, and an available date and time, then click \"Make Booking\"Close');
+        expect(wrapper.find(CustomerBookingPageErrorModal).text()).toBe('Error×CloseThere was a problem with your bookingClose');
     })
   })

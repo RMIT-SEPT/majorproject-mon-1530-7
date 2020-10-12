@@ -78,7 +78,7 @@ class CustomerBookingPage extends Component {
   }
 
   fetchServices() {
-    fetch(process.env.REACT_APP_API_URL + "/products", {
+    fetch(process.env.REACT_APP_API_URL + "products", {
       headers: {
         Authorization: UserProfile.getToken(),
       },
@@ -92,7 +92,7 @@ class CustomerBookingPage extends Component {
   }
 
   fetchStaff() {
-    fetch(process.env.REACT_APP_API_URL + "/staff", {
+    fetch(process.env.REACT_APP_API_URL + "staff", {
       headers: {
         Authorization: UserProfile.getToken(),
       },
@@ -109,7 +109,7 @@ class CustomerBookingPage extends Component {
     // TODO: handle staff member not found
     fetch(
       process.env.REACT_APP_API_URL +
-        "/staff/" +
+        "staff/" +
         this.state.selectedEmployeeId +
         "/times",
       {
@@ -139,7 +139,7 @@ class CustomerBookingPage extends Component {
       appointment_date: format(this.state.selectedTime, "yyyy-MM-dd"),
       appointment_time: format(this.state.selectedTime, "HH:mm"),
     };
-    fetch(process.env.REACT_APP_API_URL + "/bookings", {
+    fetch(process.env.REACT_APP_API_URL + "bookings", {
       method: "POST",
       headers: {
         "Authorization": UserProfile.getToken(),
