@@ -21,6 +21,7 @@ import ManageEmp from "./components/pages/ManageEmp.js";
 import EmpDetails from "./components/pages/EmpDetails.js";
 
 import UserProfile from "./UserProfile.js"
+import AdminPastBookingsPage from "./components/pages/AdminPastBookingsPage.js";
 
 function App() {
   return (
@@ -52,7 +53,8 @@ function App() {
             <Route path="/new-employee" component={NewEmployeePage} />
             <Route path="/profile" component={Profile} />
             <Route path="/manage-emp" component={ManageEmp} />
-            <Route path="/emp-details" component={EmpDetails} />   
+            <Route path="/emp-details" component={EmpDetails} />
+            <Route path="/admin-past-bookings" component={AdminPastBookingsPage} />   
           </Switch>
         </BrowserRouter>
       </div>
