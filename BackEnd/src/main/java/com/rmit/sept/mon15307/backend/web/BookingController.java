@@ -2,10 +2,7 @@ package com.rmit.sept.mon15307.backend.web;
 
 import com.rmit.sept.mon15307.backend.exceptions.BookingException;
 import com.rmit.sept.mon15307.backend.exceptions.UserNotAuthorisedException;
-import com.rmit.sept.mon15307.backend.model.Booking;
-import com.rmit.sept.mon15307.backend.model.Employee;
-import com.rmit.sept.mon15307.backend.model.Product;
-import com.rmit.sept.mon15307.backend.model.UserAccount;
+import com.rmit.sept.mon15307.backend.model.*;
 import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
 import com.rmit.sept.mon15307.backend.payload.BookingPatch;
 import com.rmit.sept.mon15307.backend.payload.BookingRequest;
@@ -20,8 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -82,28 +82,32 @@ public class BookingController {
 
     @GetMapping("")
     public ResponseEntity<?> listUserBookings(
-        @RequestParam
-            String status,
+        @RequestParam("status")
+            String statusQuery,
         @AuthenticationPrincipal
             UserAccount user
     ) {
-        BookingStatus bookingStatus;
+        Collection<BookingStatus> bookingStatuses;
         try {
-            bookingStatus = BookingStatus.valueOf(status.toUpperCase());
+            bookingStatuses = Arrays
+                .stream(statusQuery.split(","))
+                .map(s -> BookingStatus.valueOf(s.toUpperCase()))
+                .collect(Collectors.toList());
         } catch (IllegalArgumentException e) {
-            throw new BookingException("Invalid booking status: " + status);
+            throw new BookingException("Invalid booking status param: " + statusQuery);
         }
 
         Iterable<Booking> bookings;
         if (user.getAdmin()) {
             // user is permitted to retrieve bookings for all customers
-            bookings = bookingService.findAllBookingsByStatus(bookingStatus);
+            bookings = bookingService.findAllBookingsByStatuses(bookingStatuses);
         } else if (user.getWorker()) {
-            // user is permitted to retrieve bookings for all customers to which they are assigned
-            bookings = bookingService.findWorkerBookingsByStatus(user, bookingStatus);
+            // user is permitted to retrieve bookings for all customers to which they are
+            // assigned
+            bookings = bookingService.findWorkerBookingsByStatuses(user, bookingStatuses);
         } else {
             // user is permitted to retrieve only their own bookings
-            bookings = bookingService.findUserBookingsByStatus(user, bookingStatus);
+            bookings = bookingService.findUserBookingsByStatuses(user, bookingStatuses);
         }
 
         return new ResponseEntity<>(new BookingsList(bookings), HttpStatus.OK);

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Collection;
 
 @Service
 public class BookingService {
@@ -64,21 +65,24 @@ public class BookingService {
         return false;
     }
 
-    public Iterable<Booking> findUserBookingsByStatus(UserAccount user, BookingStatus status) {
-        return bookingsRepository.findBookingsByCustomerAndStatus(user, status);
+    public Iterable<Booking> findUserBookingsByStatuses(
+        UserAccount user, Collection<BookingStatus> statuses
+    ) {
+        return bookingsRepository.findByCustomerAndStatusIn(user, statuses);
     }
 
-    public Iterable<Booking> findWorkerBookingsByStatus(UserAccount user, BookingStatus status) {
+    public Iterable<Booking> findWorkerBookingsByStatuses(
+        UserAccount user, Collection<BookingStatus> statuses
+    ) {
         Employee employee = employeeService.findByByUser(user);
-        return bookingsRepository.findBookingsByEmployeeAndStatus(employee, status);
+        return bookingsRepository.findBookingsByEmployeeAndStatusIsIn(employee, statuses);
     }
 
-    public Iterable<Booking> findAllBookingsByStatus(BookingStatus status) {
-        return bookingsRepository.findBookingsByStatus(status);
+    public Iterable<Booking> findAllBookingsByStatuses(Collection<BookingStatus> statuses) {
+        return bookingsRepository.findBookingsByStatusIsIn(statuses);
     }
 
     public Booking setBookingStatus(Booking booking, BookingStatus status) {
-
         booking.setStatus(status);
         return bookingsRepository.save(booking);
     }
