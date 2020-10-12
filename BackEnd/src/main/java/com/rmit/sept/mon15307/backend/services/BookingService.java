@@ -177,6 +177,4 @@ public class BookingService {
 
         return this.setBookingStatus(booking, targetStatus);
     }
-
 }
-

@@ -56,7 +56,8 @@ public class BookingController {
         Employee employee = employeeService.findByEmployeeId(bookingRequest.getEmployeeId());
         Product product = productService.findByProductId(bookingRequest.getProductId());
 
-        // customer must be the same as the current user, unless current user is an admin
+        // customer must be the same as the current user, unless current user is an
+        // admin
         if (!user.getUserId().equals(customer.getUserId()) && !user.getAdmin()) {
             throw new UserNotAuthorisedException("User not authorised to create booking for this " +
                                                  "customer");
