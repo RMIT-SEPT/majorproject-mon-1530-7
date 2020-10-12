@@ -18,7 +18,6 @@ class LoginPage extends Component {
       headers: {
         "Content-Type": "application/json",
       },
-
       body: JSON.stringify({
         username: this.state.username,
         password: this.state.password,
@@ -69,7 +68,9 @@ class LoginPage extends Component {
               placeholder="Enter Password"
             />
           </Form.Group>
-          <Button className="btn-filled-alt">Log In</Button>
+          <Button className="btn-filled-alt" type="submit">
+            Log In
+          </Button>
         </Form>
       </div>
     );
