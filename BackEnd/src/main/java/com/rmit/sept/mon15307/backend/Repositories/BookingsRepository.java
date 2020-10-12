@@ -22,7 +22,9 @@ public interface BookingsRepository extends CrudRepository<Booking, Long> {
 
     Iterable<Booking> findBookingsByStatusIsIn(Collection<BookingStatus> statuses);
 
-    Iterable<Booking> findBookingsByScheduleId(Long scheduleId);
+    Iterable<Booking> findBookingsBySchedule(Schedule schedule);
+
+    Iterable<Booking> findBookingsByScheduleAndStatusNot(Schedule schedule, BookingStatus status);
 
     Booking findByBookingId(Long bookingId);
 
