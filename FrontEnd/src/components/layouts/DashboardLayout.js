@@ -19,7 +19,7 @@ import CustomerPastBookingsPage from '../pages/CustomerPastBookingsPage';
     componentDidMount(){
 
       this.fetchCurrentBookings();
-      this.fetchBookingHistory();
+      //this.fetchBookingHistory();
     }
     
     fetchCurrentBookings(){

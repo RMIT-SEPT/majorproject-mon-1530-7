@@ -28,9 +28,9 @@ public class UserValidator implements Validator {
             errors.rejectValue("confirmPassword","Match", "Passwords don't match");
 
         }
-        if(user.getAdmin()) {      
+        /*if(user.getAdmin()) {      
             errors.rejectValue("admin","Match","must be a customer");
-        }
+        }*/
         if(user.getWorker()) {
             errors.rejectValue("worker","Match","must be a customer");
         }

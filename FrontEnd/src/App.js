@@ -10,7 +10,7 @@ import ContactPage from "./components/pages/ContactPage";
 import CustomerBookingPage from "./components/pages/CustomerBookingPage.js";
 import NewEmployeePage from "./components/pages/NewEmployeePage.js";
 
-import AdminPastBooking from "./components/pages/AdminPastBooking.js";
+
 import CustomerPastBookingsPage from "./components/pages/CustomerPastBookingsPage.js";
 
 import Dashboard from "./components/pages/Dashboard.js";
@@ -22,7 +22,6 @@ import ManageEmp from "./components/pages/ManageEmp.js";
 import EmpDetails from "./components/pages/EmpDetails.js";
 
 import UserProfile from "./UserProfile.js"
-import AdminPastBookingsPage from "./components/pages/AdminPastBookingsPage.js";
 
 function App() {
   console.log(UserProfile.getLoggedIn())
