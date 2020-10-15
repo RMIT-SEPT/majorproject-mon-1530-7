@@ -11,6 +11,7 @@ public class AdminSetProducts {
     // Validates the input format of the specified product ids before
     // returning the ids themselves
 
+    // Change productIds to products
     @NotNull
     private List<Long> productIds;
 

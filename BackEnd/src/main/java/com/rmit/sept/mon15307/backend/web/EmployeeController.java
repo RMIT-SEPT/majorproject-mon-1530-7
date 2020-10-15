@@ -73,6 +73,7 @@ public class EmployeeController {
 
     @PutMapping("/{staffId}/products")
     public ResponseEntity<?> editService(
+            @PathVariable
             @Min(1) @NotNull Long staffId,
             @Valid
             @RequestBody

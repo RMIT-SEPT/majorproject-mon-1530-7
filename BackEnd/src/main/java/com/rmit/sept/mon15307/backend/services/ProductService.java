@@ -59,6 +59,7 @@ public class ProductService {
         boolean isAdmin = user.getAdmin();
         if (!isAdmin){
 //            throw new NotAuthorisedException("User not authorised.");
+            throw new InvalidProductException("User not authorised");
             // ADD ABOVE CODE AFTER RELEVANT BRANCH IS MERGED!!
         }
         // Create list with products corresponding to product ids specified
@@ -72,6 +73,7 @@ public class ProductService {
         boolean isAuthorisedAdminConfirmation = isAdmin && user.getAdmin();
         if(!isAuthorisedAdminConfirmation){
 //            throw new UserNotAuthorisedException("User not authorised to make this change.")
+            throw new InvalidProductException("User not authorised to make this change.");
             // ADD ABOVE CODE AFTER RELEVANT BRANCH IS MERGED!!
         }
         return updatedProducts;
