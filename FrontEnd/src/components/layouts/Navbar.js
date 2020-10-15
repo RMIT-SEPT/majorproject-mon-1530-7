@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import UserProfile from '../../UserProfile'
 
 function NavigationBar() {
-  console.log(Boolean(UserProfile.getAdmin()))
+  console.log(UserProfile.getUID())
   if (UserProfile.getLoggedIn() === true) {
     return (
       <Navbar fixed="top" bg="white" variant="light">

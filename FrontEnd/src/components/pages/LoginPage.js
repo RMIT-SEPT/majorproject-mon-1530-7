@@ -53,8 +53,7 @@ class LoginPage extends Component {
     
     
     render() {
-        
-        
+ 
         return (
             <div className="loginContainer">
                 <Form onSubmit={this.handleSubmit}>

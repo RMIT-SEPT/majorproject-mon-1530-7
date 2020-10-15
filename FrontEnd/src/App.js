@@ -24,43 +24,72 @@ import UserProfile from "./UserProfile.js"
 import AdminPastBookingsPage from "./components/pages/AdminPastBookingsPage.js";
 
 function App() {
-  return (
-    <div className="page-container">
-      <div className="content-wrap">
-        <BrowserRouter>
-          <NavigationBar loggedIn={UserProfile.getToken()} />
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/login" component={LoginPage} >
-              {UserProfile.getLoggedIn() ? <Redirect to="/dashboard"/> : <LoginPage />   }
-            </Route>
-            <Route path="/about" component={AboutPage} />
-            <Route path="/contact" component={ContactPage} />
-            <Route path="/booking" component={CustomerBookingPage} />
-            <Route
-              path="/customer-past-bookings"
-              component={CustomerPastBookingsPage}
-            />
-            <Route path="/dashboard" component={Dashboard} >
-              {UserProfile.getAdmin() ? <Redirect to="/admin-dashboard" /> : <Dashboard />}
-            </Route>
-            <Route path="/admin-dashboard" component={AdminDashboard} >
-              {UserProfile.getAdmin() ?   <AdminDashboard /> : <Redirect to="/dashboard" /> }
-            </Route>
-            <Route path="/account" component={Account} >
-              {UserProfile.getLoggedIn() ? <Account /> : <Redirect to="/login"/>}
-            </Route>
-            <Route path="/new-employee" component={NewEmployeePage} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/manage-emp" component={ManageEmp} />
-            <Route path="/emp-details" component={EmpDetails} />
-            <Route path="/admin-past-bookings" component={AdminPastBookingsPage} />   
-          </Switch>
-        </BrowserRouter>
+  console.log(UserProfile.getLoggedIn())
+  if(UserProfile.getLoggedIn()) {
+    return (
+      <div className="page-container">
+        <div className="content-wrap">
+          <BrowserRouter>
+            <NavigationBar loggedIn={UserProfile.getToken()} />
+            <Switch>
+                <Route exact path="/" component={HomePage} />,
+                <Redirect from="/login" to="dashboard" />,
+                <Route path="/about" component={AboutPage} />,
+                <Route path="/contact" component={ContactPage} />,
+                <Route path="/booking" component={CustomerBookingPage} />,
+                <Route
+                  path="/customer-past-bookings" component={CustomerPastBookingsPage} >
+                    {UserProfile.getAdmin() ?   <Redirect to="/admin-dashboard" /> : <CustomerPastBookingsPage /> }
+                </Route>,
+                <Route path="/dashboard" component={Dashboard} >
+                  {UserProfile.getAdmin() ? <Redirect to="/admin-dashboard" /> : <Dashboard />}
+                </Route>,
+                <Route path="/admin-dashboard" component={AdminDashboard} >
+                  {UserProfile.getAdmin() ?   <AdminDashboard /> : <Redirect to="/dashboard" /> }
+                </Route>,
+                <Route path="/account" component={Account} />          
+                <Route path="/new-employee" component={NewEmployeePage} >
+                  {UserProfile.getAdmin() ?   <NewEmployeePage /> : <Redirect to="/dashboard" /> }
+                </Route>,
+                <Route path="/profile" component={Profile} />,
+                <Route path="/manage-emp" component={ManageEmp} />,
+                <Route path="/emp-details" component={EmpDetails} /> 
+          
+            </Switch>
+          </BrowserRouter>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
-  );
+    );
+  }
+  else {
+    return (
+      <div className="page-container">
+        <div className="content-wrap">
+          <BrowserRouter>
+            <NavigationBar loggedIn={UserProfile.getToken()} />
+            <Switch>
+              
+                <Route exact path="/" component={HomePage} />,
+                <Route path="/login" component={LoginPage} />,
+                <Route path="/about" component={AboutPage} />,
+                <Route path="/contact" component={ContactPage} />,
+                <Redirect path="/booking" to="/login" />,
+                <Redirect from="/customer-past-bookings" to="/login"/>,
+                <Redirect from="/dashboard" to="/login" />,
+                <Redirect from="/admin-dashboard" to="/login" />,
+                <Redirect from="/account" to="/login" />,
+                <Redirect from="/new-employee" to="/login" />,
+                <Redirect from="/profile" to="/login" />,
+                <Redirect from="/manage-emp" to="/login" />,
+                <Redirect from="/emp-details" to="/login" />  
+            </Switch>
+          </BrowserRouter>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;
