@@ -82,7 +82,7 @@ public class UserController {
     public ResponseEntity<?> getUserDetails(@Valid @RequestBody ProfileLoadRequest profileLoadRequest, BindingResult result) {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if(errorMap != null)return errorMap;
-        UserAccount user = userService.findByUsername(profileLoadRequest.getUsername());
+        UserAccount user = userService.findByUserId(profileLoadRequest.getUserId());
 
         return new ResponseEntity<UserAccount>(user,HttpStatus.OK);
     }

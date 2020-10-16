@@ -6,15 +6,15 @@ class Profile extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { username: UserProfile.getUID() };
+        this.state = { userId: UserProfile.getUID() };
     }
     loadInfo(items) {
 
     }
     handleLoad() {
 
-        var phoneNumber = ''
-        fetch(process.env["REACT_APP_API_URL"] + "/user/profile", {
+       
+        fetch(process.env["REACT_APP_API_URL"] + "user/profile", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -28,6 +28,7 @@ class Profile extends Component {
             this.setState({
               phoneNumber: data.phoneNumber,
               name: data.fullName,
+              username: data.username,
             });
           });
 
