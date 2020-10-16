@@ -78,7 +78,7 @@ public class Employee {
         return this.user.getPhoneNumber();
     }
 
-//    @JsonGetter("products")
+    @JsonGetter("products")
     public List<Product> getProducts() {
         return products;
     }

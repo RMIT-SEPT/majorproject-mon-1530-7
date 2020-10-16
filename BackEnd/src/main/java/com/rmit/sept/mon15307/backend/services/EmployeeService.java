@@ -42,18 +42,29 @@ public class EmployeeService {
         }
         // Checks if the employee product ids and admin specified products
         // collections contain the same ids.
-        for(Long specifiedProductId: productsSet.getProductIds()){
-            if(!employeeProductIds.contains(specifiedProductId)){
+        if(employeeProductIds.size() == productsSet.getProductIds().size()){
+            int counter = 0;
+            for(Long specifiedProductId: productsSet.getProductIds()){
+                if(employeeProductIds.contains(specifiedProductId)){
+                    counter += 1;
+                }
+            }
+            if(!(counter == employeeProductIds.size())){
                 matchList = false;
             }
+            if(counter == 0){
+                matchList = false;
+            }
+        }
+        else{
+            matchList = false;
         }
         return matchList;
     }
 
-    // Set products to employee --v need to test if this is done correctly
+    // Set products to employee
     public void setProducts(Employee employee, List<Product> products){
-//        employee.setProducts(products);
-//        employeeRepository.findByEmployeeId(Long.parseLong(employee.getId()));
+        employee.getProducts().clear();
         employee.setProducts(products);
         employeeRepository.save(employee);
     }

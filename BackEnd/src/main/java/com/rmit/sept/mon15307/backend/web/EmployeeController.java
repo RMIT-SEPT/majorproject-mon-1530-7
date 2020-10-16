@@ -1,6 +1,7 @@
 package com.rmit.sept.mon15307.backend.web;
 
 import com.rmit.sept.mon15307.backend.exceptions.EmployeeNotFoundException;
+import com.rmit.sept.mon15307.backend.exceptions.InvalidProductException;
 import com.rmit.sept.mon15307.backend.model.Employee;
 import com.rmit.sept.mon15307.backend.model.Product;
 import com.rmit.sept.mon15307.backend.model.UserAccount;
@@ -8,6 +9,7 @@ import com.rmit.sept.mon15307.backend.payload.AdminSetProducts;
 import com.rmit.sept.mon15307.backend.payload.EmployeeAvailabilityResponse;
 import com.rmit.sept.mon15307.backend.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -77,11 +79,14 @@ public class EmployeeController {
             @Min(1) @NotNull Long staffId,
             @Valid
             @RequestBody
-                AdminSetProducts productsSet,
+                    Map<String, Long[]> productsIdsSet,
             BindingResult result,
             @AuthenticationPrincipal
                 UserAccount user
     ) {
+        AdminSetProducts productsSet = new AdminSetProducts(productsIdsSet);
+        Map<String, String> errorMessage = new HashMap<>();
+        Map<String, Map<String, String>> errorResponse = new HashMap<>();
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if (errorMap != null) return errorMap;
 
@@ -90,7 +95,13 @@ public class EmployeeController {
         List<Product> employeeProducts = employee.getProducts();
 
         // Checks if specified product ids exist in the system.
-        productService.checkNonExistentProductIds(allProductsInSystem, productsSet);
+        try{
+            productService.checkNonExistentProductIds(allProductsInSystem, productsSet);
+        } catch (InvalidProductException e){
+            errorMessage.put("message", e.getMessage());
+            errorResponse.put("error", errorMessage);
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
 
         // Checks if specified set of product ids is an exact match to already
         // set products for the employee (NEEDS TO BE FALSE)
@@ -98,12 +109,22 @@ public class EmployeeController {
                 = employeeService.checkMatchingProductIds(productsSet, employeeProducts);
 
         if(!matchingProductsExistsEntirely){
-            // Returns products specified by admin
-            List<Product> setProducts = productService.updatedProducts(productsSet, user);
-            // Set updated products to employee requested
-            employeeService.setProducts(employee, setProducts);
-        }
+            try{
+                // Returns products specified by admin
+                List<Product> setProducts = productService.updatedProducts(productsSet, user);
+                // Set updated products to employee requested
+                employeeService.setProducts(employee, setProducts);
+            } catch (InvalidProductException e) {
+                // need to change exception caught and thrown
+                errorMessage.put("message", e.getMessage());
+                errorResponse.put("error", errorMessage);
+                return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+            }
 
-        return new ResponseEntity<>(employee.getProducts(), HttpStatus.OK);
+        }
+        Map<String, List<Product>> response = new HashMap<>();
+        response.put("products", employee.getProducts());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
