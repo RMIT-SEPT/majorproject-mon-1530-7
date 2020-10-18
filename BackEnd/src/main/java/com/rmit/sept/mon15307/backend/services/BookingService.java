@@ -29,8 +29,12 @@ public class BookingService {
         return bookingsRepository.save(booking);
     }
 
-    public Iterable<Booking> findBookingsBySchedule(Schedule schedule) {
-        return this.bookingsRepository.findBookingsByScheduleId(schedule.getId());
+    public Iterable<Booking> findBookingsBySchedule(Schedule schedule, boolean includeCancelled) {
+        return includeCancelled
+               ? this.bookingsRepository.findBookingsBySchedule(schedule)
+               : this.bookingsRepository.findBookingsByScheduleAndStatusNot(schedule,
+                                                                            BookingStatus.CANCELLED
+               );
     }
 
     public Booking findByBookingId(Long bookingId) throws BookingNotFoundException {

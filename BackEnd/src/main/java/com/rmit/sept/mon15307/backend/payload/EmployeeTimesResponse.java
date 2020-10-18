@@ -36,7 +36,7 @@ public class EmployeeTimesResponse {
         }
 
         // exclude times that have already been booked
-        Iterable<Booking> bookings = bookingService.findBookingsBySchedule(schedule);
+        Iterable<Booking> bookings = bookingService.findBookingsBySchedule(schedule, false);
         if (bookings != null) {
             for (Booking booking : bookings) {
                 this.times.remove(booking.getTime());
