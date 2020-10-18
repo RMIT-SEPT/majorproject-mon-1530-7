@@ -24,7 +24,7 @@ class DashboardLayout extends Component {
               md={{ span: 6, offset: 0 }}
             >
               <h5 className="h5-main">Current Bookings</h5>
-              <BookingsList upcoming  />
+              <BookingsList upcoming />
             </Col>
             <Col
               className="shadow p-3 mb-5 bg-white rounded"

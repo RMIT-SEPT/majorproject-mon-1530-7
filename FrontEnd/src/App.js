@@ -10,7 +10,7 @@ import ContactPage from "./components/pages/ContactPage";
 import CustomerBookingPage from "./components/pages/CustomerBookingPage.js";
 import NewEmployeePage from "./components/pages/NewEmployeePage.js";
 
-import AdminPastBooking from "./components/pages/AdminPastBooking.js";
+
 import CustomerPastBookingsPage from "./components/pages/CustomerPastBookingsPage.js";
 
 import Dashboard from "./components/pages/Dashboard.js";
@@ -24,10 +24,10 @@ import EmpDetails from "./components/pages/EmpDetails.js";
 import UserProfile from "./UserProfile.js"
 
 function RenderSwitch() {
-  
+
   if(UserProfile.getLoggedIn()) {
     return (
-      
+
         <Switch>
             <Route exact path="/" component={HomePage} />,
             <Redirect from="/login" to="dashboard" />,
@@ -48,23 +48,23 @@ function RenderSwitch() {
             <Route path="/new-employee" component={NewEmployeePage} />,
             <Route path="/profile" component={Profile} />,
             <Route path="/manage-emp" component={ManageEmp} />,
-            <Route path="/emp-details" component={EmpDetails} /> 
+            <Route path="/emp-details" component={EmpDetails} />
             <Redirect from="/*" to="/dashboard" />,
-        </Switch>     
+        </Switch>
     );
   }
   else {
     return (
       <Switch>
-        
+
           <Route exact path="/" component={HomePage} />,
           <Route path="/login" component={LoginPage} />,
           <Route path="/about" component={AboutPage} />,
           <Route path="/contact" component={ContactPage} />,
           <Redirect from="/*" to="/login" />,
-            
+
       </Switch>
-          
+
     );
   }
 }
@@ -81,6 +81,6 @@ function App() {
       </div>
   )
 }
- 
+
 
 export default App;

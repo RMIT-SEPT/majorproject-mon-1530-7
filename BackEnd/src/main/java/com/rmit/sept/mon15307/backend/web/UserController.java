@@ -91,8 +91,6 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    
-
     @JsonView(UserAccount.UserAccountViews.Public.class)
     @PatchMapping("/profile")
     public ResponseEntity<?> editUserDetails(@Valid @RequestBody UserProfilePatch userProfilePatch,

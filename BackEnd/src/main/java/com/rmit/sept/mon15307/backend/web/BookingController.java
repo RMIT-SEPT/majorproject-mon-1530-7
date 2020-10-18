@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -40,16 +41,11 @@ public class BookingController {
     private MapValidationErrorService mapValidationErrorService;
 
     @PostMapping("")
-    public ResponseEntity<?> createNewBooking(
-        @Valid
-        @RequestBody
-            BookingRequest bookingRequest,
-        BindingResult result,
-        @AuthenticationPrincipal
-            UserAccount user
-    ) {
+    public ResponseEntity<?> createNewBooking(@Valid @RequestBody BookingRequest bookingRequest, BindingResult result,
+            @AuthenticationPrincipal UserAccount user) {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap != null) return errorMap;
+        if (errorMap != null)
+            return errorMap;
 
         // entities must exist
         UserAccount customer = userService.findByUserId(bookingRequest.getCustomerId());
@@ -59,8 +55,7 @@ public class BookingController {
         // customer must be the same as the current user, unless current user is an
         // admin
         if (!user.getUserId().equals(customer.getUserId()) && !user.getAdmin()) {
-            throw new UserNotAuthorisedException("User not authorised to create booking for this " +
-                                                 "customer");
+            throw new UserNotAuthorisedException("User not authorised to create booking for this " + "customer");
         }
 
         Booking booking = bookingService.createBooking(customer, employee, product, bookingRequest);
@@ -72,27 +67,18 @@ public class BookingController {
     }
 
     @GetMapping("/{bookingId}")
-    public ResponseEntity<?> getBookingById(
-        @PathVariable
-            Long bookingId
-    ) {
+    public ResponseEntity<?> getBookingById(@PathVariable Long bookingId) {
         Booking booking = bookingService.findByBookingId(bookingId);
         return new ResponseEntity<>(booking, HttpStatus.OK);
     }
 
     @GetMapping("")
-    public ResponseEntity<?> listUserBookings(
-        @RequestParam("status")
-            String statusQuery,
-        @AuthenticationPrincipal
-            UserAccount user
-    ) {
+    public ResponseEntity<?> listUserBookings(@RequestParam("status") String statusQuery,
+            @AuthenticationPrincipal UserAccount user) {
         Collection<BookingStatus> bookingStatuses;
         try {
-            bookingStatuses = Arrays
-                .stream(statusQuery.split(","))
-                .map(s -> BookingStatus.valueOf(s.toUpperCase()))
-                .collect(Collectors.toList());
+            bookingStatuses = Arrays.stream(statusQuery.split(",")).map(s -> BookingStatus.valueOf(s.toUpperCase()))
+                    .collect(Collectors.toList());
         } catch (IllegalArgumentException e) {
             throw new BookingException("Invalid booking status param: " + statusQuery);
         }
@@ -114,18 +100,12 @@ public class BookingController {
     }
 
     @PatchMapping("/{bookingId}")
-    public ResponseEntity<?> editBooking(
-        @PathVariable
-        @Min(1) @NotNull Long bookingId,
-        @Valid
-        @RequestBody
-            BookingPatch bookingPatch,
-        BindingResult result,
-        @AuthenticationPrincipal
-            UserAccount user
-    ) {
+    public ResponseEntity<?> editBooking(@PathVariable @Min(1) @NotNull Long bookingId,
+            @Valid @RequestBody BookingPatch bookingPatch, BindingResult result,
+            @AuthenticationPrincipal UserAccount user) {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap != null) return errorMap;
+        if (errorMap != null)
+            return errorMap;
 
         Booking booking = bookingService.findByBookingId(bookingId);
         Booking updatedBooking = bookingService.updateBooking(booking, bookingPatch, user);
