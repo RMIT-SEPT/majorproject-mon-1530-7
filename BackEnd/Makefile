@@ -1,5 +1,5 @@
 VERSION=0.0.1
-DOCKER_HOST=192.168.99.100
+PSQL_SERVER_HOST=192.168.99.100
 
 .PHONY: run-prod run-dev run test dbconsole build help
 .DEFAULT_GOAL := help
@@ -17,7 +17,7 @@ test:  ## Run tests
 
 dbconsole: export PGPASSWORD = postgres
 dbconsole:  ## Open psql console
-	psql --host=$(DOCKER_HOST) --user postgres -d backenddb
+	psql --host=$(PSQL_SERVER_HOST) --user postgres -d backenddb
 
 build:  ## Build app
 	npm build
