@@ -1,20 +1,29 @@
-version: 2
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@6.12.2
+  # aws-ecs: circleci/aws-ecs@1.3.0
 jobs:
   build-backend:
-
     working_directory: ~/repo/BackEnd
     docker:
       - image: circleci/openjdk:11-jdk-stretch
-      - image: circleci/postgres:9.6.3-alpine
+      - image: circleci/postgres:9.6.3-alpine 
+      # Above postgres image might not be needed
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: backenddb
           POSTGRES_PASSWORD: postgres
+    environment:
+      ECR_REPOSITORY_NAME: backend-spring-app-repo
+      FULL_IMAGE_NAME_SPRING: 863658559549.dkr.ecr.us-east-1.amazonaws.com/backend-spring-app-repo
+      FULL_IMAGE_NAME_DB: 863658559549.dkr.ecr.us-east-1.amazonaws.com/postgres-repo
 
     steps:
 
       - checkout:
           path: ~/repo
+
+      - setup_remote_docker
 
       - restore_cache:
           key: circleci-backend-java-spring-{{ checksum "pom.xml" }}
@@ -26,8 +35,6 @@ jobs:
             - ~/.m2
           key: circleci-backend-java-spring-{{ checksum "pom.xml" }}
 
-      - run: mvn test
-
       - run: mvn package
 
       - store_test_results:
@@ -35,16 +42,52 @@ jobs:
 
       - store_artifacts:
           path: target/BackEnd-java-spring-0.0.1-SNAPSHOT.jar
+
+      - run:
+          name: Install AWS dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get -y -qq install awscli
+            sudo apt-get install python3-pip
+            sudo pip3 install --upgrade awscli
+      - run:
+          name: Build backend image
+          command: |
+            docker-compose up -d
+      - run:
+          name: Tag backend image
+          command: |
+            docker tag septbackend-postgresql $FULL_IMAGE_NAME_SPRING            
+                            
+      - run:
+          name: Push backend image
+          command: |
+            aws ecr get-login-password | docker login --username AWS --password-stdin 863658559549.dkr.ecr.us-east-1.amazonaws.com                                                            
+            docker push $FULL_IMAGE_NAME_SPRING
+      - run:
+          name: Tag postgres image
+          command: |
+            docker tag postgres $FULL_IMAGE_NAME_DB
+      - run:
+          name: Push backend db
+          command: |
+            aws ecr get-login-password | docker login --username AWS --password-stdin 863658559549.dkr.ecr.us-east-1.amazonaws.com                                                            
+            docker push $FULL_IMAGE_NAME_DB
     
   build-frontend: 
     docker:
       - image: circleci/node:12.18.3-browsers
+    environment:
+      ECR_REPOSITORY_NAME: frontend-app-repo
+      FULL_IMAGE_NAME: 863658559549.dkr.ecr.us-east-1.amazonaws.com/frontend-app-repo
       
     working_directory: ~/repo/FrontEnd
 
     steps:
       - checkout:
           path: ~/repo
+
+      - setup_remote_docker
 
       - restore_cache:
           keys:
@@ -63,9 +106,48 @@ jobs:
 
       - run: yarn test -- --coverage --updateSnapshot
 
+      - run:
+          name: Install AWS dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get -y -qq install awscli
+            sudo apt-get install python3-pip
+            sudo pip3 install --upgrade awscli
+      - run:
+          name: Build frontend image
+          command: |
+            docker-compose -f docker-compose.prod.yml up -d
+      - run:
+          name: Tag frontend image
+          command: |
+            docker tag frontend_sample-prod ${FULL_IMAGE_NAME}
+      - run:
+          name: Push frontend image
+          command: |
+            aws ecr get-login-password | docker login --username AWS --password-stdin 863658559549.dkr.ecr.us-east-1.amazonaws.com                                                            
+            docker push $FULL_IMAGE_NAME
+
 workflows:
-  version: 2
   build_frontend_and_backend:
     jobs:
-      - build-backend
-      - build-frontend
+      - build-backend:
+          filters:
+            branches:
+              only: feature/circleci-cicd-automation
+      - build-frontend:
+          filters:
+            branches:
+              only: feature/circleci-cicd-automation
+      # - aws-ecs/deploy-service-update:
+      #     requires:
+      #       - build-backend
+      #       - build-frontend
+      #     filters:
+      #       branches:
+      #         only: develop
+      #     family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+      #     cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+      #     container-image-name-updates: container=${AWS-RESOURCE_NAME_PREFIX}-service, image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${FRONTEND_ECR_REPOSITORY_NAME}:latest, container=${AWS-RESOURCE_NAME_PREFIX}-service, image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${BACKEND_ECR_REPOSITORY_NAME}:latest                                                                                           
+          
+          
+          # container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}"
