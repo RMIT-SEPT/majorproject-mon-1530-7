@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "../../index.css";
 import { Container, Col, Jumbotron, Row } from "react-bootstrap";
-import BookingsList from "../components/BookingsList";
+import BookingsList from "../layouts/BookingsList";
 
 class DashboardLayout extends Component {
   constructor(props) {
