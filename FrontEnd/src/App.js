@@ -47,9 +47,7 @@ function App() {
                 <Route path="/admin-dashboard" component={AdminDashboard} >
                   {UserProfile.getAdmin() ?   <AdminDashboard /> : <Redirect to="/dashboard" /> }
                 </Route>,
-                <Route path="/account" component={Account} >
-                  {UserProfile.getLoggedIn() ? <Account /> : <Redirect to="/login"/>}
-                </Route>,
+                <Route path="/account" component={Account} /> ,
                 <Route path="/new-employee" component={NewEmployeePage} />,
                 <Route path="/profile" component={Profile} />,
                 <Route path="/manage-emp" component={ManageEmp} />,
@@ -74,20 +72,16 @@ function App() {
                 <Route path="/login" component={LoginPage} />,
                 <Route path="/about" component={AboutPage} />,
                 <Route path="/contact" component={ContactPage} />,
-                <Route path="/booking" component={CustomerBookingPage} />,
-                <Route
-                  path="/customer-past-bookings"
-                  component={CustomerPastBookingsPage}
-                />,
+                <Redirect from="/booking" to="/login" />,
+                <Redirect
+                  from="/customer-past-bookings" to="/login" />,
                 <Redirect from="/dashboard" to="/login" />,
-                <Route path="/admin-dashboard" component={AdminDashboard} >
-                  {UserProfile.getAdmin() ?   <AdminDashboard /> : <Redirect to="/dashboard" /> }
-                </Route>,
+                <Redirect from="/admin-dashboard"  to="/login" />
                 <Redirect from="/account" to="/login" />,
-                <Route path="/new-employee" component={NewEmployeePage} />,
-                <Route path="/profile" component={Profile} />,
-                <Route path="/manage-emp" component={ManageEmp} />,
-                <Route path="/emp-details" component={EmpDetails} />  
+                <Redirect from="/new-employee" to="/login" />,
+                <Redirect from="/profile" to="/login" />,
+                <Redirect from="/manage-emp" to="/login" />,
+                <Redirect from="/emp-details" to="/login" />  
             </Switch>
           </BrowserRouter>
         </div>
