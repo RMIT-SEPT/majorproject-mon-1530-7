@@ -52,7 +52,7 @@ function App() {
                 <Route path="/profile" component={Profile} />,
                 <Route path="/manage-emp" component={ManageEmp} />,
                 <Route path="/emp-details" component={EmpDetails} /> 
-          
+                <Redirect from="/*" to="/dashboard" />,
             </Switch>
           </BrowserRouter>
         </div>
@@ -72,16 +72,8 @@ function App() {
                 <Route path="/login" component={LoginPage} />,
                 <Route path="/about" component={AboutPage} />,
                 <Route path="/contact" component={ContactPage} />,
-                <Redirect from="/booking" to="/login" />,
-                <Redirect
-                  from="/customer-past-bookings" to="/login" />,
-                <Redirect from="/dashboard" to="/login" />,
-                <Redirect from="/admin-dashboard"  to="/login" />
-                <Redirect from="/account" to="/login" />,
-                <Redirect from="/new-employee" to="/login" />,
-                <Redirect from="/profile" to="/login" />,
-                <Redirect from="/manage-emp" to="/login" />,
-                <Redirect from="/emp-details" to="/login" />  
+                <Redirect from="/*" to="/login" />,
+                 
             </Switch>
           </BrowserRouter>
         </div>
