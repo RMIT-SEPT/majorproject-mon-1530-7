@@ -13,7 +13,7 @@ class LoginPage extends Component {
   };
 
   handleSubmit = (event) => {
-    fetch(process.env["REACT_APP_API_URL"] + "user/login", {
+    fetch(process.env["REACT_APP_API_URL"] + "/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ class LoginPage extends Component {
       })
       .then((data) => {
         UserProfile.setLoggedIn();
-        UserProfile.setAdmin(data.admin);
+        UserProfile.setRole(data.role);
         UserProfile.setUID(data.userId);
         UserProfile.setToken(data.token);
 

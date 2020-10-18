@@ -1,13 +1,11 @@
 package com.rmit.sept.mon15307.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,60 +14,68 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Date;
-import java.util.List;
 import java.util.Collection;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import java.util.Date;
 
 @Entity
-public class UserAccount implements UserDetails{
+public class UserAccount implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(UserAccountViews.Public.class)
     private Long userId;
 
     @NotNull
     @NotBlank
+    @JsonView(UserAccountViews.Public.class)
     private String fullName;
 
-
+    @JsonView(UserAccountViews.Public.class)
     private String preferredName;
+
     @NotBlank(message = "Password field is required")
+    @JsonView(UserAccountViews.Internal.class)
     private String password;
 
     @Email
     @Column(unique = true)
     @NotNull
+    @JsonView(UserAccountViews.Public.class)
     private String username;
 
     @Pattern(regexp = "[0-9]{10}")
     @NotNull
+    @JsonView(UserAccountViews.Public.class)
     private String phoneNumber;
 
     @NotNull
+    @JsonView(UserAccountViews.Internal.class)
     private Boolean isAdmin;
 
     @NotNull
+    @JsonView(UserAccountViews.Internal.class)
     private Boolean isWorker;
 
     @NotNull
+    @JsonView(UserAccountViews.Internal.class)
     private Boolean isCustomer;
+
     @Transient
+    @JsonView(UserAccountViews.Internal.class)
     private String confirmPassword;
 
     @CreatedDate
     private Date createdAt;
+
     @LastModifiedDate
     private Date updatedAt;
-    private Date lastLogin;
 
-    public UserAccount() {
+    public UserAccount() {}
 
-    }
-
+    @JsonGetter("id")
     public Long getUserId() {
         return userId;
     }
+
     public void setUserId(Long userId) {
         this.userId = userId;
     }
@@ -80,14 +86,6 @@ public class UserAccount implements UserDetails{
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getUsername(){
-        return username;
-    }
-
-    public void setUsername(String username){
-        this.username = username;
     }
 
     public String getPreferredName(){
@@ -101,20 +99,15 @@ public class UserAccount implements UserDetails{
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getConfirmPassword() {
         return confirmPassword;
     }
+
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
@@ -143,12 +136,10 @@ public class UserAccount implements UserDetails{
         isCustomer = customer;
     }
 
-    public Date getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(Date lastLogin) {
-        this.lastLogin = lastLogin;
+    @JsonGetter("role")
+    @JsonView(UserAccountViews.Public.class)
+    public String getRole() {
+        return this.isAdmin ? "admin" : this.isWorker ? "worker" : "customer";
     }
 
     @PrePersist
@@ -161,14 +152,28 @@ public class UserAccount implements UserDetails{
         this.updatedAt = new Date();
     }
 
-     /*
-    UserDetails interface methods
-     */
-
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @JsonGetter("email")
+    @JsonAlias("username")
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -176,6 +181,10 @@ public class UserAccount implements UserDetails{
     public boolean isAccountNonExpired() {
         return true;
     }
+
+     /*
+    UserDetails interface methods
+     */
 
     @Override
     @JsonIgnore
@@ -193,5 +202,11 @@ public class UserAccount implements UserDetails{
     @JsonIgnore
     public boolean isEnabled() {
         return true;
+    }
+
+    public static class UserAccountViews {
+        public static class Public {}
+
+        public static class Internal extends Public {}
     }
 }
