@@ -58,7 +58,23 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
   color: #303030;
   text-align: center;
   margin: 1em;
+}
 
+.h4-main {
+  font-weight: 600;
+  margin-top: 1em;
+  color: #303030;
+}
+
+.h4-main2 {
+  font-weight: 600;
+  color: #2a94f4;
+}
+
+.h4-main3 {
+  font-weight: 600;
+  margin-top: 3em;
+  color: #303030;
 }
 
 .h5-main {
@@ -68,11 +84,45 @@ body, h1, h2, h3, h4, h5, p, a, ul, li, button {
   margin-top: 1em;
 }
 
+.h5-main2 {
+  font-weight: 600;
+  margin-top: 2em;
+  color: #2a94f4;
+}
+
+.h5-main3 {
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  color: #2a94f4;
+}
+
+.h5-center {
+  font-size: 16px;
+  font-weight: 600;
+  color: #303030;
+  text-align: center;
+  margin-left: -1em;
+  margin-top: -0.8em;
+}
+
 #jumbotron-custom {
   background-color: #ffffff;
   margin: 20px;
   margin-top: 12em;
-  margin-bottom: 50px;
+}
+
+#jumbotron-alt {
+  background-color: #ffffff;
+  margin: 20px;
+  margin-top: -2em;
+  margin-bottom: 6em;
+}
+
+#jumbotron-alt2 {
+  background-color: #ffffff;
+  margin-top: 4em;
+  margin-bottom: 6em;
 }
 
 #dashboard-jumbotron {
@@ -121,18 +171,55 @@ a:hover {
   font-size: 16px;
   font-weight: 600;
   min-height: 40px;
-  min-width: 115px;
+  min-width: 145px;
   margin-right: 20px;
   border-radius: 26px;
   border: 2px solid #2b80ff;
   background-color: #2b80ff;
   color: #ffffff;
-  display: block;
   text-decoration: none;
   transition: all 0.3s ease 0s;
 }
 
 .btn-filled:hover, .btn-filled:focus, .btn-filled:active, .btn-filled.active {
+  border: 2px solid #0066ff;
+  background-color: #0066ff;
+}
+
+.btn-filled-alt {
+  font-size: 16px;
+  font-weight: 600;
+  min-height: 40px;
+  min-width: 145px;
+  border-radius: 26px;
+  margin-top: 0.5em;
+  border: 2px solid #2b80ff;
+  background-color: #2b80ff;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-filled-alt:hover, .btn-filled-alt:focus, .btn-filled-alt:active, .btn-filled-alt.active {
+  border: 2px solid #0066ff;
+  background-color: #0066ff;
+}
+
+.btn-filled-extended {
+  font-size: 16px;
+  font-weight: 600;
+  min-height: 45px;
+  min-width: 180px;
+  margin-right: 20px;
+  border-radius: 26px;
+  border: 2px solid #2b80ff;
+  background-color: #2b80ff;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-filled-extended:hover, .btn-filled-extended:focus, .btn-filled-extended:active, .btn-filled-extended.active {
   border: 2px solid #0066ff;
   background-color: #0066ff;
 }
@@ -144,6 +231,7 @@ a:hover {
   min-width: 145px;
   border-radius: 26px;
   margin-left: -20px;
+  margin-right: -20px;
   border: 2px solid #2b80ff;
   background-color: #ffffff00;
   color: #1f74f3;
@@ -211,15 +299,15 @@ a:hover {
 
 .btn-large {
   font-size: 18px;
-  font-weight: 600;
-  min-height: 50px;
-  min-width: 165px;
-  margin-top: 45px;
+  font-weight: 500;
+  min-height: 48px;
+  min-width: 195px;
+  margin-top: 1em;
+  margin-left: -1.2em;
   border-radius: 26px;
   border: 2px solid #2b80ff;
   background-color: #2b80ff;
   color: #ffffff;
-  display: block;
   text-decoration: none;
   transition: all 0.3s ease 0s;
 }
@@ -257,9 +345,9 @@ html {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 50px; 
-  line-height: 50px; 
-  background-color: #0066ff;
+  height: 50px;
+  line-height: 50px;
+  background-color: #2b80ff;
   clear: both;
   text-align: center;
   font-size: 15px;
@@ -276,7 +364,7 @@ html {
   padding: 170px;
 }
 
-.loginContainer {
+.login-container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -296,7 +384,7 @@ input {
 
 .customerBookingPageContainer {
   width: 100%;
-  height:100%;
+  height: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -305,16 +393,15 @@ input {
   padding-top: 20px;
 }
 
-.makeCusBooking{
+.makeCusBooking {
   text-align: center;
   padding-top: 20px;
 }
 
-
-.h2-cus-book-page{
+.h2-cus-book-page {
   font-weight: 600;
   color: #303030;
-  text-align: left;  
+  text-align: center;
   padding-bottom: 20px;
 }
 
@@ -325,7 +412,7 @@ input {
   margin-bottom: 50px;
 }
 
-.datePickerContainer{
+.datePickerContainer {
   text-align: center;
   border: 1px solid #2b80ff;
   color: #1f74f3;
@@ -333,9 +420,9 @@ input {
   padding-bottom: 20px;
 }
 
-.customer-booking-page-error-modal .modal-header{
+.customer-booking-page-error-modal .modal-header {
   /* background-color: red; */
-  color:red;
+  color: red;
 }
 
 .wrapper{
@@ -345,8 +432,88 @@ input {
   justify-content: space-between;
 }
 
-.wrapper h1{
+.wrapper h1 {
   width: 100%;
   text-align: center;
+}
 
+#col-main {
+  margin-top: -6em;
+}
+
+#col-main2 {
+  margin-top: 14em;
+  margin-left: 5em;
+  margin-right: -2em;
+}
+
+#col-main3 {
+  margin-top: 12em;
+}
+
+#col-main4 {
+  margin-left: -6em;
+  margin-top: -6em;
+  margin-bottom: 6em;
+}
+
+#col-main5 {
+  margin-left: 12em;
+  margin-right: -5em;
+  margin-top: -1em;
+  margin-bottom: 6em;
+}
+
+#col-main6 {
+  margin-left: -1em;
+}
+
+#row-main {
+  margin-top: 12em;
+}
+
+#row-center-main {
+  margin-top: 12em;
+  text-align: center;
+}
+
+#row-center {
+  text-align: center;
+}
+
+#row-custom {
+  margin-top: 3em;
+}
+
+#row-custom2 {
+  margin-top: 2em;
+}
+
+#align-btn {
+  margin-top: 1em;
+  margin-left: -1.3em;
+  margin-bottom: 1em;
+}
+
+#form-custom {
+  margin-left: 10em;
+  margin-right: 10em;
+}
+
+#contact-card {
+  text-align: center;
+  margin-left: 8em;
+  margin-right: 8em;
+  margin-top: 3em;
+}
+
+#custom-form-label {
+  font-size: 20px;
+  font-weight: 600;
+  color: #303030;
+}
+
+#form-layout {
+  text-align: center;
+  margin-bottom: 1.5em;
 }
