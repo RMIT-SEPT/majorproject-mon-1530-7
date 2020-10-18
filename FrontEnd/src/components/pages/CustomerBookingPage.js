@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import ServiceCard from "../layouts/ServiceCard";
-import StaffCard from "../layouts/StaffCard";
 import TimeSelectorCard from "../layouts/TimeSelectorCard";
 import { Container, Jumbotron, CardDeck, Form, Button } from "react-bootstrap";
 import CustomerBookingPageErrorModal from "../layouts/CustomerBookingPageErrorModal";
 import CustomerBookingPageConfirmationModal from "../layouts/CustomerBookingPageConfirmationModal";
 import UserProfile from "../../UserProfile";
 import { format } from "date-fns";
+import StaffList from '../StaffList';
 
 class CustomerBookingPage extends Component {
   constructor(props) {
@@ -37,7 +37,6 @@ class CustomerBookingPage extends Component {
     // If data is stale booking will be rejected by backend and data will be refreshed
     // TODO: handle booking conflicts
     this.fetchServices();
-    this.fetchStaff();
   }
 
   componentDidUpdate() {
@@ -78,7 +77,7 @@ class CustomerBookingPage extends Component {
   }
 
   fetchServices() {
-    fetch(process.env.REACT_APP_API_URL + "/products", {
+    fetch(process.env.REACT_APP_API_URL + "products", {
       headers: {
         Authorization: UserProfile.getToken(),
       },
@@ -91,25 +90,11 @@ class CustomerBookingPage extends Component {
       .catch((e) => console.log(e));
   }
 
-  fetchStaff() {
-    fetch(process.env.REACT_APP_API_URL + "/staff", {
-      headers: {
-        Authorization: UserProfile.getToken(),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) =>
-        // TODO: handle errors
-        this.setState({ staff: data["staff"], loadingStaff: false })
-      )
-      .catch((e) => console.log(e));
-  }
-
   fetchAppointmentSlots() {
     // TODO: handle staff member not found
     fetch(
       process.env.REACT_APP_API_URL +
-        "/staff/" +
+        "staff/" +
         this.state.selectedEmployeeId +
         "/times",
       {
@@ -139,7 +124,7 @@ class CustomerBookingPage extends Component {
       appointment_date: format(this.state.selectedTime, "yyyy-MM-dd"),
       appointment_time: format(this.state.selectedTime, "HH:mm"),
     };
-    fetch(process.env.REACT_APP_API_URL + "/bookings", {
+    fetch(process.env.REACT_APP_API_URL + "bookings", {
       method: "POST",
       headers: {
         "Authorization": UserProfile.getToken(),
@@ -197,9 +182,9 @@ class CustomerBookingPage extends Component {
                 loading={this.state.loadingServices}
                 onSelect={this.onServiceSelect}
               />
-              <StaffCard
-                staff={this.state.staff}
-                loading={this.state.loadingStaff}
+              <StaffList 
+                cusbooking={true}
+                empmanage={false}
                 onSelect={this.onEmployeeSelect}
               />
               <TimeSelectorCard
@@ -210,14 +195,10 @@ class CustomerBookingPage extends Component {
             </CardDeck>
           </Container>
           <Container className="makeCusBooking">
-            <Button
-              variant="primary"
-              size="lg"
-              type="submit"
+            <button className="btn-filled-extended"
               onClick={this.handleSubmit}
-            >
-              Make Booking
-            </Button>
+            >Book Now
+            </button>
             <CustomerBookingPageErrorModal
               className="customer-booking-page-error-modal"
               show={this.state.showError}

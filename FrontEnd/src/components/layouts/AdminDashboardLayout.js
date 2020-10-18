@@ -7,10 +7,10 @@ function AdminDashboardLayout() {
   return (
     <Jumbotron id="dashboard-jumbotron">
       <Container>
-        <h2 className="h2-main">Administrator Dashboard</h2>
-          <Row className="shadow p-3 mb-5 bg-white rounded">
+        <h2 className="h2-main">Admin Dashboard</h2>
+          <Row className="shadow p-3 mb-5 bg-white rounded" id="row-custom">
             <h5 className="h5-main">Upcoming Bookings</h5>
-            <table class="table table-borderless">
+            <table className="table table-borderless">
               <thead>
                 <tr>
                   <th scope="col">Service</th>
@@ -64,55 +64,54 @@ function AdminDashboardLayout() {
             </table>
           </Row>
 
-          <h3>Schedule</h3>
-
-          <Row className="shadow p-3 mb-5 bg-white rounded">
-            <table class="table table-bordered">
+          <h4 className="h4-main3">Schedule</h4>
+          <Row className="shadow p-3 mb-5 bg-white rounded" id="row-custom2">
+            <table className="table table-bordered">
               <thead >
                 <tr>
-                  <th scope="col" class="text-center">Sunday</th>
-                  <th scope="col" class="text-center">Monday</th>
-                  <th scope="col" class="text-center">Tuesday</th>
-                  <th scope="col" class="text-center">Wednesday</th>
-                  <th scope="col" class="text-center">Thursday</th>
-                  <th scope="col" class="text-center">Friday</th>
-                  <th scope="col" class="text-center">Saturday</th>
+                  <th scope="col" className="text-center">Sunday</th>
+                  <th scope="col" className="text-center">Monday</th>
+                  <th scope="col" className="text-center">Tuesday</th>
+                  <th scope="col" className="text-center">Wednesday</th>
+                  <th scope="col" className="text-center">Thursday</th>
+                  <th scope="col" className="text-center">Friday</th>
+                  <th scope="col" className="text-center">Saturday</th>
                 </tr>
               </thead>
               <tbody>
               <tr>
                   <td>      </td>
                   <td>      </td>
-                  <td><p class="text-center">[9:30]</p><p class="text-center" >Matea Hoppus</p></td>
+                  <td><p className="text-center">[9:30]</p><p className="text-center" >Matea Hoppus</p></td>
                   <td>      </td>
-                  <td><p class="text-center" >[9:30]</p><p class="text-center">Matea Hoppus</p></td>
-                  <td>      </td>
-                  <td>      </td>
-                </tr>
-                <tr>
-                  <td>      </td>
-                  <td><p class="text-center">[10:30]</p><p class="text-center">Corey Odajian</p></td>
-                  <td>      </td>
-                  <td><p class="text-center">[10:30]</p><p class="text-center">Kurt Smith</p></td>
-                  <td>      </td>
-                  <td><p class="text-center">[10:30]</p><p class="text-center">Hallie Stayley</p></td>
-                  <td>      </td>
-                </tr>
-                <tr>
-                  <td>      </td>
-                  <td>      </td>
-                  <td><p class="text-center">[11:30]</p><p class="text-center">Corey Odajian</p></td>
-                  <td><p class="text-center">[11:30]</p><p class="text-center">Hallie Stayley</p></td>
-                  <td>      </td>
+                  <td><p className="text-center" >[9:30]</p><p className="text-center">Matea Hoppus</p></td>
                   <td>      </td>
                   <td>      </td>
                 </tr>
                 <tr>
                   <td>      </td>
+                  <td><p className="text-center">[10:30]</p><p className="text-center">Corey Odajian</p></td>
                   <td>      </td>
-                  <td><p class="text-center">[12:30]</p><p class="text-center">Matea Hoppus</p></td>
+                  <td><p className="text-center">[10:30]</p><p className="text-center">Kurt Smith</p></td>
                   <td>      </td>
-                  <td><p class="text-center">[12:30]</p><p class="text-center">Hallie Stayley</p></td>
+                  <td><p className="text-center">[10:30]</p><p className="text-center">Hallie Stayley</p></td>
+                  <td>      </td>
+                </tr>
+                <tr>
+                  <td>      </td>
+                  <td>      </td>
+                  <td><p className="text-center">[11:30]</p><p className="text-center">Corey Odajian</p></td>
+                  <td><p className="text-center">[11:30]</p><p className="text-center">Hallie Stayley</p></td>
+                  <td>      </td>
+                  <td>      </td>
+                  <td>      </td>
+                </tr>
+                <tr>
+                  <td>      </td>
+                  <td>      </td>
+                  <td><p className="text-center">[12:30]</p><p className="text-center">Matea Hoppus</p></td>
+                  <td>      </td>
+                  <td><p className="text-center">[12:30]</p><p className="text-center">Hallie Stayley</p></td>
                   <td>      </td>
                   <td>      </td>
                 </tr>

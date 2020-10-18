@@ -1,6 +1,8 @@
 package com.rmit.sept.mon15307.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.rmit.sept.mon15307.backend.customSerializers.BookingSerializer;
 import com.rmit.sept.mon15307.backend.exceptions.InvalidTimeSlotException;
 import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
 
@@ -13,6 +15,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonSerialize(using = BookingSerializer.class)
 @Entity
 public class Booking {
     // open hours: 10am – 5pm
@@ -64,6 +67,10 @@ public class Booking {
     private Date completedAt;
 
     public Booking() {}
+
+    public BookingStatus getStatus() {
+        return status;
+    }
 
     public void setStatus(BookingStatus status) {
         this.status = status;
@@ -117,7 +124,7 @@ public class Booking {
         this.time = time;
     }
 
-    public Date getCreatedDate() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
@@ -125,8 +132,8 @@ public class Booking {
         return cancelledAt;
     }
 
-    public void setCancelledAt(Date cancelledAt) {
-        this.cancelledAt = cancelledAt;
+    public Date getCompletedAt() {
+        return completedAt;
     }
 
     @JsonIgnore
@@ -144,6 +151,25 @@ public class Booking {
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        if (this.status != BookingStatus.CANCELLED) {
+            this.cancelledAt = null;
+        }
+
+        if (this.status != BookingStatus.COMPLETED) {
+            this.completedAt = null;
+        }
+
+        if (this.status == BookingStatus.CANCELLED && this.cancelledAt == null) {
+            this.cancelledAt = new Date();
+        }
+
+        if (this.status == BookingStatus.COMPLETED && this.completedAt == null) {
+            this.completedAt = new Date();
+        }
     }
 
     @Override
