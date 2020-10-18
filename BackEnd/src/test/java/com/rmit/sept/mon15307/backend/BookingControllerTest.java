@@ -75,8 +75,9 @@ class BookingControllerTest {
         String body = "{\n" + "  \"customer_id\": \"123\",\n" + "  \"employee_id\": \"1\",\n"
                 + "  \"product_id\": \"1\",\n" + "  \"appointment_date\": \"2020-10-09\",\n"
                 + "  \"appointment_time\": \"15:00\"\n" + "}";
-        mockMvc.perform(post("/api/bookings").contentType("application/json").content(body))
-                .andExpect(status().isNotFound());
+        mockMvc
+            .perform(post("/api/bookings").contentType("application/json").content(body))
+            .andExpect(status().is4xxClientError());
 
         Mockito.verify(bookingsRepository, Mockito.never()).save(Mockito.any(Booking.class));
     }
