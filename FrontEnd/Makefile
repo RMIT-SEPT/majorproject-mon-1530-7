@@ -7,6 +7,7 @@ run-prod:  ## Run app via production Docker container
 run-dev:  ## Run app via developmont Docker container
 	docker-compose -f docker-compose.yml up --build --remove-orphans
 
+test: export REACT_APP_API_URL = http://localhost:8080/api/
 test:  ## Run tests
 	npm test
 
