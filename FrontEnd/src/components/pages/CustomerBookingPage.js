@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import ServiceCard from "../layouts/ServiceCard";
-import StaffCard from "../layouts/StaffCard";
 import TimeSelectorCard from "../layouts/TimeSelectorCard";
 import { Container, Jumbotron, CardDeck, Form, Button } from "react-bootstrap";
 import CustomerBookingPageErrorModal from "../layouts/CustomerBookingPageErrorModal";
 import CustomerBookingPageConfirmationModal from "../layouts/CustomerBookingPageConfirmationModal";
 import UserProfile from "../../UserProfile";
 import { format } from "date-fns";
+import StaffList from '../StaffList';
 
 class CustomerBookingPage extends Component {
   constructor(props) {
@@ -37,7 +37,6 @@ class CustomerBookingPage extends Component {
     // If data is stale booking will be rejected by backend and data will be refreshed
     // TODO: handle booking conflicts
     this.fetchServices();
-    this.fetchStaff();
   }
 
   componentDidUpdate() {
@@ -87,20 +86,6 @@ class CustomerBookingPage extends Component {
       .then((data) =>
         // TODO: handle errors
         this.setState({ services: data["products"], loadingServices: false })
-      )
-      .catch((e) => console.log(e));
-  }
-
-  fetchStaff() {
-    fetch(process.env.REACT_APP_API_URL + "staff", {
-      headers: {
-        Authorization: UserProfile.getToken(),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) =>
-        // TODO: handle errors
-        this.setState({ staff: data["staff"], loadingStaff: false })
       )
       .catch((e) => console.log(e));
   }
@@ -197,9 +182,9 @@ class CustomerBookingPage extends Component {
                 loading={this.state.loadingServices}
                 onSelect={this.onServiceSelect}
               />
-              <StaffCard
-                staff={this.state.staff}
-                loading={this.state.loadingStaff}
+              <StaffList 
+                cusbooking={true}
+                empmanage={false}
                 onSelect={this.onEmployeeSelect}
               />
               <TimeSelectorCard
