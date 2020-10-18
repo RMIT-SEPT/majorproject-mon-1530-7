@@ -1,36 +1,52 @@
 package com.rmit.sept.mon15307.backend;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rmit.sept.mon15307.backend.services.BookingService;
-import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
-import com.rmit.sept.mon15307.backend.services.ProductService;
+import com.rmit.sept.mon15307.backend.Repositories.*;
+import com.rmit.sept.mon15307.backend.model.Booking;
+import com.rmit.sept.mon15307.backend.security.JwtAuthenticationEntryPoint;
+import com.rmit.sept.mon15307.backend.services.*;
 import com.rmit.sept.mon15307.backend.web.BookingController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(controllers = BookingController.class)
-@RunWith(SpringRunner.class)
-public class BookingControllerTest {
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@WebMvcTest
+@AutoConfigureMockMvc(addFilters = false) // disable CSRF protection
+@ContextConfiguration(classes = { JwtAuthenticationEntryPoint.class })
+@Import({ BookingController.class, BookingService.class, UserService.class, EmployeeService.class,
+        ScheduleService.class, ProductService.class, MapValidationErrorService.class })
+class BookingControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @MockBean
-    private BookingService bookingService;
+    private BookingsRepository bookingsRepository;
 
     @MockBean
-    private ProductService productService;
+    private UserRepository userRepository;
 
     @MockBean
-    private MapValidationErrorService mapValidationErrorService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @MockBean
+    private EmployeeRepository employeeRepository;
+
+    @MockBean
+    private ScheduleRepository scheduleRepository;
+
+    @MockBean
+    private ProductRepository productRepository;
 
     @Before
     public void setup() {
@@ -46,24 +62,24 @@ public class BookingControllerTest {
 
     @Test
     public void shouldRejectIncompleteData() throws Exception {
-        //        String body = ("{\"customer_id\": \"1\",") +
-        //                      ("\"product_id\": \"1\",") +
-        //                      ("\"appointment_date\": \"2020-01-01\"}");
-        //        mockMvc
-        //            .perform(post("/api/bookings").contentType("application/json").content(body))
-        //            .andExpect(status().is4xxClientError());
+        String body = ("{\"customer_id\": \"1\",") + ("\"product_id\": \"1\",")
+                + ("\"appointment_date\": \"2020-01-01\"}");
+        mockMvc.perform(post("/api/bookings").contentType("application/json").content(body))
+                .andExpect(status().isBadRequest());
+
+        Mockito.verify(bookingsRepository, Mockito.never()).save(Mockito.any(Booking.class));
     }
 
     @Test
     public void shouldRejectNonExistentCustomer() throws Exception {
-        //        String body = ("{\"customer_id\": \"1\",") +
-        //                      ("\"product_id\": \"1\",") +
-        //                      ("\"staff_id\": \"1\",") +
-        //                      ("\"appointment_date\": \"2020-01-01\"}") +
-        //                      ("\"appointment_time\": \"10:30\"}");
-        //        mockMvc
-        //            .perform(post("/api/bookings").contentType("application/json").content(body))
-        //            .andExpect(status().is4xxClientError());
+        String body = "{\n" + "  \"customer_id\": \"123\",\n" + "  \"employee_id\": \"1\",\n"
+                + "  \"product_id\": \"1\",\n" + "  \"appointment_date\": \"2020-10-09\",\n"
+                + "  \"appointment_time\": \"15:00\"\n" + "}";
+        mockMvc
+            .perform(post("/api/bookings").contentType("application/json").content(body))
+            .andExpect(status().is4xxClientError());
+
+        Mockito.verify(bookingsRepository, Mockito.never()).save(Mockito.any(Booking.class));
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.rmit.sept.mon15307.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -40,7 +41,8 @@ public class Employee {
     private List<Schedule> schedules;
 
     public boolean isScheduled(LocalDate date) {
-        // Inefficient but that's fine because there won't be much data to search through
+        // Inefficient but that's fine because there won't be much data to search
+        // through
 
         if (this.schedules == null) {
             return false;
@@ -77,9 +79,12 @@ public class Employee {
         return this.user.getPhoneNumber();
     }
 
+    @JsonGetter("products")
     public List<Product> getProducts() {
         return products;
     }
+
+    public void setProducts(List<Product> products) { this.products = products; }
 
     @JsonGetter("scheduledToday")
     public boolean getScheduledToday() {

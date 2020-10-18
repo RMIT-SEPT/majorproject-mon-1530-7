@@ -8,13 +8,23 @@ import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
+
 @Repository
 public interface BookingsRepository extends CrudRepository<Booking, Long> {
-    Iterable<Booking> findBookingsByCustomerAndStatus(UserAccount customer, BookingStatus status);
+    Iterable<Booking> findByCustomerAndStatusIn(
+        UserAccount user, Collection<BookingStatus> statuses
+    );
 
-    Iterable<Booking> findBookingsByStatus(BookingStatus status);
+    Iterable<Booking> findBookingsByEmployeeAndStatusIsIn(
+        Employee employee, Collection<BookingStatus> statuses
+    );
 
-    Iterable<Booking> findBookingsByScheduleId(Long scheduleId);
+    Iterable<Booking> findBookingsByStatusIsIn(Collection<BookingStatus> statuses);
+
+    Iterable<Booking> findBookingsBySchedule(Schedule schedule);
+
+    Iterable<Booking> findBookingsByScheduleAndStatusNot(Schedule schedule, BookingStatus status);
 
     Booking findByBookingId(Long bookingId);
 
