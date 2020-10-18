@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Container, Col, Jumbotron, Row } from 'react-bootstrap';
 import "../../index.css";
+import ToggleButton from "react-bootstrap/ToggleButton";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import UserProfile from "../../UserProfile.js";
 import AdminDashboardCurrentBookingsSection from "./AdminDashboardCurrentBookingsSection"
 
@@ -12,7 +14,6 @@ class AdminDashboardLayout extends Component{
       currentBookings:[],
       pastBookings:[],
       showCurrent:true,
-      showPast:false,
       loadingCurrentBookings: true,
     }
   }
@@ -58,11 +59,9 @@ class AdminDashboardLayout extends Component{
 
   setCurrentState = () => {
     this.setState({ showCurrent: true });
-    this.setState({ showPast: false });
   }
   setPastState = () => {
-    this.setState({ showCurrent: false });
-    this.setState({ showPast: true });
+    this.setState({ showCurrent: false }); 
   }
 
   render() {
@@ -74,22 +73,32 @@ class AdminDashboardLayout extends Component{
             <Row className="shadow p-3 mb-5 bg-white rounded" id="row-custom">
             <Row>
                 <Col className="shadow p-3 mb-5 bg-white rounded" id="col-custom" xs={6} md={{ span: 6, offset: 0 }}>
-                <div>
-                  <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" onChange={this.setCurrentState} checked/> Upcoming Bookings 
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option2" autocomplete="off" onChange={this.setPastState}/> Completed Bookings 
-                  </label>
-                </div>
-                  <AdminDashboardCurrentBookingsSection 
-                    currentBookings={this.state.currentBookings}
-                    show={this.state.showCurrent}
-                  />
-                  <AdminDashboardCurrentBookingsSection 
-                    currentBookings={this.state.pastBookings}
-                    show={this.state.showPast}
-                  />
+                <ButtonGroup toggle horizontal>
+               
+                  <ToggleButton
+                    type="radio"
+                    variant="outline-primary"
+                    checked={this.state.showCurrent === true}
+                    name="radio"
+                    size="lg"
+                    onChange={this.setCurrentState}
+                  >
+                    Upcoming
+                  </ToggleButton>
+                  <ToggleButton
+                    type="radio"
+                    variant="outline-primary"
+                    checked={this.state.showCurrent === false}
+                    name="radio"
+                    size="lg"
+                    onChange={this.setPastState}
+                  >
+                    Completed
+                  </ToggleButton>
+            
+              </ButtonGroup>
+                  {this.state.showCurrent ? <AdminDashboardCurrentBookingsSection currentBookings={this.state.currentBookings} /> : <AdminDashboardCurrentBookingsSection currentBookings={this.state.pastBookings} />}
+                  
                 </Col>
               </Row>
             </Row>
