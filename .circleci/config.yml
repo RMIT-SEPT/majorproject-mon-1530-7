@@ -133,11 +133,11 @@ workflows:
       - build-backend:
           filters:
             branches:
-              only: feature/circleci-cicd-automation
+              only: develop
       - build-frontend:
           filters:
             branches:
-              only: feature/circleci-cicd-automation
+              only: develop
       # - aws-ecs/deploy-service-update:
       #     requires:
       #       - build-backend
