@@ -54,18 +54,12 @@ class StaffCard extends Component {
 
   render() {
     return (
-      <Card
-        className="shadow p-3 mb-5 bg-white rounded"
-        border="light"
-        style={{ width: "68rem" }}
-      >
         <Card.Body>
           <Card.Title>Staff</Card.Title>
           <br />
 
           {this.renderStaff()}
         </Card.Body>
-      </Card>
     );
   }
 }
