@@ -15,7 +15,7 @@ class AdminDashboardCurrentBookingsSection extends Component {
 
     renderCurrentBookings(){
         if(this.props.currentBookings.length > 0){
-
+            
             return(
                 <table class="table table-borderless">
                   <thead>
@@ -24,6 +24,7 @@ class AdminDashboardCurrentBookingsSection extends Component {
                       <th scope="col">Employee</th>
                       <th scope="col">Date</th>
                       <th scope="col">Time</th>
+                      <th scope="col">Customer</th>
                     </tr>
                   </thead>
 
@@ -34,6 +35,7 @@ class AdminDashboardCurrentBookingsSection extends Component {
                             <td>{currentBooking.staff_member.name}</td>
                             <td>{format(subHours(new Date(currentBooking.appointment_time), 11), "d/MM/yyyy")}</td>
                             <td>{format(subHours(new Date(currentBooking.appointment_time), 11), "h:mm a")}</td>
+                            <td>{currentBooking.user.fullName}</td>
                             <button className="cancel-btn">Cancel Booking</button>
                         </tr>
                     ))}

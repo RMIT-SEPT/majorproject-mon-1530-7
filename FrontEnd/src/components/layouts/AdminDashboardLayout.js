@@ -43,6 +43,7 @@ class AdminDashboardLayout extends Component{
 
   fetchPastBookings(){
     const fetchBookingsURL = new URL("bookings", process.env.REACT_APP_API_URL);
+    console.log(fetchBookingsURL);
     fetchBookingsURL.searchParams.append("user", UserProfile.getUID());
     fetchBookingsURL.searchParams.append("status", "completed");
     fetch(fetchBookingsURL, {
@@ -71,8 +72,8 @@ class AdminDashboardLayout extends Component{
         <Container>
           <h2 className="h2-main">Admin Dashboard</h2>
             <Row className="shadow p-3 mb-5 bg-white rounded" id="row-custom">
-            <Row>
-                <Col className="shadow p-3 mb-5 bg-white rounded" id="col-custom" xs={6} md={{ span: 6, offset: 0 }}>
+          
+                <Col className="shadow p-3 mb-5 bg-white rounded" id="col-custom">
                 <ButtonGroup toggle horizontal>
                
                   <ToggleButton
@@ -100,7 +101,7 @@ class AdminDashboardLayout extends Component{
                   {this.state.showCurrent ? <AdminDashboardCurrentBookingsSection currentBookings={this.state.currentBookings} /> : <AdminDashboardCurrentBookingsSection currentBookings={this.state.pastBookings} />}
                   
                 </Col>
-              </Row>
+            
             </Row>
         </Container>
       </Jumbotron>
