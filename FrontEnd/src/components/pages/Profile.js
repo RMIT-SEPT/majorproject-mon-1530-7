@@ -5,28 +5,30 @@ import UserProfile from "../../UserProfile.js";
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = { userId: UserProfile.getUID() };
+    this.state = { userId: UserProfile.getUID(),
+                   userData:[] };
   }
   loadInfo(items) {}
   handleLoad() {
-    fetch(process.env["REACT_APP_API_URL"] + "user/profile", {
-      method: "POST",
+    const fetchProfileURL = new URL("user/"+UserProfile.getUID(), process.env.REACT_APP_API_URL);
+    
+    fetch(fetchProfileURL, {
       headers: {
-        "Content-Type": "application/json",
+        Authorization: UserProfile.getToken(),
       },
-      body: JSON.stringify(this.state),
     })
       .then(function (response) {
         return response.json();
       })
       .then((data) => {
+        
         this.setState({
-          phoneNumber: data.phoneNumber,
-          name: data.fullName,
-          username: data.username,
+          userData: data["user"],
         });
       });
+      console.log(this.state)
   }
+
   componentWillMount() {
     this.handleLoad();
   }
@@ -41,11 +43,11 @@ class Profile extends Component {
           md={{ span: 6, offset: 0 }}
         >
           <h5 className="h5-main">Name</h5>
-          <p>{this.state.name}</p>
+          <p>{this.state.userData.fullName}</p>
           <h5 className="h5-main">Username</h5>
-          <p>{this.state.username}</p>
+          <p>{this.state.userData.email}</p>
           <h5 className="h5-main">Phone Number</h5>
-          <p>{this.state.phoneNumber}</p>
+          <p>{this.state.userData.phoneNumber}</p>
 
           <button className="edit-btn">Edit Profile</button>
         </Col>
