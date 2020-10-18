@@ -26,7 +26,7 @@ class Profile extends Component {
           userData: data["user"],
         });
       });
-      console.log(this.state)
+      
   }
 
   componentWillMount() {
