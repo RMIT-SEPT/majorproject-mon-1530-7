@@ -1,34 +1,31 @@
 import React, { Component } from "react";
-import { Container, Col, Jumbotron, Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import UserProfile from "../../UserProfile.js";
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = { userId: UserProfile.getUID(),
-                   userData:[] };
+    this.state = { username: UserProfile.getUID() };
   }
   loadInfo(items) {}
   handleLoad() {
-    const fetchProfileURL = new URL("user/"+UserProfile.getUID(), process.env.REACT_APP_API_URL);
-    
-    fetch(fetchProfileURL, {
+    fetch(process.env["REACT_APP_API_URL"] + "/user/profile", {
+      method: "POST",
       headers: {
-        Authorization: UserProfile.getToken(),
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify(this.state),
     })
       .then(function (response) {
         return response.json();
       })
       .then((data) => {
-        
         this.setState({
-          userData: data["user"],
+          phoneNumber: data.phoneNumber,
+          name: data.fullName,
         });
       });
-      
   }
-
   componentWillMount() {
     this.handleLoad();
   }
@@ -43,11 +40,11 @@ class Profile extends Component {
           md={{ span: 6, offset: 0 }}
         >
           <h5 className="h5-main">Name</h5>
-          <p>{this.state.userData.fullName}</p>
+          <p>{this.state.name}</p>
           <h5 className="h5-main">Username</h5>
-          <p>{this.state.userData.email}</p>
+          <p>{this.state.username}</p>
           <h5 className="h5-main">Phone Number</h5>
-          <p>{this.state.userData.phoneNumber}</p>
+          <p>{this.state.phoneNumber}</p>
 
           <button className="edit-btn">Edit Profile</button>
         </Col>

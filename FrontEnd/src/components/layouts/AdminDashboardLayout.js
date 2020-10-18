@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import { React, Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import { Container, Col, Jumbotron, Row } from "react-bootstrap";
+import { Container, Jumbotron, Row, Col } from "react-bootstrap";
 import "../../index.css";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
