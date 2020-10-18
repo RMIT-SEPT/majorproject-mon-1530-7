@@ -23,64 +23,63 @@ import EmpDetails from "./components/pages/EmpDetails.js";
 
 import UserProfile from "./UserProfile.js"
 
-function App() {
-  console.log(UserProfile.getLoggedIn())
+function RenderSwitch() {
+  
   if(UserProfile.getLoggedIn()) {
     return (
-      <div className="page-container">
-        <div className="content-wrap">
-          <BrowserRouter>
-            <NavigationBar loggedIn={UserProfile.getToken()} />
-            <Switch>
-                <Route exact path="/" component={HomePage} />,
-                <Redirect from="/login" to="dashboard" />,
-                <Route path="/about" component={AboutPage} />,
-                <Route path="/contact" component={ContactPage} />,
-                <Route path="/booking" component={CustomerBookingPage} />,
-                <Route
-                  path="/customer-past-bookings"
-                  component={CustomerPastBookingsPage}
-                />,
-                <Route path="/dashboard" component={Dashboard} >
-                  {UserProfile.getAdmin() ? <Redirect to="/admin-dashboard" /> : <Dashboard />}
-                </Route>,
-                <Route path="/admin-dashboard" component={AdminDashboard} >
-                  {UserProfile.getAdmin() ?   <AdminDashboard /> : <Redirect to="/dashboard" /> }
-                </Route>,
-                <Route path="/account" component={Account} /> ,
-                <Route path="/new-employee" component={NewEmployeePage} />,
-                <Route path="/profile" component={Profile} />,
-                <Route path="/manage-emp" component={ManageEmp} />,
-                <Route path="/emp-details" component={EmpDetails} /> 
-                <Redirect from="/*" to="/dashboard" />,
-            </Switch>
-          </BrowserRouter>
-        </div>
-        <Footer />
-      </div>
+      
+        <Switch>
+            <Route exact path="/" component={HomePage} />,
+            <Redirect from="/login" to="dashboard" />,
+            <Route path="/about" component={AboutPage} />,
+            <Route path="/contact" component={ContactPage} />,
+            <Route path="/booking" component={CustomerBookingPage} />,
+            <Route
+              path="/customer-past-bookings"
+              component={CustomerPastBookingsPage}
+            />,
+            <Route path="/dashboard" component={Dashboard} >
+              {UserProfile.getAdmin() ? <Redirect to="/admin-dashboard" /> : <Dashboard />}
+            </Route>,
+            <Route path="/admin-dashboard" component={AdminDashboard} >
+              {UserProfile.getAdmin() ?   <AdminDashboard /> : <Redirect to="/dashboard" /> }
+            </Route>,
+            <Route path="/account" component={Account} /> ,
+            <Route path="/new-employee" component={NewEmployeePage} />,
+            <Route path="/profile" component={Profile} />,
+            <Route path="/manage-emp" component={ManageEmp} />,
+            <Route path="/emp-details" component={EmpDetails} /> 
+            <Redirect from="/*" to="/dashboard" />,
+        </Switch>     
     );
   }
   else {
     return (
-      <div className="page-container">
+      <Switch>
+        
+          <Route exact path="/" component={HomePage} />,
+          <Route path="/login" component={LoginPage} />,
+          <Route path="/about" component={AboutPage} />,
+          <Route path="/contact" component={ContactPage} />,
+          <Redirect from="/*" to="/login" />,
+            
+      </Switch>
+          
+    );
+  }
+}
+function App() {
+  return(
+  <div className="page-container">
         <div className="content-wrap">
           <BrowserRouter>
             <NavigationBar loggedIn={UserProfile.getToken()} />
-            <Switch>
-              
-                <Route exact path="/" component={HomePage} />,
-                <Route path="/login" component={LoginPage} />,
-                <Route path="/about" component={AboutPage} />,
-                <Route path="/contact" component={ContactPage} />,
-                <Redirect from="/*" to="/login" />,
-                 
-            </Switch>
+            {RenderSwitch()}
           </BrowserRouter>
         </div>
         <Footer />
       </div>
-    );
-  }
+  )
 }
  
 
