@@ -3,7 +3,7 @@ package com.rmit.sept.mon15307.backend.web;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.rmit.sept.mon15307.backend.exceptions.UserNotAuthorisedException;
 import com.rmit.sept.mon15307.backend.model.UserAccount;
-import com.rmit.sept.mon15307.backend.payload.JWTLoginSucessReponse;
+import com.rmit.sept.mon15307.backend.payload.JWTLoginSuccessResponse;
 import com.rmit.sept.mon15307.backend.payload.LoginRequest;
 import com.rmit.sept.mon15307.backend.payload.UserProfilePatch;
 import com.rmit.sept.mon15307.backend.security.JwtTokenProvider;
@@ -59,7 +59,7 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = TOKEN_PREFIX + tokenProvider.generateToken(authentication);
         UserAccount user = userService.findByUsername(loginRequest.getUsername());
-        return ResponseEntity.ok(new JWTLoginSucessReponse(true, jwt, user.getAdmin(), user.getUserId().toString()));
+        return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt, user));
     }
 
     @JsonView(UserAccount.UserAccountViews.Public.class)
