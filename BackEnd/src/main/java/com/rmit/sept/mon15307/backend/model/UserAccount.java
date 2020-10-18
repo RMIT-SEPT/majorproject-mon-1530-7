@@ -32,7 +32,7 @@ public class UserAccount implements UserDetails{
     @NotBlank
     private String fullName;
 
-    
+
     private String preferredName;
     @NotBlank(message = "Password field is required")
     private String password;
@@ -48,18 +48,14 @@ public class UserAccount implements UserDetails{
 
     @NotNull
     private Boolean isAdmin;
-    
+
     @NotNull
     private Boolean isWorker;
-    
+
     @NotNull
     private Boolean isCustomer;
     @Transient
     private String confirmPassword;
-    //Future Milestones.
-//    private Booking booking;
-//    private List<Booking> pastBooking;
-//    private List<Booking> upcomingBooking;
 
     @CreatedDate
     private Date createdAt;

@@ -68,7 +68,9 @@ public class Booking {
 
     public Booking() {}
 
-    public BookingStatus getStatus() { return status; }
+    public BookingStatus getStatus() {
+        return status;
+    }
 
     public void setStatus(BookingStatus status) {
         this.status = status;
@@ -122,7 +124,7 @@ public class Booking {
         this.time = time;
     }
 
-    public Date getCreatedDate() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
@@ -130,8 +132,8 @@ public class Booking {
         return cancelledAt;
     }
 
-    public void setCancelledAt(Date cancelledAt) {
-        this.cancelledAt = cancelledAt;
+    public Date getCompletedAt() {
+        return completedAt;
     }
 
     @JsonIgnore
@@ -149,6 +151,25 @@ public class Booking {
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        if (this.status != BookingStatus.CANCELLED) {
+            this.cancelledAt = null;
+        }
+
+        if (this.status != BookingStatus.COMPLETED) {
+            this.completedAt = null;
+        }
+
+        if (this.status == BookingStatus.CANCELLED && this.cancelledAt == null) {
+            this.cancelledAt = new Date();
+        }
+
+        if (this.status == BookingStatus.COMPLETED && this.completedAt == null) {
+            this.completedAt = new Date();
+        }
     }
 
     @Override
