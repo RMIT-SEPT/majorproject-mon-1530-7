@@ -48,38 +48,26 @@ public class UserController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(
-        @Valid
-        @RequestBody
-            LoginRequest loginRequest, BindingResult result
-    ) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap != null) return errorMap;
+        if (errorMap != null)
+            return errorMap;
 
-        Authentication authentication =
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
-                                                                                       loginRequest.getPassword()
-            ));
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = TOKEN_PREFIX + tokenProvider.generateToken(authentication);
         UserAccount user = userService.findByUsername(loginRequest.getUsername());
-        return ResponseEntity.ok(new JWTLoginSucessReponse(true,
-                                                           jwt,
-                                                           user.getAdmin(),
-                                                           user.getUserId().toString()
-        ));
+        return ResponseEntity.ok(new JWTLoginSucessReponse(true, jwt, user.getAdmin(), user.getUserId().toString()));
     }
 
     @JsonView(UserAccount.UserAccountViews.Public.class)
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(
-        @Valid
-        @RequestBody
-            UserAccount user, BindingResult result
-    ) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserAccount user, BindingResult result) {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap != null) return errorMap;
+        if (errorMap != null)
+            return errorMap;
 
         userValidator.validate(user, result);
         UserAccount newUser = userService.saveOrUpdateUser(user);
@@ -89,16 +77,10 @@ public class UserController {
 
     @JsonView(UserAccount.UserAccountViews.Public.class)
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getUserDetails(
-        @PathVariable
-            Long userId,
-        @AuthenticationPrincipal
-            UserAccount user
-    ) {
+    public ResponseEntity<?> getUserDetails(@PathVariable Long userId, @AuthenticationPrincipal UserAccount user) {
         UserAccount targetUser = userService.findByUserId(userId.toString());
 
-        boolean userIsAuthorised =
-            user.getAdmin() || user.getWorker() || user.getUserId().equals(userId);
+        boolean userIsAuthorised = user.getAdmin() || user.getWorker() || user.getUserId().equals(userId);
         if (!userIsAuthorised) {
             throw new UserNotAuthorisedException("Permission denied");
         }
@@ -111,16 +93,11 @@ public class UserController {
 
     @JsonView(UserAccount.UserAccountViews.Public.class)
     @PatchMapping("/profile")
-    public ResponseEntity<?> editUserDetails(
-        @Valid
-        @RequestBody
-            UserProfilePatch userProfilePatch,
-        BindingResult result,
-        @AuthenticationPrincipal
-            UserAccount user
-    ) {
+    public ResponseEntity<?> editUserDetails(@Valid @RequestBody UserProfilePatch userProfilePatch,
+            BindingResult result, @AuthenticationPrincipal UserAccount user) {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
-        if (errorMap != null) return errorMap;
+        if (errorMap != null)
+            return errorMap;
 
         UserAccount updatedUser = userService.editUser(user, userProfilePatch);
 
