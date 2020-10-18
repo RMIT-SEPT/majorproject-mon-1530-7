@@ -1,4 +1,4 @@
-VERSION=0.0.1
+VERSION=1.0.0
 PSQL_SERVER_HOST=192.168.99.100
 
 .PHONY: run-prod run-dev run test dbconsole build help
