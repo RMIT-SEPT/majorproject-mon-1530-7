@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Jumbotron, Container, Row, Col } from "react-bootstrap";
+import { Jumbotron, Container } from "react-bootstrap";
 import BookingsList from "../layouts/BookingsList";
 
 class CustomerPastBookingsPage extends Component {
