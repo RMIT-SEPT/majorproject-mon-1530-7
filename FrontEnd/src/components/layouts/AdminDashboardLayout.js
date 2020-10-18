@@ -1,4 +1,4 @@
-import { React, Component } from "react";
+import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { Container, Jumbotron, Row, Col } from "react-bootstrap";
 import "../../index.css";

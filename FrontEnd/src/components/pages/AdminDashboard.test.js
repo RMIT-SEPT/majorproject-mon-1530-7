@@ -21,16 +21,16 @@ describe('Testing Admin Dashboard', () => {
 
     it('renders correctly', () => {
         const wrapper = shallow(<AdminDashboard />)
-  
+
         expect(toJSON(wrapper)).toMatchSnapshot();
       });
-  
+
     it('checks admin dashboard layout form is present', () => {
-        const wrapper = mount(<AdminDashboard />);
-  
+      const wrapper = mount(<AdminDashboard />);
+
         expect(wrapper.contains(AdminDashboardLayout)).toEqual(true);
       });
-  
+
     it('renders without crashing', () => {
         shallow(<AdminDashboard />);
       });
