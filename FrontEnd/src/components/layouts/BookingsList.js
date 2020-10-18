@@ -6,15 +6,27 @@ import { format } from "date-fns";
 import UserProfile from "../../UserProfile";
 
 class BookingsList extends Component {
-  headings = ["Service", "Employee", "Date", "Time"];
-
   constructor(props) {
     super(props);
-    this.state = { bookings: [], loading: true };
+    let headings = ["Service", "Employee", "Date", "Time"];
+    if (props.includeCustomerName) {
+      headings.push("Customer");
+    }
+    this.state = {
+      headings: headings,
+      bookings: [],
+      loading: true,
+    };
   }
 
   componentDidMount() {
     this.fetchBookings();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.upcoming !== this.props.upcoming) {
+      this.fetchBookings();
+    }
   }
 
   fetchBookings() {
@@ -59,7 +71,7 @@ class BookingsList extends Component {
       <table className="table table-borderless">
         <thead>
           <tr>
-            {this.headings.map((heading) => (
+            {this.state.headings.map((heading) => (
               <th scope="col" key={heading}>
                 {heading}
               </th>
@@ -73,6 +85,9 @@ class BookingsList extends Component {
               <td>{booking.staff_member.name}</td>
               <td>{this.formatDate(booking.appointment_time)}</td>
               <td>{this.formatTime(booking.appointment_time)}</td>
+              {this.props.includeCustomerName && (
+                <td>{booking.user.fullName}</td>
+              )}
               {this.props.upcoming && <td>{this.renderCancelButton()}</td>}
             </tr>
           ))}
@@ -136,6 +151,7 @@ class BookingsList extends Component {
 BookingsList.propTypes = {
   upcoming: PropTypes.bool,
   card: PropTypes.bool,
+  includeCustomerName: PropTypes.bool,
 };
 
 export default BookingsList;

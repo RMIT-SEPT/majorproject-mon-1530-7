@@ -4,65 +4,22 @@ import { Container, Col, Jumbotron, Row } from "react-bootstrap";
 import "../../index.css";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import UserProfile from "../../UserProfile.js";
-import AdminDashboardCurrentBookingsSection from "./AdminDashboardCurrentBookingsSection";
+import BookingsList from "./BookingsList";
 
 class AdminDashboardLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentBookings: [],
-      pastBookings: [],
       showCurrent: true,
-      loadingCurrentBookings: true,
     };
   }
 
-  componentDidMount() {
-    this.fetchCurrentBookings();
-    this.fetchPastBookings();
-  }
-
-  fetchCurrentBookings() {
-    const fetchBookingsURL = new URL("bookings", process.env.REACT_APP_API_URL);
-    fetchBookingsURL.searchParams.append("user", UserProfile.getUID());
-    fetchBookingsURL.searchParams.append("status", "upcoming");
-    fetch(fetchBookingsURL, {
-      headers: {
-        Authorization: UserProfile.getToken(),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) =>
-        this.setState({
-          currentBookings: data["bookings"],
-          loadingCurrentBookings: false,
-        })
-      );
-  }
-
-  fetchPastBookings() {
-    const fetchBookingsURL = new URL("bookings", process.env.REACT_APP_API_URL);
-    console.log(fetchBookingsURL);
-    fetchBookingsURL.searchParams.append("user", UserProfile.getUID());
-    fetchBookingsURL.searchParams.append("status", "completed");
-    fetch(fetchBookingsURL, {
-      headers: {
-        Authorization: UserProfile.getToken(),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) =>
-        this.setState({
-          pastBookings: data["bookings"],
-          loadingCurrentBookings: false,
-        })
-      );
-  }
+  componentDidMount() {}
 
   setCurrentState = () => {
     this.setState({ showCurrent: true });
   };
+
   setPastState = () => {
     this.setState({ showCurrent: false });
   };
@@ -74,11 +31,11 @@ class AdminDashboardLayout extends Component {
           <h2 className="h2-main">Admin Dashboard</h2>
           <Row className="shadow p-3 mb-5 bg-white rounded" id="row-custom">
             <Col className="shadow p-3 mb-5 bg-white rounded" id="col-custom">
-              <ButtonGroup toggle horizontal>
+              <ButtonGroup toggle>
                 <ToggleButton
                   type="radio"
                   variant="outline-primary"
-                  checked={this.state.showCurrent === true}
+                  checked={this.state.showCurrent}
                   name="radio"
                   size="lg"
                   onChange={this.setCurrentState}
@@ -88,7 +45,7 @@ class AdminDashboardLayout extends Component {
                 <ToggleButton
                   type="radio"
                   variant="outline-primary"
-                  checked={this.state.showCurrent === false}
+                  checked={!this.state.showCurrent}
                   name="radio"
                   size="lg"
                   onChange={this.setPastState}
@@ -97,13 +54,9 @@ class AdminDashboardLayout extends Component {
                 </ToggleButton>
               </ButtonGroup>
               {this.state.showCurrent ? (
-                <AdminDashboardCurrentBookingsSection
-                  currentBookings={this.state.currentBookings}
-                />
+                <BookingsList upcoming includeCustomerName />
               ) : (
-                <AdminDashboardCurrentBookingsSection
-                  currentBookings={this.state.pastBookings}
-                />
+                <BookingsList includeCustomerName />
               )}
             </Col>
           </Row>
