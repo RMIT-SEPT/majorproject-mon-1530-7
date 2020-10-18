@@ -2,7 +2,8 @@ import React from 'react';
 import { MemoryRouter } from 'react-router';
 import Dashboard from './Dashboard';
 import App from '../../App';
-import { mount } from 'enzyme';
+import {mount, shallow} from 'enzyme';
+import toJSON from 'enzyme-to-json'
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -16,4 +17,11 @@ describe('Testing Dashboard route', () => {
         );
         expect(component.contains(Dashboard));
     })
+
+    it('renders correctly', () => {
+        const wrapper = shallow(<Dashboard />)
+  
+        expect(toJSON(wrapper)).toMatchSnapshot();
+      });
+  
 })

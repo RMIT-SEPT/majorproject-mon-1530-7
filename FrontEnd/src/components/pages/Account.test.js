@@ -2,7 +2,8 @@ import React from 'react';
 import { MemoryRouter } from 'react-router';
 import Account from './Account';
 import App from '../../App';
-import { mount } from 'enzyme';
+import {mount, shallow} from 'enzyme';
+import toJSON from 'enzyme-to-json'
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -16,4 +17,14 @@ describe('Testing Account route', () => {
         );
         expect(component.contains(Account));
     })
+
+    it('renders correctly', () => {
+        const wrapper = shallow(<Account />)
+  
+        expect(toJSON(wrapper)).toMatchSnapshot();
+      });
+
+    it('renders without crashing', () => {
+        shallow(<Account />);
+      });
 })

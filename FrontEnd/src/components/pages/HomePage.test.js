@@ -2,7 +2,8 @@ import React from 'react';
 import {MemoryRouter} from 'react-router';
 import HomePage from './HomePage';
 import App from '../../App';
-import {mount} from 'enzyme';
+import {mount, shallow} from 'enzyme';
+import toJSON from 'enzyme-to-json'
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -16,5 +17,15 @@ describe('Testing HomePage route', () => {
       );
       expect(component.contains(HomePage));
     })
+
+    it('renders correctly', () => {
+      const wrapper = shallow(<HomePage />)
+
+      expect(toJSON(wrapper)).toMatchSnapshot();
+    });
+
+    it('renders without crashing', () => {
+      shallow(<HomePage />);
+    });
   })
 

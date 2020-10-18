@@ -2,8 +2,9 @@ import React from 'react';
 import {MemoryRouter} from 'react-router';
 import LoginPage from './LoginPage';
 import App from '../../App';
-import {mount} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import Enzyme from 'enzyme';
+import toJSON from 'enzyme-to-json'
 import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -16,4 +17,12 @@ describe('Testing LoginPage route', () => {
       );
       expect(component.contains(LoginPage));
     })
+
+    it('renders correctly', () => {
+      const wrapper = shallow(<LoginPage />)
+
+      expect(toJSON(wrapper)).toMatchSnapshot();
+    });
   })
+
+

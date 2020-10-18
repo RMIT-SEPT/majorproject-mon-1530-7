@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing HomePage route renders correctly 1`] = `
+<Form
+  inline={false}
+  onSubmit={[Function]}
+>
+  <Jumbotron
+    fluid={false}
+    id="jumbotron-cus-book-page"
+  >
+    <h2
+      className="h2-cus-book-page"
+    >
+      Add Employee
+    </h2>
+    <Container
+      className="customerBookingPageContainer"
+      fluid={false}
+    >
+      <CardDeck>
+        <NewEmployeeForm />
+      </CardDeck>
+    </Container>
+    <Container
+      className="makeCusBooking"
+      fluid={false}
+    >
+      <button
+        className="btn-filled-extended"
+        onClick={[Function]}
+      >
+        Add Employee
+      </button>
+    </Container>
+  </Jumbotron>
+</Form>
+`;

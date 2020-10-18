@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing LoginPage route renders correctly 1`] = `
+<div
+  className="login-container"
+>
+  <Form
+    inline={false}
+    onSubmit={[Function]}
+  >
+    <FormGroup
+      controlId="formUsername"
+      id="form-layout"
+    >
+      <FormLabel
+        column={false}
+        id="custom-form-label"
+        srOnly={false}
+      >
+        Username
+      </FormLabel>
+      <FormControl
+        name="username"
+        onChange={[Function]}
+        placeholder="Enter Username"
+        type="username"
+      />
+    </FormGroup>
+    <FormGroup
+      controlId="formPassword"
+      id="form-layout"
+    >
+      <FormLabel
+        column={false}
+        id="custom-form-label"
+        srOnly={false}
+      >
+        Password
+      </FormLabel>
+      <FormControl
+        name="password"
+        onChange={[Function]}
+        placeholder="Enter Password"
+        type="password"
+      />
+    </FormGroup>
+    <button
+      className="btn-filled-alt"
+    >
+      Log In
+    </button>
+  </Form>
+</div>
+`;
