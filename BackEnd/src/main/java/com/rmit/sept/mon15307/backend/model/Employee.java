@@ -41,7 +41,8 @@ public class Employee {
     private List<Schedule> schedules;
 
     public boolean isScheduled(LocalDate date) {
-        // Inefficient but that's fine because there won't be much data to search through
+        // Inefficient but that's fine because there won't be much data to search
+        // through
 
         if (this.schedules == null) {
             return false;
