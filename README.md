@@ -16,6 +16,18 @@
 * Notion workspace: https://www.notion.so/75316028a20a42a0a24a885d4a903e7b
 
 
-## Code documentation
+## Quick Start
 
-[Quick Start](/docs/README.md) in `docs` folder
+### Frontend
+
+```bash
+cd FrontEnd/
+make help
+```
+
+### Backend
+
+```bash
+cd BackEnd/
+make help
+```

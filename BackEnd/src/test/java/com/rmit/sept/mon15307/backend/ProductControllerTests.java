@@ -1,50 +1,59 @@
 package com.rmit.sept.mon15307.backend;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rmit.sept.mon15307.backend.Repositories.ProductRepository;
 import com.rmit.sept.mon15307.backend.model.Product;
+import com.rmit.sept.mon15307.backend.security.JwtAuthenticationEntryPoint;
 import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
 import com.rmit.sept.mon15307.backend.services.ProductService;
 import com.rmit.sept.mon15307.backend.web.ProductController;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ProductController.class)
+@WebMvcTest
+@AutoConfigureMockMvc(addFilters = false)  // disable CSRF protection
+@ContextConfiguration(classes = {
+    JwtAuthenticationEntryPoint.class
+})
+@Import({ProductController.class, ProductService.class, MapValidationErrorService.class})
 public class ProductControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @MockBean
-    private ProductService productService;
-
-    @MockBean
-    private MapValidationErrorService mapValidationErrorService;
+    private ProductRepository productRepository;
 
     @Test
     public void contextsLoads() {
     }
 
     @Test
+    @WithMockUser
     public void shouldListWithNoProducts() throws Exception {
         String expected = "{\n  \"products\": []\n}";
         mockMvc
-            .perform(get("/api/products"))
-            .andExpect(status().is2xxSuccessful())
+            .perform(get("/api/products").accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
             .andExpect(content().json(expected));
     }
 
     @Test
+    @WithMockUser
     public void shouldCreateValidProduct() throws Exception {
         String body = "{\n" +
                       "  \"name\": \"test product\",\n" +
@@ -54,10 +63,13 @@ public class ProductControllerTests {
                       "}";
         mockMvc
             .perform(post("/api/products").contentType("application/json").content(body))
-            .andExpect(status().is2xxSuccessful());
+            .andExpect(status().isCreated());
+
+        Mockito.verify(productRepository, Mockito.times(1)).save(Mockito.any(Product.class));
     }
 
     @Test
+    @WithMockUser
     public void shouldRejectInvalidProduct() throws Exception {
         String body = "{\n" +
                       "  \"name\": \"test product\",\n" +
@@ -66,17 +78,21 @@ public class ProductControllerTests {
                       "}";
         mockMvc
             .perform(post("/api/products").contentType("application/json").content(body))
-            .andExpect(status().is4xxClientError());
+            .andExpect(status().isBadRequest());
+
+        Mockito.verify(productRepository, Mockito.never()).save(Mockito.any(Product.class));
     }
 
     @Test
-    public void shouldListWithProducts() throws Exception {
+    @WithMockUser
+    public void shouldListWithProduct() throws Exception {
         Product newProduct = new Product();
         newProduct.setDescription("test product description");
         newProduct.setName("test product");
         newProduct.setDuration(30);
         newProduct.setPrice(50);
-        this.productService.saveOrUpdateProduct(newProduct);
+
+        Mockito.when(productRepository.findAll()).thenReturn(Collections.singletonList(newProduct));
 
         String expected = "{\n" +
                           "  \"products\": [\n" +
@@ -89,9 +105,7 @@ public class ProductControllerTests {
                           "    }\n" +
                           "  ]\n" +
                           "}";
-        mockMvc
-            .perform(get("/api/products"))
-            .andExpect(status().is2xxSuccessful())
+        mockMvc.perform(get("/api/products")).andExpect(status().isOk())
             .andExpect(content().json(expected));
     }
 }

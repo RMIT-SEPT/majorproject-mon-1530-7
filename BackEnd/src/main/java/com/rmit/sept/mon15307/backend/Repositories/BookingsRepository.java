@@ -1,19 +1,32 @@
 package com.rmit.sept.mon15307.backend.Repositories;
 
 import com.rmit.sept.mon15307.backend.model.Booking;
-import org.springframework.data.jpa.repository.Query;
+import com.rmit.sept.mon15307.backend.model.Employee;
+import com.rmit.sept.mon15307.backend.model.Schedule;
+import com.rmit.sept.mon15307.backend.model.UserAccount;
+import com.rmit.sept.mon15307.backend.model.enumeration.BookingStatus;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
+
 @Repository
 public interface BookingsRepository extends CrudRepository<Booking, Long> {
-        @Query("select b from Booking b where b.schedule.id = :scheduleId")
-        Iterable<Booking> findBookingsByScheduleId(
-            Long scheduleId
-        );
+    Iterable<Booking> findByCustomerAndStatusIn(
+        UserAccount user, Collection<BookingStatus> statuses
+    );
 
-        Booking findByBookingId(Long bookingId);
+    Iterable<Booking> findBookingsByEmployeeAndStatusIsIn(
+        Employee employee, Collection<BookingStatus> statuses
+    );
 
-        @Override
-        Iterable<Booking> findAll();
+    Iterable<Booking> findBookingsByStatusIsIn(Collection<BookingStatus> statuses);
+
+    Iterable<Booking> findBookingsBySchedule(Schedule schedule);
+
+    Iterable<Booking> findBookingsByScheduleAndStatusNot(Schedule schedule, BookingStatus status);
+
+    Booking findByBookingId(Long bookingId);
+
+    Iterable<Booking> findByScheduleAndEmployee(Schedule schedule, Employee employee);
 }

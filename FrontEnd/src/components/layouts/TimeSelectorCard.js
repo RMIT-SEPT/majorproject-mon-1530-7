@@ -4,39 +4,51 @@ import PropTypes from "prop-types";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { addDays, parse, setHours, setMinutes } from "date-fns";
+import { addDays, parse, format, setHours, setMinutes } from "date-fns";
 
 class TimeSelectorCard extends Component {
   constructor(props) {
     super(props);
-    const includeTimes = this.convertTimes();
+    const employeeTimes = this.convertTimes();
     this.state = {
       startDate: new Date(),
-      endDate: addDays(new Date(), 14),
+      endDate: addDays(new Date(), 13),
       selectedDate: null,
-      includeTimes: includeTimes,
+      employeeTimes: employeeTimes,
+      includeTimes: [],
       timesAvailable: false,
       placeholderMessage: "Click to select",
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   convertTimes() {
-    let times = [];
+    let availability = {};
     if (this.props.employeeAvailability) {
       this.props.employeeAvailability.forEach((day) => {
+        let times = [];
         let date = parse(day.date, "yyyy-MM-dd", new Date());
         day.times.forEach((timeslot) => {
           let [hours, minutes] = timeslot.split(":");
           times.push(setMinutes(setHours(date, hours), minutes));
         });
+        if (times.length > 0) {
+          availability[day.date] = times;
+        }
       });
     }
 
-    if (times.length > 0) {
-      this.setState({ timesAvailable: true });
-    }
+    return availability;
+  }
 
-    return times;
+  setTimes() {
+    // Date picker component defaults to today, so we should as well
+    let date = this.state.selectedDate || new Date();
+
+    this.setState({
+      includeTimes: this.state.employeeTimes[format(date, "yyyy-MM-dd")],
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -49,10 +61,11 @@ class TimeSelectorCard extends Component {
 
       this.setState(
         {
-          includeTimes: newTimes,
-          timesAvailable: newTimes.length > 0,
+          employeeTimes: newTimes,
+          timesAvailable: Object.keys(newTimes).length > 0,
         },
         () => {
+          this.setTimes();
           this.setPlaceholderMessage();
         }
       );
@@ -70,13 +83,18 @@ class TimeSelectorCard extends Component {
     this.setState({ placeholderMessage: message });
   }
 
+  handleChange(datetime) {
+    this.setState({ selectedDate: datetime }, () => this.setTimes());
+    this.props.onSelect(datetime);
+  }
+
   renderDatePicker() {
     if (this.props.shouldShow) {
       return (
         <DatePicker
           className="datePickerContainer"
           selected={this.state.selectedDate}
-          onChange={(date) => this.setState({ selectedDate: date })}
+          onChange={this.handleChange}
           showTimeSelect
           timeFormat="HH:mm"
           timeIntervals={30}

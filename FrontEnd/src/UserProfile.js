@@ -1,40 +1,46 @@
-var UserProfile = (function() {
-  var loggedIn = false;
-  var UID = '';
-
-  var getLoggedIn = function() {
-    return localStorage.getItem("loggedIn") === "true"
-  }
-
-  var setLoggedIn = function() {  
-    localStorage.setItem("loggedIn",true); 
+var UserProfile = (function () {
+  var getLoggedIn = function () {
+    return localStorage.getItem("loggedIn") === "true";
   };
 
-  var setLoggedOut = function() {
-    localStorage.setItem("loggedIn",false)
-  }
+  var setLoggedIn = function () {
+    localStorage.setItem("loggedIn", true);
+  };
 
-  var getUID = function() {
+  var setLoggedOut = function () {
+    localStorage.setItem("loggedIn", false);
+  };
+
+  var getUID = function () {
     return localStorage.getItem("UID");
-  }
+  };
 
-  var setUID = function(state) {
-    localStorage.setItem("UID",state)
-  }
+  var setUID = function (state) {
+    localStorage.setItem("UID", state);
+  };
 
-  var getToken = function() {
-    return localStorage.getItem("token")
-  }
-  var setToken = function(state) {
-    localStorage.setItem("token",state)
-  }
+  var getToken = function () {
+    return localStorage.getItem("token");
+  };
+  var setToken = function (state) {
+    localStorage.setItem("token", state);
+  };
 
-  var getAdmin = function() {
-    return localStorage.getItem("admin") === "true"
-  }
-  var setAdmin = function(state) {
-    localStorage.setItem("admin",state)
-  }
+  var getAdmin = function () {
+    return localStorage.getItem("role") === "admin";
+  };
+
+  var getWorker = function () {
+    return localStorage.getItem("role") === "worker";
+  };
+
+  var getCustomer = function () {
+    return localStorage.getItem("role") === "customer";
+  };
+
+  var setRole = function (state) {
+    localStorage.setItem("role", state);
+  };
 
   return {
     getLoggedIn: getLoggedIn,
@@ -44,10 +50,11 @@ var UserProfile = (function() {
     setUID: setUID,
     getToken: getToken,
     setToken: setToken,
-    getAdmin:getAdmin,
-    setAdmin:setAdmin
-  }
-
+    getAdmin: getAdmin,
+    getWorker: getWorker,
+    getCustomer: getCustomer,
+    setRole: setRole,
+  };
 })();
 
 export default UserProfile;

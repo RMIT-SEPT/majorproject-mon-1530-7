@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import UserProfile from '../../UserProfile'
 
 function NavigationBar() {
-  console.log(Boolean(UserProfile.getAdmin()))
+  console.log(UserProfile.getUID())
   if (UserProfile.getLoggedIn() === true) {
     return (
       <Navbar fixed="top" bg="white" variant="light">
@@ -44,10 +44,8 @@ function NavigationBar() {
             <Nav.Link href="/about">About</Nav.Link>
             <Nav.Link href="/contact">Contact</Nav.Link>
           </Nav>
-          <Link to="/login">
-            <button className="btn-border">Log In</button>
-          </Link>
-          <button className="btn-filled">Sign Up</button>
+          <Link to="/login"><button className="btn-border">Log In</button></Link>
+          <Link to="/signup"><button className="btn-filled">Sign Up</button></Link>
 
         </Navbar>
       </>

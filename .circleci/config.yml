@@ -126,6 +126,7 @@ jobs:
           command: |
             aws ecr get-login-password | docker login --username AWS --password-stdin 863658559549.dkr.ecr.us-east-1.amazonaws.com                                                            
             docker push $FULL_IMAGE_NAME
+
 workflows:
   build_frontend_and_backend:
     jobs:
