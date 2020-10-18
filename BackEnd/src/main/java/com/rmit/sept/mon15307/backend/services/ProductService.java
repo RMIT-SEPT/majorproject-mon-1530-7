@@ -2,7 +2,9 @@ package com.rmit.sept.mon15307.backend.services;
 
 import com.rmit.sept.mon15307.backend.Repositories.ProductRepository;
 import com.rmit.sept.mon15307.backend.exceptions.InvalidProductException;
+import com.rmit.sept.mon15307.backend.exceptions.NotAuthorisedException;
 import com.rmit.sept.mon15307.backend.exceptions.ProductNotFoundException;
+import com.rmit.sept.mon15307.backend.exceptions.UserNotAuthorisedException;
 import com.rmit.sept.mon15307.backend.model.Product;
 import com.rmit.sept.mon15307.backend.model.UserAccount;
 import com.rmit.sept.mon15307.backend.payload.AdminSetProducts;
@@ -40,10 +42,12 @@ public class ProductService {
     public void checkNonExistentProductIds(Iterable<Product> allProducts,
                                               AdminSetProducts productsSet){
         // Creates list containing all product ids in the system
-        List<Long> allProductIds = new ArrayList<>();
-        for(Product product: allProducts){
+
+        Set<Long> allProductIds = new HashSet<>();
+        for (Product product : allProducts) {
             allProductIds.add(Long.parseLong(product.getId()));
         }
+
         // Checks if all product ids in set of specified ids exist in the system
         for(Long specifiedProductId: productsSet.getProductIds()){
             if(!allProductIds.contains(specifiedProductId)){
@@ -58,9 +62,7 @@ public class ProductService {
         // In this case, user must only be an admin
         boolean isAdmin = user.getAdmin();
         if (!isAdmin){
-//            throw new NotAuthorisedException("User not authorised.");
-            throw new InvalidProductException("User not authorised");
-            // ADD ABOVE CODE AFTER RELEVANT BRANCH IS MERGED!!
+            throw new NotAuthorisedException("User not authorised");
         }
         // Create list with products corresponding to product ids specified
         List<Product> updatedProducts = new ArrayList<>();
@@ -68,14 +70,7 @@ public class ProductService {
             Product specifiedProduct = findByProductId(String.valueOf(specifiedProductId));
             updatedProducts.add(specifiedProduct);
         }
-        // User needs proper authority to confirm service edit request.
-        // In this case, user must only be an admin
-        boolean isAuthorisedAdminConfirmation = isAdmin && user.getAdmin();
-        if(!isAuthorisedAdminConfirmation){
-//            throw new UserNotAuthorisedException("User not authorised to make this change.")
-            throw new InvalidProductException("User not authorised to make this change.");
-            // ADD ABOVE CODE AFTER RELEVANT BRANCH IS MERGED!!
-        }
+
         return updatedProducts;
     }
 }

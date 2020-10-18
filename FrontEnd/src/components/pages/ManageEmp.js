@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Col, Jumbotron, Row } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import ManageEmpRows from '../layouts/ManageEmpRows';
-import UserProfile from '../../UserProfile';
 import StaffList from '../StaffList';
 
 class ManageEmp extends Component {
@@ -13,23 +11,6 @@ class ManageEmp extends Component {
             loadingStaff: true,
         };
     }
-
-    // componentDidMount(){
-    //     this.fetchStaff();
-    // }
-
-    // fetchStaff() {
-    //     fetch(process.env.REACT_APP_API_URL + "staff", {
-    //       headers: {
-    //         Authorization: UserProfile.getToken(),
-    //       },
-    //     })
-    //       .then((response) => response.json())
-    //       .then((data) =>
-    //         this.setState({ staff: data["staff"], loadingStaff: false })
-    //       )
-    //       .catch((e) => console.log(e));
-    //   }
 
     render() {
         return (
@@ -54,8 +35,3 @@ class ManageEmp extends Component {
 }
 
 export default ManageEmp;
-
-// <ManageEmpRows 
-//                                     staff={this.state.staff}
-//                                     loading={this.state.loadingStaff}
-//                                 />

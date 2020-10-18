@@ -11,12 +11,11 @@ public class AdminSetProducts {
     // returning the ids themselves
 
     // Change productIds to products
-    @NotNull(message = "Something is not working properly")
+    @NotNull
     private List<Long> products;
 
-     public AdminSetProducts(@Valid @NotNull(message = "YO!!!!") Map<String, Long[]> productIds) {
-         Long[] tmp = productIds.get("products");
-         this.products = Arrays.asList(tmp);
+     public AdminSetProducts(@Valid Map<String, Long[]> productIds) {
+         this.products = Arrays.asList(productIds.get("products"));
      }
 
     // Returns product Ids specified
@@ -28,15 +27,10 @@ public class AdminSetProducts {
             throw new InvalidProductException("Please specify product ids");
         }
         // Checks if list of product ids provided contains one or more empty values
-        int counter = 0;
-        for(Long productId: products){
-            if(productId != null){
-                counter += 1;
-            }
-        }
-        if(products.size() != counter){
+        if(products.stream().anyMatch(Objects::isNull)){
             throw new InvalidProductException("Empty value is present in product id/s request");
         }
+
         // Checks if any duplicate product ids are specified in the list itself
         Set<Long> checkDuplicatesSet = new HashSet<>();
         for(Long productId: products){

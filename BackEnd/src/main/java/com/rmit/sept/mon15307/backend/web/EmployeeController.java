@@ -2,6 +2,7 @@ package com.rmit.sept.mon15307.backend.web;
 
 import com.rmit.sept.mon15307.backend.exceptions.EmployeeNotFoundException;
 import com.rmit.sept.mon15307.backend.exceptions.InvalidProductException;
+import com.rmit.sept.mon15307.backend.exceptions.NotAuthorisedException;
 import com.rmit.sept.mon15307.backend.model.Employee;
 import com.rmit.sept.mon15307.backend.model.Product;
 import com.rmit.sept.mon15307.backend.model.UserAccount;
@@ -114,8 +115,7 @@ public class EmployeeController {
                 List<Product> setProducts = productService.updatedProducts(productsSet, user);
                 // Set updated products to employee requested
                 employeeService.setProducts(employee, setProducts);
-            } catch (InvalidProductException e) {
-                // need to change exception caught and thrown
+            } catch (NotAuthorisedException e) {
                 errorMessage.put("message", e.getMessage());
                 errorResponse.put("error", errorMessage);
                 return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
