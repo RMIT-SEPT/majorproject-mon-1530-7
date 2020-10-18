@@ -2,12 +2,10 @@ package com.rmit.sept.mon15307.backend;
 
 import com.rmit.sept.mon15307.backend.Repositories.BookingsRepository;
 import com.rmit.sept.mon15307.backend.Repositories.EmployeeRepository;
+import com.rmit.sept.mon15307.backend.Repositories.ProductRepository;
 import com.rmit.sept.mon15307.backend.Repositories.ScheduleRepository;
 import com.rmit.sept.mon15307.backend.security.JwtAuthenticationEntryPoint;
-import com.rmit.sept.mon15307.backend.services.BookingService;
-import com.rmit.sept.mon15307.backend.services.EmployeeService;
-import com.rmit.sept.mon15307.backend.services.MapValidationErrorService;
-import com.rmit.sept.mon15307.backend.services.ScheduleService;
+import com.rmit.sept.mon15307.backend.services.*;
 import com.rmit.sept.mon15307.backend.web.EmployeeController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
             EmployeeService.class,
             BookingService.class,
             ScheduleService.class,
+            ProductService.class,
             MapValidationErrorService.class
         })
 public class EmployeeControllerTests {
@@ -47,6 +46,9 @@ public class EmployeeControllerTests {
 
     @MockBean
     private ScheduleRepository scheduleRepository;
+
+    @MockBean
+    private ProductRepository productRepository;
 
     @Test
     public void contextsLoads() {
