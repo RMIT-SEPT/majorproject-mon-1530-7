@@ -1,17 +1,17 @@
-.PHONY: run-prod run-dev test build
+.PHONY: run-prod run-dev test build help
+.DEFAULT_GOAL := help
 
-.default: all
+run-prod:  ## Run app via production Docker container
+	docker-compose -f docker-compose.prod.yml up --build --remove-orphans
 
-all:
-
-run-prod:
-	docker-compose -f docker-compose.dev.yml up --build --remove-orphans
-
-run-dev:
+run-dev:  ## Run app via developmont Docker container
 	docker-compose -f docker-compose.yml up --build --remove-orphans
 
-test:
+test:  ## Run tests
 	npm test
 
-build:
+build:  ## Build app
 	npm build
+
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

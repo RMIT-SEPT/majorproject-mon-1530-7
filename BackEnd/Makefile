@@ -1,23 +1,26 @@
 VERSION=0.0.1
 DOCKER_HOST=192.168.99.100
 
-.PHONY: run-prod run-dev run test dbconsole
-
-.default: all
-
-all:
+.PHONY: run-prod run-dev run test dbconsole build help
+.DEFAULT_GOAL := help
 
 target/backend-${VERSION}.jar:
 	mvn package
 
-run-prod: target/backend-${VERSION}.jar
+run: target/backend-${VERSION}.jar  ## Run app via Docker container
 	docker-compose up --build --remove-orphans
 
-run-dev run: run-prod
+run-dev run-prod: run
 
-test:
+test:  ## Run tests
 	mvn test
 
 dbconsole: export PGPASSWORD = postgres
-dbconsole:
+dbconsole:  ## Open psql console
 	psql --host=$(DOCKER_HOST) --user postgres -d backenddb
+
+build:  ## Build app
+	npm build
+
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
